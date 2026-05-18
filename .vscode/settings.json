@@ -1,0 +1,16 @@
+{
+    "java.project.sourcePaths": [
+        "."
+    ],
+    "java.project.excludedPaths": [
+        "out",
+        ".codex-compile-check"
+    ],
+    "java.project.outputPath": "out",
+    "java.autobuild.enabled": true,
+    "java.debug.settings.forceBuildBeforeLaunch": true,
+    "code-runner.runInTerminal": true,
+    "code-runner.executorMap": {
+        "java": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$workspaceRoot\\.vscode\\run-java.ps1\" -FilePath \"$fullFileName\""
+    }
+}

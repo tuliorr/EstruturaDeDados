@@ -18,26 +18,26 @@ public class HashComEncadeamento<T> {
      * ordenada. Aqui isso nao e necessario, porque uma tabela hash precisa apenas
      * de hashCode para escolher o indice e equals para comparar chaves no balde.
      */
-    private class ListaEncadeada {
-        private class Nodo {
-            T elemento;
-            Nodo proximo;
+    private static class ListaEncadeada<E> {
+        private static class Nodo<E> {
+            E elemento;
+            Nodo<E> proximo;
 
-            Nodo(T elemento) {
+            Nodo(E elemento) {
                 this.elemento = elemento;
             }
         }
 
-        private Nodo inicio;
+        private Nodo<E> inicio;
 
-        void inserir(T elemento) {
-            Nodo novo = new Nodo(elemento);
+        void inserir(E elemento) {
+            Nodo<E> novo = new Nodo<>(elemento);
             novo.proximo = inicio;
             inicio = novo;
         }
 
-        boolean contem(T elemento) {
-            Nodo atual = inicio;
+        boolean contem(E elemento) {
+            Nodo<E> atual = inicio;
             while (atual != null) {
                 if (atual.elemento.equals(elemento)) {
                     return true;
@@ -47,7 +47,7 @@ public class HashComEncadeamento<T> {
             return false;
         }
 
-        boolean remover(T elemento) {
+        boolean remover(E elemento) {
             if (inicio == null) {
                 return false;
             }
@@ -56,7 +56,7 @@ public class HashComEncadeamento<T> {
                 return true;
             }
 
-            Nodo atual = inicio;
+            Nodo<E> atual = inicio;
             while (atual.proximo != null) {
                 if (atual.proximo.elemento.equals(elemento)) {
                     atual.proximo = atual.proximo.proximo;
@@ -74,7 +74,7 @@ public class HashComEncadeamento<T> {
             }
 
             StringBuilder sb = new StringBuilder();
-            Nodo atual = inicio;
+            Nodo<E> atual = inicio;
             while (atual != null) {
                 sb.append(atual.elemento).append(" -> ");
                 atual = atual.proximo;
@@ -88,7 +88,7 @@ public class HashComEncadeamento<T> {
     // Atributos
     // =========================
 
-    private ListaEncadeada[] tabela;
+    private ListaEncadeada<T>[] tabela;
     private int capacidade;
     private int nElementos;
 
@@ -96,17 +96,22 @@ public class HashComEncadeamento<T> {
     // Construtor
     // =========================
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings("unchecked")
     public HashComEncadeamento(int capacidade) {
         if (capacidade <= 0) {
             throw new IllegalArgumentException("A capacidade deve ser positiva.");
         }
         this.capacidade = capacidade;
-        this.tabela = new HashComEncadeamento.ListaEncadeada[capacidade];
+        /*
+         * Java nao permite criar diretamente um array de ListaEncadeada<T>, porque
+         * genericos sao apagados em tempo de execucao. O cast fica isolado aqui e e
+         * seguro porque todas as posicoes do array recebem ListaEncadeada<T>.
+         */
+        this.tabela = (ListaEncadeada<T>[]) new ListaEncadeada<?>[capacidade];
         this.nElementos = 0;
 
         for (int i = 0; i < capacidade; i++) {
-            tabela[i] = new ListaEncadeada();
+            tabela[i] = new ListaEncadeada<>();
         }
     }
 
