@@ -2,7 +2,7 @@ package Unidade4;
 
 import java.util.Objects;
 
-import Unidade2.Filas.FilaDinamica;
+import Unidade2.P03Filas.FilaDinamica;
 
 /**
  * Arvore N-aria generica. Cada nodo pode ter qualquer quantidade de filhos.
@@ -239,3 +239,4 @@ public class ArvoreNaria<T> {
         System.out.println("Altura: " + arvore.altura());
     }
 }
+

@@ -2,8 +2,8 @@ package Unidade4;
 
 import java.util.Objects;
 
-import Unidade2.Filas.FilaDinamica;
-import Unidade2.Pilhas.PilhaDinamica;
+import Unidade2.P03Filas.FilaDinamica;
+import Unidade2.P02Pilhas.PilhaDinamica;
 
 /**
  * Arvore binaria generica sem regra de ordenacao. O usuario escolhe em qual lado
@@ -322,3 +322,4 @@ public class ArvoreBinaria<T> {
         System.out.println("Busca iterativa por Daniela: " + arvore.buscarIterativo("Daniela"));
     }
 }
+

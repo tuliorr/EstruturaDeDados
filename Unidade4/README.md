@@ -15,26 +15,35 @@ Ao estudar árvores, vale separar três ideias:
 
 1. `ArvoreNaria.java`
 
-   Árvore em que cada nodo pode ter qualquer quantidade de filhos. É útil para
-   representar hierarquias gerais, como uma disciplina com várias unidades e
-   cada unidade com vários tópicos. A implementação usa a técnica "primeiro
-   filho / próximo irmão", evitando uma lista pronta dentro do nodo.
+   Modelo em que cada nodo pode ter qualquer quantidade de filhos. É indicado
+   para hierarquias gerais, como disciplina, unidades e tópicos. No código, ela
+   não usa um vetor ou lista de filhos dentro do nodo: cada nodo guarda
+   `primeiroFilho` e `proximoIrmao`. Assim, os filhos de um mesmo pai formam uma
+   cadeia de irmãos, e a descida para níveis inferiores acontece pelo primeiro
+   filho. Inserir um filho significa encontrar o pai e ligar o novo nodo ao fim
+   dessa cadeia.
 
 2. `ArvoreBinaria.java`
 
-   Árvore em que cada nodo tem no máximo dois filhos. Ela não possui regra de
-   ordenação: quem usa a estrutura escolhe onde cada elemento será inserido.
+   Modelo em que cada nodo tem no máximo dois filhos: `esquerdo` e `direito`.
+   Ela não possui regra de ordenação; quem usa a estrutura escolhe onde cada
+   elemento será inserido, ou usa a inserção em largura para preencher a primeira
+   vaga disponível. Por isso, uma busca pode precisar visitar todos os nodos.
 
 3. `ArvoreBinariaBusca.java`
 
-   Árvore binária com regra de busca: valores menores ficam à esquerda e valores
-   maiores ficam à direita. Essa regra permite descartar uma subárvore inteira a
-   cada passo da busca.
+   Modelo binário com regra de organização: valores menores ficam à esquerda e
+   valores maiores ficam à direita. A implementação usa `Comparable<T>` para
+   comparar os elementos e decidir o caminho. Essa regra permite descartar uma
+   subárvore inteira a cada passo da busca, mas a árvore pode ficar muito
+   inclinada dependendo da ordem de inserção.
 
 4. `ArvoreAVL.java`
 
-   Árvore binária de busca balanceada. Depois de inserir ou remover, a AVL
-   recalcula alturas e usa rotações para manter o fator de balanço entre -1 e 1.
+   Modelo de árvore binária de busca balanceada. Cada nodo guarda também sua
+   altura, e a árvore calcula o fator de balanço após inserções e remoções. Se
+   algum nodo fica fora do intervalo de -1 a 1, o código usa rotações simples ou
+   duplas para recuperar o equilíbrio.
 
 5. `TesteComparativoArvores.java`
 
@@ -174,6 +183,10 @@ Passo 2: rotação à esquerda em X
 ## Pontos de Atenção
 
 - Uma árvore binária comum não garante busca rápida.
+- Remover em uma árvore binária comum é uma operação mais aberta do que em uma
+  árvore de busca, porque não existe uma regra única de ordenação para preservar.
+  A remoção pode substituir o nodo pelo último em largura, promover um filho,
+  remover uma subárvore inteira ou seguir outra convenção definida pelo problema.
 - Uma árvore de busca pode ficar parecida com uma lista se os dados forem
   inseridos em ordem crescente ou decrescente.
 - A AVL evita esse problema fazendo rotações após inserções e remoções.

@@ -41,4 +41,7 @@ $packageName = if ($packageLine) { $packageLine.Matches[0].Groups[1].Value } els
 $className = $classLine.Matches[0].Groups[1].Value
 $qualifiedName = if ($packageName) { "$packageName.$className" } else { $className }
 
+Write-Host "Executando: $qualifiedName"
+Write-Host ""
+
 java -cp out $qualifiedName

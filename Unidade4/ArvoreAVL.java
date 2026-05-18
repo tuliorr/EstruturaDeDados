@@ -1,6 +1,6 @@
 package Unidade4;
 
-import Unidade2.Filas.FilaDinamica;
+import Unidade2.P03Filas.FilaDinamica;
 
 /**
  * Arvore AVL generica. Ela combina a regra da arvore binaria de busca com
@@ -374,3 +374,4 @@ public class ArvoreAVL<T extends Comparable<T>> {
         System.out.println("Altura: " + arvore.altura());
     }
 }
+

@@ -15,10 +15,10 @@ analisadas em aula, depuradas e modificadas pelos alunos.
 ```text
 Unidade1/
 Unidade2/
-  Listas/
-  Pilhas/
-  Filas/
-  FilasPrioridade/
+  P01Listas/
+  P02Pilhas/
+  P03Filas/
+  P04FilasPrioridade/
 Unidade3/
 Unidade4/
 ```
@@ -27,70 +27,82 @@ Cada unidade possui um README próprio com a ordem sugerida de estudo. As pastas
 da Unidade 2 também possuem READMEs específicos, porque essa unidade concentra
 muitas estruturas lineares.
 
-## Unidade 1 - Técnicas de Programação
+## Conteúdo da Disciplina
 
-Esta unidade apresenta técnicas que aparecem ao longo de toda a disciplina. O
-foco atual está em recursividade, que é essencial para compreender árvores,
-algoritmos de busca e várias soluções que reduzem um problema a versões menores
-dele mesmo.
+### Unidade I - Técnicas de programação para implementação de estruturas de dados
 
-Conteúdos previstos:
+Descrever as técnicas de programação usadas na implementação de estruturas de
+dados.
 
-1. Recursividade.
-2. Tipos abstratos de dados.
-3. Referências e alias.
-4. Alocação de memória estática e dinâmica.
+Implementar algoritmos com uso de técnicas de programação.
 
-## Unidade 2 - Estruturas Lineares
+Valorar o emprego das técnicas de programação na construção de estruturas de
+dados.
 
-Estruturas lineares organizam elementos em sequência. A diferença entre elas
-está no modo de acesso e no custo das operações. Listas são úteis quando se
-quer inserir, remover ou consultar por posição; pilhas restringem o acesso ao
-topo; filas preservam a ordem de chegada; filas de prioridade removem elementos
-de acordo com uma prioridade.
+Conteúdo:
 
-Conteúdos:
+1. 01.01 - Recursividade.
+2. 01.02 - Tipos abstratos de dados.
+3. 01.03 - Referências e alias.
+4. 01.04 - Alocação de memória: estática e dinâmica.
 
-1. Listas estáticas e dinâmicas.
-2. Pilhas estáticas e dinâmicas.
-3. Filas estáticas e dinâmicas.
-4. Filas de prioridade não ordenadas, ordenadas e baseadas em heap.
+### Unidade II - Estruturas de dados lineares
 
-## Unidade 3 - Estruturas Dispersas
+Diferenciar as estruturas de dados e suas complexidades na resolução de
+problemas computacionais.
 
-Estruturas dispersas usam funções de espalhamento para transformar chaves em
-posições de uma tabela. O principal desafio é lidar com colisões, isto é,
-quando duas chaves diferentes chegam ao mesmo índice.
+Implementar algoritmos com estruturas de dados e linguagens de programação.
 
-Conteúdos:
+Ser crítico no uso de estruturas de dados para resolução de problemas
+computacionais.
 
-1. Tabelas hash simples.
-2. Funções de hashing.
-3. Endereçamento aberto com sondagem.
-4. Encadeamento separado.
-5. Mapa chave-valor com redimensionamento.
+Conteúdo:
 
-## Unidade 4 - Estruturas Hierárquicas
+1. 02.01 - Listas: estática e dinâmica (simplesmente encadeada, duplamente
+   encadeada, não ordenada, ordenada e circulares).
+2. 02.02 - Pilhas: estática e dinâmica.
+3. 02.03 - Filas: estática e dinâmica.
+4. 02.04 - Filas de prioridade: não ordenada, ordenada e heap.
 
-Estruturas hierárquicas organizam dados em relações de pai e filho. Árvores são
-importantes para representar hierarquias, acelerar buscas e manter dados
-ordenados. Nesta unidade, a atenção deve ficar tanto na regra de organização dos
-nós quanto nos custos de manter a árvore equilibrada.
+### Unidade III - Estruturas de dados dispersas
 
-Conteúdos:
+Explicar o funcionamento de estruturas de dados dispersas na resolução de
+problemas computacionais.
 
-1. Árvore binária.
-2. Árvore binária de busca.
-3. Árvore balanceada AVL.
+Implementar algoritmos com estruturas de dados dispersas.
+
+Valorar a importância das estruturas de dados dispersas para organização e busca
+de dados.
+
+Conteúdo:
+
+1. 03.01 - Tabelas hashing.
+2. 03.02 - Função de hashing.
+3. 03.03 - Endereçamento aberto: tentativa linear e tentativa quadrática.
+4. 03.04 - Endereçamento fechado.
+
+### Unidade IV - Estruturas de dados hierárquicas
+
+Identificar os cenários propícios para o emprego de estruturas de dados
+hierárquicas.
+
+Aplicar estruturas de dados hierárquicas na resolução de problemas
+computacionais.
+
+Ser crítico no uso das estruturas de dados hierárquicas na resolução de
+problemas computacionais.
+
+Conteúdo:
+
+1. 04.01 - Árvore N-ária.
+2. 04.02 - Árvore binária.
+3. 04.03 - Árvore de busca.
+4. 04.04 - Árvore balanceada AVL.
 
 ## Padrão dos Códigos
 
-Os arquivos seguem um padrão didático:
+Os arquivos seguem um padrão didático simples:
 
-- comentário inicial explicando a intuição da estrutura;
 - seções para atributos, construtor, métodos básicos, inserção, remoção, busca
   e representação;
-- comentários objetivos nos métodos, focados na interpretação da operação;
-- `main` com exemplo determinístico e comentado;
-- `nElementos` como contador lógico de itens;
-- nomes de métodos em português, mantendo consistência entre estruturas.
+- `main` com exemplo determinístico e comentado.

@@ -39,4 +39,8 @@ colisões, que acontecem quando chaves diferentes produzem o mesmo índice.
 - Colisão é inevitável em tabelas finitas.
 - Endereçamento aberto guarda tudo na própria tabela.
 - Encadeamento separado usa uma estrutura auxiliar em cada posição.
-- Redimensionar exige recalcular os índices dos elementos.
+- Redimensionar exige rehashing: todos os elementos precisam ter seus índices
+  recalculados na nova tabela, porque o tamanho participa do cálculo do índice.
+  Por exemplo, se `hash(18) = 18`, então em uma tabela de tamanho `10` o índice
+  é `18 % 10 = 8`; depois de redimensionar para tamanho `20`, o mesmo elemento
+  passa para o índice `18 % 20 = 18`.

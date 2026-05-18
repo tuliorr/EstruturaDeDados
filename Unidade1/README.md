@@ -1,4 +1,4 @@
-# Unidade 1 - Fundamentos de Programacao em Java
+# Unidade 1 - Fundamentos de Programação em Java
 
 Esta unidade reúne exemplos de base usados antes das estruturas de dados
 propriamente ditas. O objetivo é reforçar dois temas que aparecem o tempo todo
@@ -56,8 +56,3 @@ nas unidades seguintes:
 4. Soma e inversão de vetor, para acompanhar recursão com índices.
 5. MDC, para ver um algoritmo clássico baseado em redução.
 6. Torre de Hanoi, para analisar uma recursão com duas chamadas internas.
-
-## Observacao Sobre Nomes
-
-Os nomes dos arquivos começam com letra maiúscula porque Java exige que o nome
-do arquivo seja igual ao nome da classe pública declarada nele.

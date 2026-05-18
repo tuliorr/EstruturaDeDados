@@ -1,6 +1,6 @@
 package Unidade4;
 
-import Unidade2.Filas.FilaDinamica;
+import Unidade2.P03Filas.FilaDinamica;
 
 /**
  * Arvore binaria de busca generica. Para cada nodo, valores menores ficam a
@@ -371,3 +371,4 @@ public class ArvoreBinariaBusca<T extends Comparable<T>> {
         arvore.imprimirEmOrdem();
     }
 }
+
