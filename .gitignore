@@ -1,0 +1,4 @@
+out/
+.codex-compile-check/
+*.class
+.vscode/
