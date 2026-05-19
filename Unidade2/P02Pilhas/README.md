@@ -13,7 +13,7 @@ validação de expressões.
    posição do último elemento inserido. O arquivo também usa a pilha para
    verificar balanceamento de parênteses, colchetes e chaves.
 
-2. `PilhaDinâmica.java`
+2. `PilhaDinamica.java`
 
    Implementa uma pilha genérica com nodos encadeados. Cada novo nodo aponta
    para o antigo topo, e depois passa a ser o novo topo.

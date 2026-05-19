@@ -22,7 +22,7 @@ percorrer referências até encontrar a posição desejada.
    Generaliza a lista em vetor para qualquer tipo comparável. Mostra por que
    genéricos tornam a estrutura reutilizável.
 
-3. `ListaVetorGenericaDinâmica.java`
+3. `ListaVetorGenericaDinamica.java`
 
    Acrescenta redimensionamento. Quando o vetor lota, a estrutura cria um vetor
    maior e copia os elementos antigos.

@@ -197,7 +197,7 @@ nó folha é aquele que não possui filho esquerdo nem filho direito.
 ### Dica
 
 Ao visitar um nó, teste se os dois filhos são `null`. Se forem, imprima o valor.
-Caso contrario, continue o percurso nas subárvores.
+Caso contrário, continue o percurso nas subárvores.
 
 ### Objetivo de aprendizagem
 
@@ -235,8 +235,8 @@ intervalo.
 
 ### Dica
 
-Use a propriedade da BST. Se o valor atual for menor que `min`, não e necessário
-visitar a subárvore esquerda. Se for maior que `max`, não e necessário visitar a
+Use a propriedade da BST. Se o valor atual for menor que `min`, não é necessário
+visitar a subárvore esquerda. Se for maior que `max`, não é necessário visitar a
 subárvore direita.
 
 ### Objetivo de aprendizagem
@@ -313,7 +313,7 @@ direita.
 
 ### Objetivo de aprendizagem
 
-Acompanhar as decisoes tomadas em uma busca de BST.
+Acompanhar as decisões tomadas em uma busca de BST.
 
 ### Exemplo de entrada e saída
 
@@ -343,7 +343,7 @@ Implemente um método que inverta os filhos de todos os nós de uma árvore
 binária. Em cada nó, quem era filho esquerdo deve virar filho direito, e quem era
 filho direito deve virar filho esquerdo.
 
-Ao final, a árvore resultante sera o espelho da árvore original.
+Ao final, a árvore resultante será o espelho da árvore original.
 
 ### Dica
 
@@ -409,12 +409,12 @@ Comparar duas estruturas recursivas sem depender dos valores armazenados.
 Entrada:
 
 ```text
-Arvore A:
+Árvore A:
     10
    /  \
   5    20
 
-Arvore B:
+Árvore B:
     8
    / \
   2   9
@@ -426,7 +426,7 @@ Saída esperada:
 Mesmo formato: true
 ```
 
-## Questão 11 - Contar Subcategorias em Arvore N-ária
+## Questão 11 - Contar Subcategorias em Árvore N-ária
 
 **Nível:** Intermediário  
 **Assunto:** árvore N-ária  
@@ -469,16 +469,16 @@ Saída esperada:
 Subcategorias diretas de Informatica: 2
 ```
 
-## Questão 12 - Listar Pontuacoes em Ranking
+## Questão 12 - Listar Pontuações em Ranking
 
 **Nível:** Intermediário  
-**Assunto:** aplicacao com BST  
+**Assunto:** aplicação com BST  
 **Arquivo:** `Questao12RankingPontuacoes.java`
 
 ### Enunciado
 
-Uma competicao registra pontuacoes inteiras dos participantes. Insira essas
-pontuacoes em uma BST e implemente um método que imprima o ranking da maior
+Uma competição registra pontuações inteiras dos participantes. Insira essas
+pontuações em uma BST e implemente um método que imprima o ranking da maior
 pontuacao para a menor.
 
 ### Dica
@@ -496,7 +496,7 @@ ordem inversa.
 Entrada:
 
 ```text
-pontuacoes = 80, 95, 70, 100, 85
+pontuações = 80, 95, 70, 100, 85
 ```
 
 Saída esperada:
@@ -525,7 +525,7 @@ subárvores também estão balanceadas.
 
 ### Objetivo de aprendizagem
 
-Relacionar altura, recursão e criterio de balanceamento.
+Relacionar altura, recursão e critério de balanceamento.
 
 ### Exemplo de entrada e saída
 
@@ -554,14 +554,14 @@ Balanceada: true
 ### Enunciado
 
 Dada uma sequência curta de inserção em uma AVL, identifique qual rotação deve
-ser aplicada nó primeiro desbalanceamento:
+ser aplicada no primeiro desbalanceamento:
 
 - rotação simples a direita;
 - rotação simples a esquerda;
 - rotação dupla esquerda-direita;
 - rotação dupla direita-esquerda.
 
-Não e necessário implementar a AVL inteira. O foco é reconhecer o caso de
+Não é necessário implementar a AVL inteira. O foco é reconhecer o caso de
 desbalanceamento.
 
 ### Dica

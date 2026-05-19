@@ -1,7 +1,7 @@
 # Unidade 2 - Estruturas Lineares
 
 Estruturas lineares armazenam dados em uma sequência lógica. Essa sequência pode
-estár em posições contíguas de um vetor ou distribuída em nodos conectados por
+estar em posições contíguas de um vetor ou distribuída em nodos conectados por
 referências. A escolha da implementação muda diretamente o custo de inserir,
 remover, buscar e acessar elementos.
 
@@ -21,7 +21,7 @@ remover, buscar e acessar elementos.
 3. `P03Filas/`
 
    Estruturas FIFO: o primeiro elemento inserido é o primeiro removido. Modelam
-   aténdimento, escalonamento simples e processamento em ordem de chegada.
+   atendimento, escalonamento simples e processamento em ordem de chegada.
 
 4. `P04FilasPrioridade/`
 
@@ -32,7 +32,7 @@ remover, buscar e acessar elementos.
 ## Conceitos Para Comparar
 
 - Uso de vetor versus uso de nodos.
-- Custo de deslocar elementos em listas sequênciais.
+- Custo de deslocar elementos em listas sequenciais.
 - Custo de percorrer referências em listas encadeadas.
 - Diferença entre acesso livre, acesso ao topo e acesso à frente.
 - Crescimento estático versus crescimento dinâmico.

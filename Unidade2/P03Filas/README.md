@@ -1,7 +1,7 @@
 # Filas
 
 Filas seguem a regra FIFO: o primeiro elemento inserido é o primeiro removido.
-Essa estrutura representa bem situações de aténdimento, buffers, escalonamento
+Essa estrutura representa bem situações de atendimento, buffers, escalonamento
 simples e processamento por ordem de chegada.
 
 ## Ordem Sugerida
@@ -11,7 +11,7 @@ simples e processamento por ordem de chegada.
    Implementa uma fila circular em vetor. Os índices `inicio` e `fim` avançam
    usando módulo, reaproveitando posições liberadas sem deslocar os elementos.
 
-2. `FilaDinâmica.java`
+2. `FilaDinamica.java`
 
    Implementa uma fila genérica com nodos encadeados. As referências `inicio` e
    `fim` permitem desenfileirar e enfileirar em tempo constante.

@@ -122,8 +122,8 @@ Tamanho do maior balde: 3
 Considere uma tabela hash com encadeamento. Implemente um método que receba um
 índice da tabela e imprima todos os elementos armazenados naquele balde.
 
-Se o índice for invalido, o método deve informar que o índice não existe. Se o
-balde estiver vazio, deve informar que não ha elementos naquela posição.
+Se o índice for inválido, o método deve informar que o índice não existe. Se o
+balde estiver vazio, deve informar que não há elementos naquela posição.
 
 ### Dica
 
@@ -161,7 +161,7 @@ Elementos do balde 7: 27 17 7
 Dado um vetor de inteiros, implemente um método que conte quantos valores
 diferentes aparecem mais de uma vez.
 
-O resultado deve considerar o valor, não a quantidade total de repeticoes. Se o
+O resultado deve considerar o valor, não a quantidade total de repetições. Se o
 numero `7` aparece três vezes, ele conta apenas como um valor repetido.
 
 ### Dica
@@ -204,13 +204,13 @@ caractere único.
 
 ### Dica
 
-Faca duas passagens pela palavra. Na primeira, conte a frequência de cada
+Faça duas passagens pela palavra. Na primeira, conte a frequência de cada
 caractere. Na segunda, percorra a palavra na ordem original e retorne o primeiro
 caractere com frequência igual a `1`.
 
 ### Objetivo de aprendizagem
 
-Combinar contagem por hash com preservacao da ordem original dos dados.
+Combinar contagem por hash com preservação da ordem original dos dados.
 
 ### Exemplo de entrada e saída
 
@@ -235,7 +235,7 @@ Primeiro caractere único: b
 ### Enunciado
 
 Dados dois vetores de inteiros, implemente um método que verifique se eles
-possuem os mesmos valores, ignorando a ordem e ignorando repeticoes.
+possuem os mesmos valores, ignorando a ordem e ignorando repetições.
 
 Dois vetores devem ser considerados equivalentes quando todo valor que aparece
 em um também aparece no outro.
@@ -243,8 +243,8 @@ em um também aparece no outro.
 ### Dica
 
 Insira os valores do primeiro vetor em uma estrutura de hash. Depois verifique se
-todos os valores do segundo vetor aparecem nela. Repita a verificacao no sentido
-contrario para garantir que o primeiro vetor não possui valores ausentes no
+todos os valores do segundo vetor aparecem nela. Repita a verificação no sentido
+contrário para garantir que o primeiro vetor não possui valores ausentes no
 segundo.
 
 ### Objetivo de aprendizagem
@@ -276,14 +276,14 @@ Possuem os mesmos valores: true
 ### Enunciado
 
 Considere uma tabela hash de inteiros. Implemente um método que remova todos os
-valores pares da tabela, mantendo os valores impares.
+valores pares da tabela, mantendo os valores ímpares.
 
-Ao final, a tabela deve continuar valida para novas buscas.
+Ao final, a tabela deve continuar válida para novas buscas.
 
 ### Dica
 
 Percorra cada balde da tabela. Ao remover elementos de uma lista encadeada,
-cuidado para não perder a referencia para o proximo nodo.
+cuidado para não perder a referência para o próximo nodo.
 
 ### Objetivo de aprendizagem
 
@@ -301,21 +301,21 @@ valores inseridos = 4, 7, 10, 13, 22, 31
 Saída esperada:
 
 ```text
-Tabela apos remover pares: 31 13 7
+Tabela após remover pares: 31 13 7
 ```
 
 Observação: a ordem de impressão depende da forma como a tabela percorre os
-baldes. O ponto principal e que apenas os valores impares devem permanecer.
+baldes. O ponto principal é que apenas os valores ímpares devem permanecer.
 
 ## Questão 08 - Cadastro por Matrícula
 
 **Nível:** Intermediário  
-**Assunto:** aplicacao com chave e valor  
+**Assunto:** aplicação com chave e valor  
 **Arquivo:** `Questao08CadastroMatricula.java`
 
 ### Enunciado
 
-Crie uma pequena aplicacao de cadastro de alunos usando hash. A chave deve ser a
+Crie uma pequena aplicação de cadastro de alunos usando hash. A chave deve ser a
 matrícula do aluno e o valor deve ser o nome.
 
 A estrutura deve permitir inserir aluno, buscar aluno pela matrícula e remover
@@ -372,7 +372,7 @@ O fator de carga é calculado por `nElementos / capacidade`. Use conversão para
 
 ### Objetivo de aprendizagem
 
-Interpretar o fator de carga como medida simples de ocupacao da tabela.
+Interpretar o fator de carga como medida simples de ocupação da tabela.
 
 ### Exemplo de entrada e saída
 

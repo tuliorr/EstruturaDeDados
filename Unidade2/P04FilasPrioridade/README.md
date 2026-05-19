@@ -7,7 +7,7 @@ algoritmos de grafos.
 
 ## Ordem Sugerida
 
-1. `FilaPrioridadeNãoOrdenada.java`
+1. `FilaPrioridadeNaoOrdenada.java`
 
    A inserção é simples, porque o novo elemento entra no fim. O custo aparece na
    remoção, quando a estrutura precisa procurar a maior prioridade.
@@ -24,7 +24,7 @@ algoritmos de grafos.
 
 4. `FilaPrioridadeHeapEstavel.java`
 
-   Acrescenta estábilidade ao heap. Quando dois elementos têm a mesma
+   Acrescenta estabilidade ao heap. Quando dois elementos têm a mesma
    prioridade, o que chegou primeiro também sai primeiro.
 
 ## Pontos de Comparação
@@ -32,4 +32,4 @@ algoritmos de grafos.
 - Fila não ordenada: inserção barata, remoção cara.
 - Fila ordenada: inserção mais cara, remoção barata.
 - Heap: equilíbrio entre inserção e remoção.
-- Heap estável: mantém prioridade e ordem de chegada em empatés.
+- Heap estável: mantém prioridade e ordem de chegada em empates.
