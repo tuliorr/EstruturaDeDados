@@ -223,8 +223,8 @@ public class ArvoreAVL<T extends Comparable<T>> {
     // =========================
 
     /**
-     * Fator positivo significa que a esquerda esta mais alta. Fator negativo
-     * significa que a direita esta mais alta. Em AVL, os valores permitidos sao
+     * Fator positivo significa que a direita esta mais alta. Fator negativo
+     * significa que a esquerda esta mais alta. Em AVL, os valores permitidos sao
      * -1, 0 e 1.
      */
     private int fatorBalanco(Nodo nodo) {
@@ -235,7 +235,7 @@ public class ArvoreAVL<T extends Comparable<T>> {
         int alturaEsquerda = altura(nodo.esquerdo);
         int alturaDireita = altura(nodo.direito);
 
-        return alturaEsquerda - alturaDireita;
+        return alturaDireita - alturaEsquerda;
     }
 
     /**
@@ -260,23 +260,29 @@ public class ArvoreAVL<T extends Comparable<T>> {
         int fator = fatorBalanco(nodo);
 
         if (fator > 1) {
-            // Caso esquerda-direita: primeiro corrigimos o filho esquerdo.
-            if (fatorBalanco(nodo.esquerdo) < 0) {
-                nodo.esquerdo = rotacaoEsquerda(nodo.esquerdo);
-            }
-
-            // Caso esquerda-esquerda: uma rotacao simples a direita resolve.
-            return rotacaoDireita(nodo);
-        }
-
-        if (fator < -1) {
             // Caso direita-esquerda: primeiro corrigimos o filho direito.
-            if (fatorBalanco(nodo.direito) > 0) {
+            if (fatorBalanco(nodo.direito) < 0) {
+                System.out.println("Balanceando " + nodo.elemento + ": rotacao dupla direita-esquerda");
                 nodo.direito = rotacaoDireita(nodo.direito);
+                return rotacaoEsquerda(nodo);
             }
 
             // Caso direita-direita: uma rotacao simples a esquerda resolve.
+            System.out.println("Balanceando " + nodo.elemento + ": rotacao simples a esquerda");
             return rotacaoEsquerda(nodo);
+        }
+
+        if (fator < -1) {
+            // Caso esquerda-direita: primeiro corrigimos o filho esquerdo.
+            if (fatorBalanco(nodo.esquerdo) > 0) {
+                System.out.println("Balanceando " + nodo.elemento + ": rotacao dupla esquerda-direita");
+                nodo.esquerdo = rotacaoEsquerda(nodo.esquerdo);
+                return rotacaoDireita(nodo);
+            }
+
+            // Caso esquerda-esquerda: uma rotacao simples a direita resolve.
+            System.out.println("Balanceando " + nodo.elemento + ": rotacao simples a direita");
+            return rotacaoDireita(nodo);
         }
 
         return nodo;

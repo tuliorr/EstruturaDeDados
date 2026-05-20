@@ -62,7 +62,7 @@ public class ArvoreBinaria<T> {
      * sentido inserir a raiz quando a estrutura ainda esta vazia.
      */
     public boolean inserirRaiz(T elemento) {
-        if (!estaVazia()) {
+        if (elemento == null || !estaVazia()) {
             return false;
         }
         raiz = new Nodo(elemento);
@@ -75,10 +75,13 @@ public class ArvoreBinaria<T> {
      * metodo e util para exemplos comparativos, pois permite adicionar uma
      * sequencia de valores sem escolher manualmente cada pai.
      */
-    public void inserirEmLargura(T elemento) {
+    public boolean inserirEmLargura(T elemento) {
+        if (elemento == null) {
+            return false;
+        }
+
         if (estaVazia()) {
-            inserirRaiz(elemento);
-            return;
+            return inserirRaiz(elemento);
         }
 
         FilaDinamica<Nodo> fila = new FilaDinamica<>();
@@ -90,17 +93,19 @@ public class ArvoreBinaria<T> {
             if (atual.esquerdo == null) {
                 atual.esquerdo = new Nodo(elemento);
                 nElementos++;
-                return;
+                return true;
             }
             fila.enfileirar(atual.esquerdo);
 
             if (atual.direito == null) {
                 atual.direito = new Nodo(elemento);
                 nElementos++;
-                return;
+                return true;
             }
             fila.enfileirar(atual.direito);
         }
+
+        return false;
     }
 
     /**
@@ -109,6 +114,10 @@ public class ArvoreBinaria<T> {
      * existir ou se ele ja tiver filho esquerdo.
      */
     public boolean inserirEsquerda(T elemento, T pai) {
+        if (elemento == null || pai == null) {
+            return false;
+        }
+
         Nodo nodoPai = buscarNodo(raiz, pai);
         if (nodoPai == null || nodoPai.esquerdo != null) {
             return false;
@@ -123,6 +132,10 @@ public class ArvoreBinaria<T> {
      * esquerda: primeiro encontramos o pai e depois verificamos se ha espaco.
      */
     public boolean inserirDireita(T elemento, T pai) {
+        if (elemento == null || pai == null) {
+            return false;
+        }
+
         Nodo nodoPai = buscarNodo(raiz, pai);
         if (nodoPai == null || nodoPai.direito != null) {
             return false;
@@ -137,6 +150,10 @@ public class ArvoreBinaria<T> {
     // =========================
 
     public boolean contem(T elemento) {
+        if (elemento == null) {
+            return false;
+        }
+
         return buscarNodo(raiz, elemento) != null;
     }
 
@@ -145,7 +162,7 @@ public class ArvoreBinaria<T> {
      * ser necessario visitar todos os nodos.
      */
     private Nodo buscarNodo(Nodo nodo, T elemento) {
-        if (nodo == null) {
+        if (nodo == null || elemento == null) {
             return null;
         }
         if (Objects.equals(nodo.elemento, elemento)) {
@@ -163,7 +180,7 @@ public class ArvoreBinaria<T> {
      * Busca em largura usando fila. Ela visita a arvore nivel por nivel.
      */
     public T buscarIterativo(T elemento) {
-        if (estaVazia()) {
+        if (elemento == null || estaVazia()) {
             return null;
         }
 

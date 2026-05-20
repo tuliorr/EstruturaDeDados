@@ -64,7 +64,7 @@ public class ArvoreNaria<T> {
      * estrutura ja tiver algum nodo.
      */
     public boolean inserirRaiz(T elemento) {
-        if (!estaVazia()) {
+        if (elemento == null || !estaVazia()) {
             return false;
         }
 
@@ -79,6 +79,10 @@ public class ArvoreNaria<T> {
      * e ligamos o novo nodo como ultimo filho.
      */
     public boolean inserirFilho(T elemento, T pai) {
+        if (elemento == null || pai == null) {
+            return false;
+        }
+
         Nodo nodoPai = buscarNodo(raiz, pai);
         if (nodoPai == null) {
             return false;
@@ -104,6 +108,10 @@ public class ArvoreNaria<T> {
     // =========================
 
     public boolean contem(T elemento) {
+        if (elemento == null) {
+            return false;
+        }
+
         return buscarNodo(raiz, elemento) != null;
     }
 
@@ -113,7 +121,7 @@ public class ArvoreNaria<T> {
      * descartado antes de ser visitado.
      */
     private Nodo buscarNodo(Nodo nodo, T elemento) {
-        if (nodo == null) {
+        if (nodo == null || elemento == null) {
             return null;
         }
         if (Objects.equals(nodo.elemento, elemento)) {
@@ -133,6 +141,10 @@ public class ArvoreNaria<T> {
     }
 
     public int quantidadeFilhos(T elemento) {
+        if (elemento == null) {
+            return -1;
+        }
+
         Nodo nodo = buscarNodo(raiz, elemento);
         if (nodo == null) {
             return -1;

@@ -267,6 +267,10 @@ public class ArvoreAVLComFrequencia<T extends Comparable<T>> {
     // Balanceamento
     // =========================
 
+    /**
+     * Fator positivo significa que a direita esta mais alta. Fator negativo
+     * significa que a esquerda esta mais alta.
+     */
     private int fatorBalanco(Nodo nodo) {
         if (nodo == null) {
             return 0;
@@ -275,7 +279,7 @@ public class ArvoreAVLComFrequencia<T extends Comparable<T>> {
         int alturaEsquerda = altura(nodo.esquerdo);
         int alturaDireita = altura(nodo.direito);
 
-        return alturaEsquerda - alturaDireita;
+        return alturaDireita - alturaEsquerda;
     }
 
     /**
@@ -298,17 +302,23 @@ public class ArvoreAVLComFrequencia<T extends Comparable<T>> {
         int fator = fatorBalanco(nodo);
 
         if (fator > 1) {
-            if (fatorBalanco(nodo.esquerdo) < 0) {
-                nodo.esquerdo = rotacaoEsquerda(nodo.esquerdo);
+            if (fatorBalanco(nodo.direito) < 0) {
+                System.out.println("Balanceando " + nodo.elemento + ": rotacao dupla direita-esquerda");
+                nodo.direito = rotacaoDireita(nodo.direito);
+                return rotacaoEsquerda(nodo);
             }
-            return rotacaoDireita(nodo);
+            System.out.println("Balanceando " + nodo.elemento + ": rotacao simples a esquerda");
+            return rotacaoEsquerda(nodo);
         }
 
         if (fator < -1) {
-            if (fatorBalanco(nodo.direito) > 0) {
-                nodo.direito = rotacaoDireita(nodo.direito);
+            if (fatorBalanco(nodo.esquerdo) > 0) {
+                System.out.println("Balanceando " + nodo.elemento + ": rotacao dupla esquerda-direita");
+                nodo.esquerdo = rotacaoEsquerda(nodo.esquerdo);
+                return rotacaoDireita(nodo);
             }
-            return rotacaoEsquerda(nodo);
+            System.out.println("Balanceando " + nodo.elemento + ": rotacao simples a direita");
+            return rotacaoDireita(nodo);
         }
 
         return nodo;

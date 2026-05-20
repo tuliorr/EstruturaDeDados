@@ -56,6 +56,10 @@ public class ArvoreBinariaBusca<T extends Comparable<T>> {
      * ocorrencia de cada elemento.
      */
     public boolean inserir(T elemento) {
+        if (elemento == null) {
+            return false;
+        }
+
         if (estaVazia()) {
             raiz = new Nodo(elemento);
             nElementos++;
@@ -94,6 +98,10 @@ public class ArvoreBinariaBusca<T extends Comparable<T>> {
      * posicao vazia onde o novo nodo sera ligado.
      */
     public boolean inserirIterativo(T elemento) {
+        if (elemento == null) {
+            return false;
+        }
+
         if (estaVazia()) {
             raiz = new Nodo(elemento);
             nElementos++;
@@ -130,6 +138,10 @@ public class ArvoreBinariaBusca<T extends Comparable<T>> {
      * publico; os metodos privados apenas reorganizam os links entre nodos.
      */
     public boolean remover(T elemento) {
+        if (elemento == null) {
+            return false;
+        }
+
         if (!contem(elemento)) {
             return false;
         }
@@ -174,6 +186,10 @@ public class ArvoreBinariaBusca<T extends Comparable<T>> {
     }
 
     public boolean removerIterativo(T elemento) {
+        if (elemento == null) {
+            return false;
+        }
+
         Nodo atual = raiz;
         Nodo pai = null;
 
@@ -216,6 +232,10 @@ public class ArvoreBinariaBusca<T extends Comparable<T>> {
     // =========================
 
     public T buscar(T elemento) {
+        if (elemento == null) {
+            return null;
+        }
+
         Nodo resultado = buscarNodo(raiz, elemento);
         return resultado == null ? null : resultado.elemento;
     }
@@ -225,7 +245,7 @@ public class ArvoreBinariaBusca<T extends Comparable<T>> {
     }
 
     private Nodo buscarNodo(Nodo nodo, T elemento) {
-        if (nodo == null) {
+        if (nodo == null || elemento == null) {
             return null;
         }
 

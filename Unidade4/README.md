@@ -67,6 +67,18 @@ Ao estudar árvores, vale separar três ideias:
   memória e avaliação de expressões.
 - Largura: visita nível por nível usando fila.
 
+## Política Para `null`
+
+As árvores desta unidade não armazenam elementos `null`. Essa regra evita dois
+problemas didáticos comuns: retorno ambíguo em buscas, já que `null` também
+representa "não encontrado", e erro em árvores ordenadas, que dependem de
+`compareTo`.
+
+Nos métodos que retornam `boolean`, receber `null` faz a operação falhar com
+`false`. Nos métodos de consulta que retornam um elemento, buscar `null` retorna
+`null`. Em consultas numéricas, como `quantidadeFilhos`, `null` recebe o mesmo
+tratamento de elemento inexistente.
+
 ## Altura
 
 A altura mede a maior distância entre um nodo e uma folha. Neste repositório,
@@ -106,6 +118,15 @@ baixo: `30` no nível `0`, `20` e `40` no nível `1`, e `10` no nível `2`.
 
 Rotações mudam a forma da árvore sem quebrar a regra da árvore de busca. O
 objetivo é reduzir a altura do lado pesado.
+
+Neste material, o fator de balanço é calculado como:
+
+```text
+fatorBalanco(nodo) = altura(filhoDireito) - altura(filhoEsquerdo)
+```
+
+Com essa convenção, fator positivo indica peso à direita, fator negativo indica
+peso à esquerda, e uma AVL aceita apenas os valores `-1`, `0` e `1`.
 
 Nos métodos de rotação simples, `p` representa o nodo desbalanceado e `u`
 representa o filho que sobe. A subárvore intermediária é aquela que fica entre
@@ -300,9 +321,18 @@ volta pela mesma trilha
 balanceia os nodos dessa trilha
 ```
 
-Se uma alteração aconteceu na subárvore esquerda de `20`, por exemplo, nodos em
-outra subárvore, como um possível `40` à direita da raiz, não precisam ser
-verificados porque sua altura não mudou.
+Usaremos a convenção do código:
+
+```text
+fb = altura(direita) - altura(esquerda)
+```
+
+Assim:
+
+```text
+fb > 1   -> peso excessivo à direita
+fb < -1  -> peso excessivo à esquerda
+```
 
 ### Inserindo 30
 
@@ -312,9 +342,10 @@ A árvore começa vazia. A chamada pública é:
 inserir(30)
 ```
 
-Antes de inserir de fato, o código verifica se o valor já existe:
+Antes de inserir de fato, o código verifica se o valor é válido e se já existe:
 
 ```text
+30 != null
 contem(30)
 buscar(30) -> null
 ```
@@ -328,64 +359,52 @@ inserir(null, 30) -> novo Nodo(30)
 Árvore resultante:
 
 ```text
-30(h=0)
+30(h=0, fb=0)
 ```
 
 ### Inserindo 20
 
 O valor `20` é menor que `30`, então ele entra à esquerda.
 
-Pilha de chamadas:
-
 ```text
-topo
-inserir(null, 20)
-inserir(30, 20)
 inserir(20)
-base
+inserir(30, 20)
+  20 < 30
+  inserir(null, 20) -> novo Nodo(20)
 ```
 
-Retornos:
+Retorno da recursão:
 
 ```text
-inserir(null, 20) -> Nodo(20)
-balancear(30)     -> Nodo(30)
-inserir(20)       -> true
+balancear(30)
+  altura(esquerda)=0
+  altura(direita)=-1
+  fb(30) = -1 - 0 = -1
+  retorna 30
 ```
 
-Árvore resultante:
+O fator `-1` ainda está dentro do intervalo permitido. Não há rotação.
 
 ```text
-    30(h=1, fb=1)
+    30(h=1, fb=-1)
    /
 20(h=0, fb=0)
 ```
-
-O fator de balanço de `30` é:
-
-```text
-altura(esquerda) - altura(direita)
-0 - (-1) = 1
-```
-
-Como `1` ainda está dentro do intervalo permitido pela AVL, não há rotação.
 
 ### Inserindo 10
 
 O valor `10` é menor que `30` e menor que `20`, então entra à esquerda de `20`.
 
-Pilha de chamadas no ponto mais fundo:
-
 ```text
-topo
-inserir(null, 10)
-inserir(20, 10)
-inserir(30, 10)
 inserir(10)
-base
+inserir(30, 10)
+  10 < 30
+  inserir(20, 10)
+    10 < 20
+    inserir(null, 10) -> novo Nodo(10)
 ```
 
-Antes do balanceamento final, a árvore fica assim:
+Antes do balanceamento final:
 
 ```text
       30
@@ -395,24 +414,24 @@ Antes do balanceamento final, a árvore fica assim:
 10
 ```
 
-Os retornos começam de baixo para cima:
+Retorno da recursão:
 
 ```text
-inserir(null, 10) -> Nodo(10)
-balancear(20)     -> Nodo(20)
-balancear(30)     -> rotacaoDireita(30)
+balancear(20)
+  altura(esquerda)=0, altura(direita)=-1
+  fb(20) = -1
+  retorna 20
+
+balancear(30)
+  altura(esquerda)=1, altura(direita)=-1
+  fb(30) = -2
+  peso excessivo à esquerda
+  filho esquerdo 20 tem fb=-1
+  caso esquerda-esquerda
+  retorna rotacaoDireita(30)
 ```
 
-No nodo `30`, o fator de balanço fica:
-
-```text
-altura(esquerda) - altura(direita)
-1 - (-1) = 2
-```
-
-O fator `2` indica excesso de altura à esquerda. Como o filho esquerdo `20`
-também pende para a esquerda, é o caso esquerda-esquerda. A correção é uma
-rotação simples à direita:
+Rotação feita:
 
 ```text
 rotacaoDireita(30)
@@ -424,14 +443,39 @@ rotacaoDireita(30)
 Depois da rotação:
 
 ```text
-    20(h=1)
+    20(h=1, fb=0)
    /  \
  10    30
 ```
 
-### Inserindo 25, 40, 50 e 45
+### Inserindo 25
 
-Depois de inserir `25`, a árvore fica:
+O caminho é `20 -> 30 -> null`, porque `25` é maior que `20` e menor que `30`.
+
+```text
+inserir(25)
+inserir(20, 25)
+  25 > 20
+  inserir(30, 25)
+    25 < 30
+    inserir(null, 25) -> novo Nodo(25)
+```
+
+Retorno:
+
+```text
+balancear(30)
+  altura(esquerda)=0, altura(direita)=-1
+  fb(30) = -1
+  retorna 30
+
+balancear(20)
+  altura(esquerda)=0, altura(direita)=1
+  fb(20) = 1
+  retorna 20
+```
+
+Não há rotação.
 
 ```text
     20
@@ -441,20 +485,102 @@ Depois de inserir `25`, a árvore fica:
      25
 ```
 
-Ao inserir `40`, o caminho é `20 -> 30 -> null`. Na volta da recursão, o código
-chama `balancear(30)` e depois `balancear(20)`. O nodo `20` fica pesado para a
-direita, então a AVL faz uma rotação à esquerda e a árvore passa a ter `30` como
-raiz:
+### Inserindo 40
+
+O caminho é `20 -> 30 -> null`, porque `40` é maior que `20` e maior que `30`.
 
 ```text
-        30
-       /  \
-     20    40
-    / \
-  10  25
+inserir(40)
+inserir(20, 40)
+  40 > 20
+  inserir(30, 40)
+    40 > 30
+    inserir(null, 40) -> novo Nodo(40)
 ```
 
-Depois de inserir `50`, não há rotação nova. A árvore fica:
+Retorno:
+
+```text
+balancear(30)
+  altura(esquerda)=0, altura(direita)=0
+  fb(30) = 0
+  retorna 30
+
+balancear(20)
+  altura(esquerda)=0, altura(direita)=1
+  fb(20) = 1
+  retorna 20
+```
+
+Também não há rotação.
+
+```text
+    20
+   /  \
+ 10    30
+       / \
+     25   40
+```
+
+### Inserindo 50
+
+O caminho é `20 -> 30 -> 40 -> null`.
+
+```text
+inserir(50)
+inserir(20, 50)
+  50 > 20
+  inserir(30, 50)
+    50 > 30
+    inserir(40, 50)
+      50 > 40
+      inserir(null, 50) -> novo Nodo(50)
+```
+
+Antes do último balanceamento:
+
+```text
+    20
+   /  \
+ 10    30
+       / \
+     25   40
+            \
+             50
+```
+
+Retorno:
+
+```text
+balancear(40)
+  altura(esquerda)=-1, altura(direita)=0
+  fb(40) = 1
+  retorna 40
+
+balancear(30)
+  altura(esquerda)=0, altura(direita)=1
+  fb(30) = 1
+  retorna 30
+
+balancear(20)
+  altura(esquerda)=0, altura(direita)=2
+  fb(20) = 2
+  peso excessivo à direita
+  filho direito 30 tem fb=1
+  caso direita-direita
+  retorna rotacaoEsquerda(20)
+```
+
+Rotação feita:
+
+```text
+rotacaoEsquerda(20)
+  p = 20
+  u = 30
+  t2 = 25
+```
+
+Depois da rotação:
 
 ```text
         30
@@ -464,7 +590,9 @@ Depois de inserir `50`, não há rotação nova. A árvore fica:
   10  25      50
 ```
 
-Agora inserimos `45`. O caminho percorrido e os retornos ficam assim:
+### Inserindo 45
+
+O caminho é `30 -> 40 -> 50 -> null`.
 
 ```text
 inserir(45)
@@ -475,37 +603,9 @@ inserir(30, 45)
     inserir(50, 45)
       45 < 50
       inserir(null, 45) -> novo Nodo(45)
-
-      balancear(50) -> retorna 50
-
-    balancear(40)
-      fatorBalanco(40) = -2
-      pesado para direita
-
-      fatorBalanco(50) = 1
-      caso direita-esquerda
-
-      nodo.direito = rotacaoDireita(50)
-      retorna rotacaoEsquerda(40)
-
-  balancear(30) -> retorna 30
-
-raiz = 30
 ```
 
-Observe quais nodos foram verificados pelo balanceamento após inserir `45`:
-
-```text
-50
-40
-30
-```
-
-Eles são exatamente os nodos do caminho de volta. Os nodos `20`, `10` e `25`
-não são verificados nessa inserção, porque estão em outra parte da árvore e suas
-alturas não mudaram.
-
-Antes da correção local, a subárvore da direita fica assim:
+Antes da correção local:
 
 ```text
 40
@@ -515,7 +615,32 @@ Antes da correção local, a subárvore da direita fica assim:
 45
 ```
 
-Esse é o caso direita-esquerda. Primeiro corrigimos o filho direito:
+Retorno:
+
+```text
+balancear(50)
+  altura(esquerda)=0, altura(direita)=-1
+  fb(50) = -1
+  retorna 50
+
+balancear(40)
+  altura(esquerda)=-1, altura(direita)=1
+  fb(40) = 2
+  peso excessivo à direita
+
+  filho direito 50 tem fb=-1
+  caso direita-esquerda
+
+  nodo.direito = rotacaoDireita(50)
+  retorna rotacaoEsquerda(40)
+
+balancear(30)
+  altura(esquerda)=1, altura(direita)=1
+  fb(30) = 0
+  retorna 30
+```
+
+Primeiro corrigimos o filho direito:
 
 ```text
 rotacaoDireita(50)
@@ -548,11 +673,11 @@ Resultado local:
 Árvore após todas as inserções:
 
 ```text
-        30(h=2)
-       /     \
-   20(h=1)   45(h=1)
-   /   \      /   \
-10     25   40     50
+        30(h=2, fb=0)
+       /              \
+   20(h=1, fb=0)      45(h=1, fb=0)
+   /   \              /   \
+10     25           40     50
 ```
 
 ### Removendo 20
@@ -567,47 +692,26 @@ Antes da remoção:
   10  25  40 50
 ```
 
-Nesta remoção, o caminho principal é `30 -> 20`. Como o nodo `20` tem dois
-filhos, a implementação também entra na subárvore direita dele para remover o
-sucessor. Portanto, o balanceamento verifica apenas os nodos afetados por esse
-caminho, e não a árvore inteira.
-
-Chamada pública:
+A chamada pública começa validando a entrada:
 
 ```text
-remover(20)
-```
-
-Antes de remover, o código confirma que o elemento existe:
-
-```text
+20 != null
 contem(20)
 buscar(20) -> 20
 ```
 
-Pilha de chamadas:
-
-```text
-topo
-remover(20, 20)
-remover(30, 20)
-remover(20)
-base
-```
-
-O primeiro passo é comparar `20` com a raiz `30`:
+Nesta remoção, o caminho principal é `30 -> 20`. Como o nodo `20` tem dois
+filhos, a implementação também entra na subárvore direita dele para remover o
+sucessor.
 
 ```text
 remover(30, 20)
   20 < 30
   nodo.esquerdo = remover(20, 20)
-```
 
-Agora o nodo foi encontrado:
-
-```text
 remover(20, 20)
   comparacao == 0
+  nodo encontrado
 ```
 
 O nodo `20` tem dois filhos:
@@ -624,11 +728,6 @@ direita:
 ```text
 sucessor = menorNodo(25)
 sucessor = 25
-```
-
-O elemento do sucessor substitui o elemento do nodo removido:
-
-```text
 nodo.elemento = 25
 ```
 
@@ -647,28 +746,46 @@ A subárvore esquerda da raiz passa a ser:
 10
 ```
 
-Retornos:
+Retorno:
 
 ```text
-removerMenor(25) -> null
-balancear(25)    -> Nodo(25)
-balancear(30)    -> Nodo(30)
-remover(20)      -> true
+balancear(25)
+  altura(esquerda)=0, altura(direita)=-1
+  fb(25) = -1
+  retorna 25
+
+balancear(30)
+  altura(esquerda)=1, altura(direita)=1
+  fb(30) = 0
+  retorna 30
+
+remover(20) -> true
 ```
 
 Árvore final:
 
 ```text
         30(h=2, fb=0)
-       /     \
-   25(h=1)   45(h=1)
-   /         /   \
-10          40    50
+       /              \
+   25(h=1, fb=-1)     45(h=1, fb=0)
+   /                  /   \
+10                  40     50
 ```
 
 Observe que a remoção também chama `balancear` no caminho de volta da recursão.
 Neste exemplo, nenhuma rotação foi necessária depois de remover `20`, porque os
 fatores de balanço permaneceram dentro do intervalo `-1`, `0` e `1`.
+
+### O Que Aparece nos Prints
+
+Como `ArvoreAVL.java` imprime as rotações dentro de `balancear`, essa sequência
+mostra no console os momentos em que a estrutura realmente girou:
+
+```text
+Balanceando 30: rotacao simples a direita
+Balanceando 20: rotacao simples a esquerda
+Balanceando 40: rotacao dupla direita-esquerda
+```
 
 ## AVL com Frequência
 
