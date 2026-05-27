@@ -1,3 +1,5 @@
+import Unidade2.P03Filas.FilaDinamica;
+
 /**
  * Questao 09 - Inverter os Filhos de Cada Nodo.
  *
@@ -34,11 +36,11 @@ public class Questao09InverterFilhos {
             return pai.direita;
         }
 
-        void inverterFilhos() {
-            inverterFilhos(raiz);
+        void inverterFilhosRecursivo() {
+            inverterFilhosRecursivo(raiz);
         }
 
-        private void inverterFilhos(Nodo nodo) {
+        private void inverterFilhosRecursivo(Nodo nodo) {
             if (nodo == null) {
                 return;
             }
@@ -48,8 +50,31 @@ public class Questao09InverterFilhos {
             nodo.esquerda = nodo.direita;
             nodo.direita = auxiliar;
 
-            inverterFilhos(nodo.esquerda);
-            inverterFilhos(nodo.direita);
+            inverterFilhosRecursivo(nodo.esquerda);
+            inverterFilhosRecursivo(nodo.direita);
+        }
+
+        void inverterFilhosIterativo() {
+            if (raiz == null) {
+                return;
+            }
+
+            FilaDinamica<Nodo> fila = new FilaDinamica<>();
+            fila.enfileirar(raiz);
+
+            while (!fila.estaVazia()) {
+                Nodo atual = fila.desenfileirar();
+                Nodo auxiliar = atual.esquerda;
+                atual.esquerda = atual.direita;
+                atual.direita = auxiliar;
+
+                if (atual.esquerda != null) {
+                    fila.enfileirar(atual.esquerda);
+                }
+                if (atual.direita != null) {
+                    fila.enfileirar(atual.direita);
+                }
+            }
         }
 
         void imprimirPreOrdem() {
@@ -68,7 +93,7 @@ public class Questao09InverterFilhos {
         }
     }
 
-    public static void main(String[] args) {
+    private static ArvoreBinaria criarArvoreExemplo() {
         ArvoreBinaria arvore = new ArvoreBinaria();
         Nodo raiz = arvore.inserirRaiz(10);
         Nodo esquerda = arvore.inserirEsquerda(raiz, 5);
@@ -76,11 +101,21 @@ public class Questao09InverterFilhos {
         arvore.inserirEsquerda(esquerda, 3);
         arvore.inserirEsquerda(direita, 15);
         arvore.inserirDireita(direita, 30);
+        return arvore;
+    }
 
-        arvore.inverterFilhos();
+    public static void main(String[] args) {
+        ArvoreBinaria arvoreRecursiva = criarArvoreExemplo();
+        ArvoreBinaria arvoreIterativa = criarArvoreExemplo();
 
-        System.out.print("Pre-ordem depois de inverter: ");
-        arvore.imprimirPreOrdem();
+        arvoreRecursiva.inverterFilhosRecursivo();
+
+        System.out.print("Pre-ordem depois de inverter (recursivo): ");
+        arvoreRecursiva.imprimirPreOrdem();
+
+        arvoreIterativa.inverterFilhosIterativo();
+        System.out.print("Pre-ordem depois de inverter (iterativo): ");
+        arvoreIterativa.imprimirPreOrdem();
         System.out.println("Resultado esperado: 10 20 30 15 5 3");
     }
 }

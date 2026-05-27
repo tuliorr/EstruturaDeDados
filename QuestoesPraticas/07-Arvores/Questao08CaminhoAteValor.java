@@ -45,14 +45,14 @@ public class Questao08CaminhoAteValor {
             return false;
         }
 
-        boolean imprimirCaminhoAte(int valor) {
-            System.out.print("Caminho: ");
-            boolean encontrado = imprimirCaminhoAte(raiz, valor);
+        boolean imprimirCaminhoAteRecursivo(int valor) {
+            System.out.print("Caminho recursivo: ");
+            boolean encontrado = imprimirCaminhoAteRecursivo(raiz, valor);
             System.out.println();
             return encontrado;
         }
 
-        private boolean imprimirCaminhoAte(Nodo nodo, int valor) {
+        private boolean imprimirCaminhoAteRecursivo(Nodo nodo, int valor) {
             if (nodo == null) {
                 return false;
             }
@@ -65,10 +65,29 @@ public class Questao08CaminhoAteValor {
 
             // A propriedade da BST decide qual lado pode conter o valor.
             if (valor < nodo.valor) {
-                return imprimirCaminhoAte(nodo.esquerda, valor);
+                return imprimirCaminhoAteRecursivo(nodo.esquerda, valor);
             }
-            return imprimirCaminhoAte(nodo.direita, valor);
+            return imprimirCaminhoAteRecursivo(nodo.direita, valor);
         }
+
+        boolean imprimirCaminhoAteIterativo(int valor) {
+            System.out.print("Caminho iterativo: ");
+            Nodo atual = raiz;
+
+            while (atual != null) {
+                System.out.print(atual.valor + " ");
+
+                if (valor == atual.valor) {
+                    System.out.println();
+                    return true;
+                }
+                atual = valor < atual.valor ? atual.esquerda : atual.direita;
+            }
+
+            System.out.println();
+            return false;
+        }
+
     }
 
     public static void main(String[] args) {
@@ -79,8 +98,10 @@ public class Questao08CaminhoAteValor {
             arvore.inserir(valor);
         }
 
-        boolean encontrado = arvore.imprimirCaminhoAte(25);
-        System.out.println("Encontrado: " + encontrado);
+        boolean encontradoRecursivo = arvore.imprimirCaminhoAteRecursivo(25);
+        boolean encontradoIterativo = arvore.imprimirCaminhoAteIterativo(25);
+        System.out.println("Encontrado (recursivo): " + encontradoRecursivo);
+        System.out.println("Encontrado (iterativo): " + encontradoIterativo);
         System.out.println("Resultado esperado: Caminho 40 20 30 25 / true");
     }
 }

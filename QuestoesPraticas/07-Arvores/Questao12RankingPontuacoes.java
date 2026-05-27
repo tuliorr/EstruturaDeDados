@@ -1,3 +1,5 @@
+import Unidade2.P02Pilhas.PilhaDinamica;
+
 /**
  * Questao 12 - Listar Pontuacoes em Ranking.
  *
@@ -45,20 +47,37 @@ public class Questao12RankingPontuacoes {
             return false;
         }
 
-        void imprimirRanking() {
-            imprimirDecrescente(raiz);
+        void imprimirRankingRecursivo() {
+            imprimirDecrescenteRecursivo(raiz);
             System.out.println();
         }
 
-        private void imprimirDecrescente(Nodo nodo) {
+        private void imprimirDecrescenteRecursivo(Nodo nodo) {
             if (nodo == null) {
                 return;
             }
 
             // Pontuacoes maiores ficam na direita, entao aparecem primeiro.
-            imprimirDecrescente(nodo.direita);
+            imprimirDecrescenteRecursivo(nodo.direita);
             System.out.print(nodo.valor + " ");
-            imprimirDecrescente(nodo.esquerda);
+            imprimirDecrescenteRecursivo(nodo.esquerda);
+        }
+
+        void imprimirRankingIterativo() {
+            PilhaDinamica<Nodo> pilha = new PilhaDinamica<>();
+            Nodo atual = raiz;
+
+            while (atual != null || !pilha.estaVazia()) {
+                while (atual != null) {
+                    pilha.empilhar(atual);
+                    atual = atual.direita;
+                }
+
+                atual = pilha.desempilhar();
+                System.out.print(atual.valor + " ");
+                atual = atual.esquerda;
+            }
+            System.out.println();
         }
     }
 
@@ -70,8 +89,10 @@ public class Questao12RankingPontuacoes {
             ranking.inserirPontuacao(pontuacao);
         }
 
-        System.out.print("Ranking: ");
-        ranking.imprimirRanking();
+        System.out.print("Ranking (recursivo): ");
+        ranking.imprimirRankingRecursivo();
+        System.out.print("Ranking (iterativo): ");
+        ranking.imprimirRankingIterativo();
         System.out.println("Resultado esperado: 100 95 85 80 70");
     }
 }

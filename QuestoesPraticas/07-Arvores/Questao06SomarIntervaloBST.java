@@ -1,3 +1,5 @@
+import Unidade2.P02Pilhas.PilhaDinamica;
+
 /**
  * Questao 06 - Somar Intervalo na BST.
  *
@@ -50,26 +52,52 @@ public class Questao06SomarIntervaloBST {
             return false;
         }
 
-        int somarIntervalo(int min, int max) {
-            return somarIntervalo(raiz, min, max);
+        int somarIntervaloRecursivo(int min, int max) {
+            return somarIntervaloRecursivo(raiz, min, max);
         }
 
-        private int somarIntervalo(Nodo nodo, int min, int max) {
+        private int somarIntervaloRecursivo(Nodo nodo, int min, int max) {
             if (nodo == null) {
                 return 0;
             }
 
             // Na BST, valores menores ficam a esquerda e maiores ficam a direita.
             if (nodo.valor < min) {
-                return somarIntervalo(nodo.direita, min, max);
+                return somarIntervaloRecursivo(nodo.direita, min, max);
             }
             if (nodo.valor > max) {
-                return somarIntervalo(nodo.esquerda, min, max);
+                return somarIntervaloRecursivo(nodo.esquerda, min, max);
             }
 
             return nodo.valor
-                    + somarIntervalo(nodo.esquerda, min, max)
-                    + somarIntervalo(nodo.direita, min, max);
+                    + somarIntervaloRecursivo(nodo.esquerda, min, max)
+                    + somarIntervaloRecursivo(nodo.direita, min, max);
+        }
+
+        int somarIntervaloIterativo(int min, int max) {
+            if (raiz == null) {
+                return 0;
+            }
+
+            int soma = 0;
+            PilhaDinamica<Nodo> pilha = new PilhaDinamica<>();
+            pilha.empilhar(raiz);
+
+            while (!pilha.estaVazia()) {
+                Nodo atual = pilha.desempilhar();
+
+                if (atual.valor >= min && atual.valor <= max) {
+                    soma += atual.valor;
+                }
+                if (atual.valor > min && atual.esquerda != null) {
+                    pilha.empilhar(atual.esquerda);
+                }
+                if (atual.valor < max && atual.direita != null) {
+                    pilha.empilhar(atual.direita);
+                }
+            }
+
+            return soma;
         }
     }
 
@@ -81,7 +109,8 @@ public class Questao06SomarIntervaloBST {
             arvore.inserir(valor);
         }
 
-        System.out.println("Soma no intervalo: " + arvore.somarIntervalo(12, 30));
+        System.out.println("Soma no intervalo (recursivo): " + arvore.somarIntervaloRecursivo(12, 30));
+        System.out.println("Soma no intervalo (iterativo): " + arvore.somarIntervaloIterativo(12, 30));
         System.out.println("Resultado esperado: 90");
     }
 }

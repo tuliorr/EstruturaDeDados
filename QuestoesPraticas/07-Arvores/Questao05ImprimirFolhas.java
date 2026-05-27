@@ -1,3 +1,5 @@
+import Unidade2.P02Pilhas.PilhaDinamica;
+
 /**
  * Questao 05 - Imprimir Folhas.
  *
@@ -47,12 +49,12 @@ public class Questao05ImprimirFolhas {
             return contarFolhas(nodo.esquerda) + contarFolhas(nodo.direita);
         }
 
-        void imprimirFolhas() {
-            imprimirFolhas(raiz);
+        void imprimirFolhasRecursivo() {
+            imprimirFolhasRecursivo(raiz);
             System.out.println();
         }
 
-        private void imprimirFolhas(Nodo nodo) {
+        private void imprimirFolhasRecursivo(Nodo nodo) {
             if (nodo == null) {
                 return;
             }
@@ -63,8 +65,32 @@ public class Questao05ImprimirFolhas {
                 return;
             }
 
-            imprimirFolhas(nodo.esquerda);
-            imprimirFolhas(nodo.direita);
+            imprimirFolhasRecursivo(nodo.esquerda);
+            imprimirFolhasRecursivo(nodo.direita);
+        }
+
+        void imprimirFolhasIterativo() {
+            if (raiz == null) {
+                System.out.println();
+                return;
+            }
+
+            PilhaDinamica<Nodo> pilha = new PilhaDinamica<>();
+            pilha.empilhar(raiz);
+
+            while (!pilha.estaVazia()) {
+                Nodo atual = pilha.desempilhar();
+                if (atual.esquerda == null && atual.direita == null) {
+                    System.out.print(atual.valor + " ");
+                }
+                if (atual.direita != null) {
+                    pilha.empilhar(atual.direita);
+                }
+                if (atual.esquerda != null) {
+                    pilha.empilhar(atual.esquerda);
+                }
+            }
+            System.out.println();
         }
     }
 
@@ -77,8 +103,10 @@ public class Questao05ImprimirFolhas {
         arvore.inserirEsquerda(direita, 15);
         arvore.inserirDireita(direita, 30);
 
-        System.out.print("Folhas: ");
-        arvore.imprimirFolhas();
+        System.out.print("Folhas (recursivo): ");
+        arvore.imprimirFolhasRecursivo();
+        System.out.print("Folhas (iterativo): ");
+        arvore.imprimirFolhasIterativo();
         System.out.println("Quantidade de folhas: " + arvore.contarFolhas());
         System.out.println("Resultado esperado: 3 15 30");
     }

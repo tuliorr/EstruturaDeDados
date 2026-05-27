@@ -1,3 +1,5 @@
+import Unidade2.P03Filas.FilaDinamica;
+
 /**
  * Questao 10 - Comparar Formato de Duas Arvores.
  *
@@ -44,11 +46,11 @@ public class Questao10CompararFormato {
             return 1 + contarNos(nodo.esquerda) + contarNos(nodo.direita);
         }
 
-        boolean mesmoFormato(ArvoreBinaria outra) {
-            return mesmoFormato(raiz, outra.raiz);
+        boolean mesmoFormatoRecursivo(ArvoreBinaria outra) {
+            return mesmoFormatoRecursivo(raiz, outra.raiz);
         }
 
-        private boolean mesmoFormato(Nodo primeiro, Nodo segundo) {
+        private boolean mesmoFormatoRecursivo(Nodo primeiro, Nodo segundo) {
             if (primeiro == null && segundo == null) {
                 return true;
             }
@@ -57,8 +59,41 @@ public class Questao10CompararFormato {
             }
 
             // Os valores nao importam: comparamos somente a existencia dos filhos.
-            return mesmoFormato(primeiro.esquerda, segundo.esquerda)
-                    && mesmoFormato(primeiro.direita, segundo.direita);
+            return mesmoFormatoRecursivo(primeiro.esquerda, segundo.esquerda)
+                    && mesmoFormatoRecursivo(primeiro.direita, segundo.direita);
+        }
+
+        boolean mesmoFormatoIterativo(ArvoreBinaria outra) {
+            FilaDinamica<ParDeNodos> fila = new FilaDinamica<>();
+            fila.enfileirar(new ParDeNodos(raiz, outra.raiz));
+
+            while (!fila.estaVazia()) {
+                ParDeNodos par = fila.desenfileirar();
+                Nodo primeiro = par.primeiro;
+                Nodo segundo = par.segundo;
+
+                if (primeiro == null && segundo == null) {
+                    continue;
+                }
+                if (primeiro == null || segundo == null) {
+                    return false;
+                }
+
+                fila.enfileirar(new ParDeNodos(primeiro.esquerda, segundo.esquerda));
+                fila.enfileirar(new ParDeNodos(primeiro.direita, segundo.direita));
+            }
+
+            return true;
+        }
+    }
+
+    private static class ParDeNodos {
+        Nodo primeiro;
+        Nodo segundo;
+
+        ParDeNodos(Nodo primeiro, Nodo segundo) {
+            this.primeiro = primeiro;
+            this.segundo = segundo;
         }
     }
 
@@ -73,7 +108,8 @@ public class Questao10CompararFormato {
         arvoreB.inserirEsquerda(raizB, 2);
         arvoreB.inserirDireita(raizB, 9);
 
-        System.out.println("Mesmo formato: " + arvoreA.mesmoFormato(arvoreB));
+        System.out.println("Mesmo formato (recursivo): " + arvoreA.mesmoFormatoRecursivo(arvoreB));
+        System.out.println("Mesmo formato (iterativo): " + arvoreA.mesmoFormatoIterativo(arvoreB));
         System.out.println("Resultado esperado: true");
     }
 }

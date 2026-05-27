@@ -1,3 +1,5 @@
+import Unidade2.P03Filas.FilaDinamica;
+
 /**
  * Questao 13 - Verificar Balanceamento Simples.
  *
@@ -34,28 +36,66 @@ public class Questao13BalanceamentoSimples {
             return pai.direita;
         }
 
-        int altura() {
-            return altura(raiz);
+        private static class NodoComNivel {
+            Nodo nodo;
+            int nivel;
+
+            NodoComNivel(Nodo nodo, int nivel) {
+                this.nodo = nodo;
+                this.nivel = nivel;
+            }
         }
 
-        private int altura(Nodo nodo) {
+        int alturaRecursiva() {
+            return alturaRecursiva(raiz);
+        }
+
+        private int alturaRecursiva(Nodo nodo) {
             if (nodo == null) {
                 return -1;
             }
-            return 1 + Math.max(altura(nodo.esquerda), altura(nodo.direita));
+            return 1 + Math.max(alturaRecursiva(nodo.esquerda), alturaRecursiva(nodo.direita));
         }
 
-        boolean estaBalanceada() {
-            return estaBalanceada(raiz);
+        int alturaIterativa() {
+            return alturaIterativa(raiz);
         }
 
-        private boolean estaBalanceada(Nodo nodo) {
+        private int alturaIterativa(Nodo nodo) {
+            if (nodo == null) {
+                return -1;
+            }
+
+            int maiorNivel = -1;
+            FilaDinamica<NodoComNivel> fila = new FilaDinamica<>();
+            fila.enfileirar(new NodoComNivel(nodo, 0));
+
+            while (!fila.estaVazia()) {
+                NodoComNivel atual = fila.desenfileirar();
+                maiorNivel = atual.nivel;
+
+                if (atual.nodo.esquerda != null) {
+                    fila.enfileirar(new NodoComNivel(atual.nodo.esquerda, atual.nivel + 1));
+                }
+                if (atual.nodo.direita != null) {
+                    fila.enfileirar(new NodoComNivel(atual.nodo.direita, atual.nivel + 1));
+                }
+            }
+
+            return maiorNivel;
+        }
+
+        boolean estaBalanceadaRecursivo() {
+            return estaBalanceadaRecursivo(raiz);
+        }
+
+        private boolean estaBalanceadaRecursivo(Nodo nodo) {
             if (nodo == null) {
                 return true;
             }
 
-            int alturaEsquerda = altura(nodo.esquerda);
-            int alturaDireita = altura(nodo.direita);
+            int alturaEsquerda = alturaRecursiva(nodo.esquerda);
+            int alturaDireita = alturaRecursiva(nodo.direita);
             int diferenca = Math.abs(alturaEsquerda - alturaDireita);
 
             // Se a diferenca passar de 1, este nodo ja quebra o balanceamento.
@@ -63,7 +103,34 @@ public class Questao13BalanceamentoSimples {
                 return false;
             }
 
-            return estaBalanceada(nodo.esquerda) && estaBalanceada(nodo.direita);
+            return estaBalanceadaRecursivo(nodo.esquerda) && estaBalanceadaRecursivo(nodo.direita);
+        }
+
+        boolean estaBalanceadaIterativo() {
+            if (raiz == null) {
+                return true;
+            }
+
+            FilaDinamica<Nodo> fila = new FilaDinamica<>();
+            fila.enfileirar(raiz);
+
+            while (!fila.estaVazia()) {
+                Nodo atual = fila.desenfileirar();
+                int alturaEsquerda = alturaIterativa(atual.esquerda);
+                int alturaDireita = alturaIterativa(atual.direita);
+
+                if (Math.abs(alturaEsquerda - alturaDireita) > 1) {
+                    return false;
+                }
+                if (atual.esquerda != null) {
+                    fila.enfileirar(atual.esquerda);
+                }
+                if (atual.direita != null) {
+                    fila.enfileirar(atual.direita);
+                }
+            }
+
+            return true;
         }
     }
 
@@ -74,8 +141,10 @@ public class Questao13BalanceamentoSimples {
         arvore.inserirDireita(raiz, 20);
         arvore.inserirEsquerda(esquerda, 3);
 
-        System.out.println("Balanceada: " + arvore.estaBalanceada());
-        System.out.println("Altura: " + arvore.altura());
+        System.out.println("Balanceada (recursivo): " + arvore.estaBalanceadaRecursivo());
+        System.out.println("Balanceada (iterativo): " + arvore.estaBalanceadaIterativo());
+        System.out.println("Altura (recursiva): " + arvore.alturaRecursiva());
+        System.out.println("Altura (iterativa): " + arvore.alturaIterativa());
         System.out.println("Resultado esperado: true");
     }
 }

@@ -1,3 +1,5 @@
+import Unidade2.P02Pilhas.PilhaDinamica;
+
 /**
  * Questao 04 - Contar Valores Maiores que X.
  *
@@ -45,11 +47,11 @@ public class Questao04ContarMaioresQueX {
             return 1 + contarNos(nodo.esquerda) + contarNos(nodo.direita);
         }
 
-        int contarMaioresQue(int x) {
-            return contarMaioresQue(raiz, x);
+        int contarMaioresQueRecursivo(int x) {
+            return contarMaioresQueRecursivo(raiz, x);
         }
 
-        private int contarMaioresQue(Nodo nodo, int x) {
+        private int contarMaioresQueRecursivo(Nodo nodo, int x) {
             if (nodo == null) {
                 return 0;
             }
@@ -58,8 +60,33 @@ public class Questao04ContarMaioresQueX {
 
             // Como nao estamos assumindo BST, os dois lados precisam ser avaliados.
             return quantidadeAtual
-                    + contarMaioresQue(nodo.esquerda, x)
-                    + contarMaioresQue(nodo.direita, x);
+                    + contarMaioresQueRecursivo(nodo.esquerda, x)
+                    + contarMaioresQueRecursivo(nodo.direita, x);
+        }
+
+        int contarMaioresQueIterativo(int x) {
+            if (raiz == null) {
+                return 0;
+            }
+
+            int quantidade = 0;
+            PilhaDinamica<Nodo> pilha = new PilhaDinamica<>();
+            pilha.empilhar(raiz);
+
+            while (!pilha.estaVazia()) {
+                Nodo atual = pilha.desempilhar();
+                if (atual.valor > x) {
+                    quantidade++;
+                }
+                if (atual.direita != null) {
+                    pilha.empilhar(atual.direita);
+                }
+                if (atual.esquerda != null) {
+                    pilha.empilhar(atual.esquerda);
+                }
+            }
+
+            return quantidade;
         }
     }
 
@@ -73,7 +100,8 @@ public class Questao04ContarMaioresQueX {
         arvore.inserirDireita(direita, 14);
 
         int x = 6;
-        System.out.println("Quantidade de valores maiores que " + x + ": " + arvore.contarMaioresQue(x));
+        System.out.println("Maiores que " + x + " (recursivo): " + arvore.contarMaioresQueRecursivo(x));
+        System.out.println("Maiores que " + x + " (iterativo): " + arvore.contarMaioresQueIterativo(x));
         System.out.println("Total de nos: " + arvore.contarNos());
         System.out.println("Resultado esperado: 3");
     }

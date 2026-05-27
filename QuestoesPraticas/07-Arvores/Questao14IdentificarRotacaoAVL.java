@@ -132,7 +132,7 @@ public class Questao14IdentificarRotacaoAVL {
         }
     }
 
-    public static String identificarRotacao(int primeiro, int segundo, int terceiro) {
+    public static String identificarRotacaoRecursivo(int primeiro, int segundo, int terceiro) {
         ArvoreAVL arvore = new ArvoreAVL();
         arvore.inserir(primeiro);
         arvore.inserir(segundo);
@@ -140,7 +140,7 @@ public class Questao14IdentificarRotacaoAVL {
         return arvore.identificarRotacao();
     }
 
-    public static String identificarCaso(int primeiro, int segundo, int terceiro) {
+    public static String identificarCasoRecursivo(int primeiro, int segundo, int terceiro) {
         ArvoreAVL arvore = new ArvoreAVL();
         arvore.inserir(primeiro);
         arvore.inserir(segundo);
@@ -148,13 +148,58 @@ public class Questao14IdentificarRotacaoAVL {
         return arvore.identificarCaso();
     }
 
+    public static String identificarRotacaoIterativo(int primeiro, int segundo, int terceiro) {
+        String caso = identificarCasoIterativo(primeiro, segundo, terceiro);
+
+        if (caso.equals("esquerda-esquerda")) {
+            return "simples a direita";
+        }
+        if (caso.equals("direita-direita")) {
+            return "simples a esquerda";
+        }
+        if (caso.equals("esquerda-direita")) {
+            return "dupla esquerda-direita";
+        }
+        if (caso.equals("direita-esquerda")) {
+            return "dupla direita-esquerda";
+        }
+        return "sem rotacao";
+    }
+
+    public static String identificarCasoIterativo(int primeiro, int segundo, int terceiro) {
+        // Com tres insercoes, basta acompanhar para qual lado cada valor iria.
+        if (segundo < primeiro && terceiro < segundo) {
+            return "esquerda-esquerda";
+        }
+        if (segundo > primeiro && terceiro > segundo) {
+            return "direita-direita";
+        }
+        if (segundo < primeiro && terceiro > segundo && terceiro < primeiro) {
+            return "esquerda-direita";
+        }
+        if (segundo > primeiro && terceiro < segundo && terceiro > primeiro) {
+            return "direita-esquerda";
+        }
+        return "sem desbalanceamento";
+    }
+
+    public static String identificarRotacao(int primeiro, int segundo, int terceiro) {
+        return identificarRotacaoRecursivo(primeiro, segundo, terceiro);
+    }
+
+    public static String identificarCaso(int primeiro, int segundo, int terceiro) {
+        return identificarCasoRecursivo(primeiro, segundo, terceiro);
+    }
+
     public static void main(String[] args) {
         int primeiro = 30;
         int segundo = 10;
         int terceiro = 20;
 
-        System.out.println("Caso: " + identificarCaso(primeiro, segundo, terceiro));
-        System.out.println("Rotacao: " + identificarRotacao(primeiro, segundo, terceiro));
+        System.out.println("Caso (recursivo): " + identificarCasoRecursivo(primeiro, segundo, terceiro));
+        System.out.println("Rotacao (recursivo): " + identificarRotacaoRecursivo(primeiro, segundo, terceiro));
+        System.out.println("Caso (iterativo): " + identificarCasoIterativo(primeiro, segundo, terceiro));
+        System.out.println("Rotacao (iterativo): " + identificarRotacaoIterativo(primeiro, segundo, terceiro));
         System.out.println("Resultado esperado: esquerda-direita / dupla esquerda-direita");
     }
 }

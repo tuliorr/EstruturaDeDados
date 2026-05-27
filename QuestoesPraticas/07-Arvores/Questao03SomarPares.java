@@ -1,3 +1,5 @@
+import Unidade2.P02Pilhas.PilhaDinamica;
+
 /**
  * Questao 03 - Somar Valores Pares.
  *
@@ -47,11 +49,11 @@ public class Questao03SomarPares {
             return buscar(nodo.esquerda, valor) || buscar(nodo.direita, valor);
         }
 
-        int somarPares() {
-            return somarPares(raiz);
+        int somarParesRecursivo() {
+            return somarParesRecursivo(raiz);
         }
 
-        private int somarPares(Nodo nodo) {
+        private int somarParesRecursivo(Nodo nodo) {
             if (nodo == null) {
                 return 0;
             }
@@ -62,7 +64,32 @@ public class Questao03SomarPares {
             }
 
             // Todo nodo precisa ser visitado, pois uma arvore binaria comum nao e ordenada.
-            return somaAtual + somarPares(nodo.esquerda) + somarPares(nodo.direita);
+            return somaAtual + somarParesRecursivo(nodo.esquerda) + somarParesRecursivo(nodo.direita);
+        }
+
+        int somarParesIterativo() {
+            if (raiz == null) {
+                return 0;
+            }
+
+            int soma = 0;
+            PilhaDinamica<Nodo> pilha = new PilhaDinamica<>();
+            pilha.empilhar(raiz);
+
+            while (!pilha.estaVazia()) {
+                Nodo atual = pilha.desempilhar();
+                if (atual.valor % 2 == 0) {
+                    soma += atual.valor;
+                }
+                if (atual.direita != null) {
+                    pilha.empilhar(atual.direita);
+                }
+                if (atual.esquerda != null) {
+                    pilha.empilhar(atual.esquerda);
+                }
+            }
+
+            return soma;
         }
     }
 
@@ -75,7 +102,8 @@ public class Questao03SomarPares {
         arvore.inserirEsquerda(direita, 6);
         arvore.inserirDireita(direita, 14);
 
-        System.out.println("Soma dos pares: " + arvore.somarPares());
+        System.out.println("Soma dos pares (recursivo): " + arvore.somarParesRecursivo());
+        System.out.println("Soma dos pares (iterativo): " + arvore.somarParesIterativo());
         System.out.println("Resultado esperado: 38");
     }
 }

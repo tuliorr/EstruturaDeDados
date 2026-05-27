@@ -1,3 +1,5 @@
+import Unidade2.P02Pilhas.PilhaDinamica;
+
 /**
  * Questao 07 - Imprimir em Ordem Decrescente.
  *
@@ -59,20 +61,37 @@ public class Questao07OrdemDecrescente {
             imprimirCrescente(nodo.direita);
         }
 
-        void imprimirDecrescente() {
-            imprimirDecrescente(raiz);
+        void imprimirDecrescenteRecursivo() {
+            imprimirDecrescenteRecursivo(raiz);
             System.out.println();
         }
 
-        private void imprimirDecrescente(Nodo nodo) {
+        private void imprimirDecrescenteRecursivo(Nodo nodo) {
             if (nodo == null) {
                 return;
             }
 
             // Na BST, visitar direita, raiz e esquerda gera ordem decrescente.
-            imprimirDecrescente(nodo.direita);
+            imprimirDecrescenteRecursivo(nodo.direita);
             System.out.print(nodo.valor + " ");
-            imprimirDecrescente(nodo.esquerda);
+            imprimirDecrescenteRecursivo(nodo.esquerda);
+        }
+
+        void imprimirDecrescenteIterativo() {
+            PilhaDinamica<Nodo> pilha = new PilhaDinamica<>();
+            Nodo atual = raiz;
+
+            while (atual != null || !pilha.estaVazia()) {
+                while (atual != null) {
+                    pilha.empilhar(atual);
+                    atual = atual.direita;
+                }
+
+                atual = pilha.desempilhar();
+                System.out.print(atual.valor + " ");
+                atual = atual.esquerda;
+            }
+            System.out.println();
         }
     }
 
@@ -84,8 +103,10 @@ public class Questao07OrdemDecrescente {
             arvore.inserir(valor);
         }
 
-        System.out.print("Ordem decrescente: ");
-        arvore.imprimirDecrescente();
+        System.out.print("Ordem decrescente (recursivo): ");
+        arvore.imprimirDecrescenteRecursivo();
+        System.out.print("Ordem decrescente (iterativo): ");
+        arvore.imprimirDecrescenteIterativo();
         System.out.println("Resultado esperado: 40 30 25 20 15 10 5");
     }
 }

@@ -1,3 +1,5 @@
+import Unidade2.P02Pilhas.PilhaDinamica;
+
 /**
  * Questao 01 - Contar Nos com Dois Filhos.
  *
@@ -38,11 +40,11 @@ public class Questao01ContarNosComDoisFilhos {
             return raiz == null;
         }
 
-        int contarNosComDoisFilhos() {
-            return contarNosComDoisFilhos(raiz);
+        int contarNosComDoisFilhosRecursivo() {
+            return contarNosComDoisFilhosRecursivo(raiz);
         }
 
-        private int contarNosComDoisFilhos(Nodo nodo) {
+        private int contarNosComDoisFilhosRecursivo(Nodo nodo) {
             if (nodo == null) {
                 return 0;
             }
@@ -53,10 +55,36 @@ public class Questao01ContarNosComDoisFilhos {
                 quantidadeAtual = 1;
             }
 
-            int quantidadeEsquerda = contarNosComDoisFilhos(nodo.esquerda);
-            int quantidadeDireita = contarNosComDoisFilhos(nodo.direita);
+            int quantidadeEsquerda = contarNosComDoisFilhosRecursivo(nodo.esquerda);
+            int quantidadeDireita = contarNosComDoisFilhosRecursivo(nodo.direita);
 
             return quantidadeAtual + quantidadeEsquerda + quantidadeDireita;
+        }
+
+        int contarNosComDoisFilhosIterativo() {
+            if (raiz == null) {
+                return 0;
+            }
+
+            int quantidade = 0;
+            PilhaDinamica<Nodo> pilha = new PilhaDinamica<>();
+            pilha.empilhar(raiz);
+
+            while (!pilha.estaVazia()) {
+                Nodo atual = pilha.desempilhar();
+
+                if (atual.esquerda != null && atual.direita != null) {
+                    quantidade++;
+                }
+                if (atual.direita != null) {
+                    pilha.empilhar(atual.direita);
+                }
+                if (atual.esquerda != null) {
+                    pilha.empilhar(atual.esquerda);
+                }
+            }
+
+            return quantidade;
         }
     }
 
@@ -67,7 +95,8 @@ public class Questao01ContarNosComDoisFilhos {
         arvore.inserirDireita(raiz, 20);
         arvore.inserirEsquerda(esquerda, 3);
 
-        System.out.println("Nos com dois filhos: " + arvore.contarNosComDoisFilhos());
+        System.out.println("Nos com dois filhos (recursivo): " + arvore.contarNosComDoisFilhosRecursivo());
+        System.out.println("Nos com dois filhos (iterativo): " + arvore.contarNosComDoisFilhosIterativo());
         System.out.println("Resultado esperado: 1");
     }
 }

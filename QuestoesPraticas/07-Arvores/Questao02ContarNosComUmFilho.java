@@ -1,3 +1,5 @@
+import Unidade2.P02Pilhas.PilhaDinamica;
+
 /**
  * Questao 02 - Contar Nos com Apenas Um Filho.
  *
@@ -44,11 +46,11 @@ public class Questao02ContarNosComUmFilho {
             return 1 + Math.max(altura(nodo.esquerda), altura(nodo.direita));
         }
 
-        int contarNosComUmFilho() {
-            return contarNosComUmFilho(raiz);
+        int contarNosComUmFilhoRecursivo() {
+            return contarNosComUmFilhoRecursivo(raiz);
         }
 
-        private int contarNosComUmFilho(Nodo nodo) {
+        private int contarNosComUmFilhoRecursivo(Nodo nodo) {
             if (nodo == null) {
                 return 0;
             }
@@ -59,8 +61,36 @@ public class Questao02ContarNosComUmFilho {
 
             // A recursao soma a resposta do nodo atual com as subarvores.
             return quantidadeAtual
-                    + contarNosComUmFilho(nodo.esquerda)
-                    + contarNosComUmFilho(nodo.direita);
+                    + contarNosComUmFilhoRecursivo(nodo.esquerda)
+                    + contarNosComUmFilhoRecursivo(nodo.direita);
+        }
+
+        int contarNosComUmFilhoIterativo() {
+            if (raiz == null) {
+                return 0;
+            }
+
+            int quantidade = 0;
+            PilhaDinamica<Nodo> pilha = new PilhaDinamica<>();
+            pilha.empilhar(raiz);
+
+            while (!pilha.estaVazia()) {
+                Nodo atual = pilha.desempilhar();
+                boolean temApenasFilhoEsquerdo = atual.esquerda != null && atual.direita == null;
+                boolean temApenasFilhoDireito = atual.esquerda == null && atual.direita != null;
+
+                if (temApenasFilhoEsquerdo || temApenasFilhoDireito) {
+                    quantidade++;
+                }
+                if (atual.direita != null) {
+                    pilha.empilhar(atual.direita);
+                }
+                if (atual.esquerda != null) {
+                    pilha.empilhar(atual.esquerda);
+                }
+            }
+
+            return quantidade;
         }
     }
 
@@ -72,7 +102,8 @@ public class Questao02ContarNosComUmFilho {
         arvore.inserirEsquerda(esquerda, 3);
         arvore.inserirDireita(direita, 30);
 
-        System.out.println("Nos com apenas um filho: " + arvore.contarNosComUmFilho());
+        System.out.println("Nos com apenas um filho (recursivo): " + arvore.contarNosComUmFilhoRecursivo());
+        System.out.println("Nos com apenas um filho (iterativo): " + arvore.contarNosComUmFilhoIterativo());
         System.out.println("Altura da arvore: " + arvore.altura());
         System.out.println("Resultado esperado: 2");
     }

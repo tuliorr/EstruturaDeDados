@@ -1,3 +1,5 @@
+import Unidade2.P03Filas.FilaDinamica;
+
 /**
  * Questao 11 - Contar Subcategorias em Arvore N-aria.
  *
@@ -27,7 +29,7 @@ public class Questao11ContarSubcategorias {
         }
 
         boolean inserirFilho(String pai, String filho) {
-            Nodo nodoPai = buscar(pai);
+            Nodo nodoPai = buscarRecursivo(pai);
             if (nodoPai == null) {
                 return false;
             }
@@ -47,11 +49,11 @@ public class Questao11ContarSubcategorias {
             return true;
         }
 
-        Nodo buscar(String valor) {
-            return buscar(raiz, valor);
+        Nodo buscarRecursivo(String valor) {
+            return buscarRecursivo(raiz, valor);
         }
 
-        private Nodo buscar(Nodo nodo, String valor) {
+        private Nodo buscarRecursivo(Nodo nodo, String valor) {
             if (nodo == null) {
                 return null;
             }
@@ -61,7 +63,7 @@ public class Questao11ContarSubcategorias {
 
             Nodo filho = nodo.primeiroFilho;
             while (filho != null) {
-                Nodo encontrado = buscar(filho, valor);
+                Nodo encontrado = buscarRecursivo(filho, valor);
                 if (encontrado != null) {
                     return encontrado;
                 }
@@ -75,8 +77,48 @@ public class Questao11ContarSubcategorias {
             return primeiro == null ? segundo == null : primeiro.equals(segundo);
         }
 
-        int contarSubcategoriasDiretas(String categoria) {
-            Nodo nodo = buscar(categoria);
+        Nodo buscarIterativo(String valor) {
+            if (raiz == null) {
+                return null;
+            }
+
+            FilaDinamica<Nodo> fila = new FilaDinamica<>();
+            fila.enfileirar(raiz);
+
+            while (!fila.estaVazia()) {
+                Nodo atual = fila.desenfileirar();
+                if (mesmoValor(atual.valor, valor)) {
+                    return atual;
+                }
+
+                Nodo filho = atual.primeiroFilho;
+                while (filho != null) {
+                    fila.enfileirar(filho);
+                    filho = filho.proximoIrmao;
+                }
+            }
+
+            return null;
+        }
+
+        int contarSubcategoriasDiretasRecursivo(String categoria) {
+            Nodo nodo = buscarRecursivo(categoria);
+            if (nodo == null) {
+                return -1;
+            }
+
+            return contarIrmaosRecursivo(nodo.primeiroFilho);
+        }
+
+        private int contarIrmaosRecursivo(Nodo nodo) {
+            if (nodo == null) {
+                return 0;
+            }
+            return 1 + contarIrmaosRecursivo(nodo.proximoIrmao);
+        }
+
+        int contarSubcategoriasDiretasIterativo(String categoria) {
+            Nodo nodo = buscarIterativo(categoria);
             if (nodo == null) {
                 return -1;
             }
@@ -100,8 +142,10 @@ public class Questao11ContarSubcategorias {
         arvore.inserirFilho("Informatica", "Notebooks");
         arvore.inserirFilho("Informatica", "Monitores");
 
-        System.out.println("Subcategorias diretas de Informatica: "
-                + arvore.contarSubcategoriasDiretas("Informatica"));
+        System.out.println("Subcategorias diretas de Informatica (recursivo): "
+                + arvore.contarSubcategoriasDiretasRecursivo("Informatica"));
+        System.out.println("Subcategorias diretas de Informatica (iterativo): "
+                + arvore.contarSubcategoriasDiretasIterativo("Informatica"));
         System.out.println("Resultado esperado: 2");
     }
 }
