@@ -15,7 +15,7 @@ public class Questao08CaminhoAteValor {
         }
     }
 
-    private static class BST {
+    private static class ArvoreBinariaBusca {
         private Nodo raiz;
 
         void inserir(int valor) {
@@ -32,6 +32,17 @@ public class Questao08CaminhoAteValor {
                 nodo.direita = inserir(nodo.direita, valor);
             }
             return nodo;
+        }
+
+        boolean buscar(int valor) {
+            Nodo atual = raiz;
+            while (atual != null) {
+                if (valor == atual.valor) {
+                    return true;
+                }
+                atual = valor < atual.valor ? atual.esquerda : atual.direita;
+            }
+            return false;
         }
 
         boolean imprimirCaminhoAte(int valor) {
@@ -51,6 +62,8 @@ public class Questao08CaminhoAteValor {
             if (valor == nodo.valor) {
                 return true;
             }
+
+            // A propriedade da BST decide qual lado pode conter o valor.
             if (valor < nodo.valor) {
                 return imprimirCaminhoAte(nodo.esquerda, valor);
             }
@@ -59,7 +72,7 @@ public class Questao08CaminhoAteValor {
     }
 
     public static void main(String[] args) {
-        BST arvore = new BST();
+        ArvoreBinariaBusca arvore = new ArvoreBinariaBusca();
         int[] valores = { 40, 20, 60, 10, 30, 25 };
 
         for (int valor : valores) {

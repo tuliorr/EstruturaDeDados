@@ -16,28 +16,65 @@ public class Questao04ContarMaioresQueX {
         }
     }
 
-    public static int contarMaioresQue(Nodo nodo, int x) {
-        if (nodo == null) {
-            return 0;
+    private static class ArvoreBinaria {
+        private Nodo raiz;
+
+        Nodo inserirRaiz(int valor) {
+            raiz = new Nodo(valor);
+            return raiz;
         }
 
-        int quantidadeAtual = nodo.valor > x ? 1 : 0;
-        int quantidadeEsquerda = contarMaioresQue(nodo.esquerda, x);
-        int quantidadeDireita = contarMaioresQue(nodo.direita, x);
+        Nodo inserirEsquerda(Nodo pai, int valor) {
+            pai.esquerda = new Nodo(valor);
+            return pai.esquerda;
+        }
 
-        return quantidadeAtual + quantidadeEsquerda + quantidadeDireita;
+        Nodo inserirDireita(Nodo pai, int valor) {
+            pai.direita = new Nodo(valor);
+            return pai.direita;
+        }
+
+        int contarNos() {
+            return contarNos(raiz);
+        }
+
+        private int contarNos(Nodo nodo) {
+            if (nodo == null) {
+                return 0;
+            }
+            return 1 + contarNos(nodo.esquerda) + contarNos(nodo.direita);
+        }
+
+        int contarMaioresQue(int x) {
+            return contarMaioresQue(raiz, x);
+        }
+
+        private int contarMaioresQue(Nodo nodo, int x) {
+            if (nodo == null) {
+                return 0;
+            }
+
+            int quantidadeAtual = nodo.valor > x ? 1 : 0;
+
+            // Como nao estamos assumindo BST, os dois lados precisam ser avaliados.
+            return quantidadeAtual
+                    + contarMaioresQue(nodo.esquerda, x)
+                    + contarMaioresQue(nodo.direita, x);
+        }
     }
 
     public static void main(String[] args) {
-        Nodo raiz = new Nodo(8);
-        raiz.esquerda = new Nodo(3);
-        raiz.direita = new Nodo(10);
-        raiz.esquerda.esquerda = new Nodo(1);
-        raiz.esquerda.direita = new Nodo(6);
-        raiz.direita.direita = new Nodo(14);
+        ArvoreBinaria arvore = new ArvoreBinaria();
+        Nodo raiz = arvore.inserirRaiz(8);
+        Nodo esquerda = arvore.inserirEsquerda(raiz, 3);
+        Nodo direita = arvore.inserirDireita(raiz, 10);
+        arvore.inserirEsquerda(esquerda, 1);
+        arvore.inserirDireita(esquerda, 6);
+        arvore.inserirDireita(direita, 14);
 
         int x = 6;
-        System.out.println("Quantidade de valores maiores que " + x + ": " + contarMaioresQue(raiz, x));
+        System.out.println("Quantidade de valores maiores que " + x + ": " + arvore.contarMaioresQue(x));
+        System.out.println("Total de nos: " + arvore.contarNos());
         System.out.println("Resultado esperado: 3");
     }
 }

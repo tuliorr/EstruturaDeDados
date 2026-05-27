@@ -34,6 +34,17 @@ public class Questao12RankingPontuacoes {
             return nodo;
         }
 
+        boolean contemPontuacao(int pontuacao) {
+            Nodo atual = raiz;
+            while (atual != null) {
+                if (pontuacao == atual.valor) {
+                    return true;
+                }
+                atual = pontuacao < atual.valor ? atual.esquerda : atual.direita;
+            }
+            return false;
+        }
+
         void imprimirRanking() {
             imprimirDecrescente(raiz);
             System.out.println();
@@ -44,6 +55,7 @@ public class Questao12RankingPontuacoes {
                 return;
             }
 
+            // Pontuacoes maiores ficam na direita, entao aparecem primeiro.
             imprimirDecrescente(nodo.direita);
             System.out.print(nodo.valor + " ");
             imprimirDecrescente(nodo.esquerda);

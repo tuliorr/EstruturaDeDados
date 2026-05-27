@@ -15,7 +15,7 @@ public class Questao07OrdemDecrescente {
         }
     }
 
-    private static class BST {
+    private static class ArvoreBinariaBusca {
         private Nodo raiz;
 
         void inserir(int valor) {
@@ -34,6 +34,31 @@ public class Questao07OrdemDecrescente {
             return nodo;
         }
 
+        boolean buscar(int valor) {
+            Nodo atual = raiz;
+            while (atual != null) {
+                if (valor == atual.valor) {
+                    return true;
+                }
+                atual = valor < atual.valor ? atual.esquerda : atual.direita;
+            }
+            return false;
+        }
+
+        void imprimirCrescente() {
+            imprimirCrescente(raiz);
+            System.out.println();
+        }
+
+        private void imprimirCrescente(Nodo nodo) {
+            if (nodo == null) {
+                return;
+            }
+            imprimirCrescente(nodo.esquerda);
+            System.out.print(nodo.valor + " ");
+            imprimirCrescente(nodo.direita);
+        }
+
         void imprimirDecrescente() {
             imprimirDecrescente(raiz);
             System.out.println();
@@ -44,6 +69,7 @@ public class Questao07OrdemDecrescente {
                 return;
             }
 
+            // Na BST, visitar direita, raiz e esquerda gera ordem decrescente.
             imprimirDecrescente(nodo.direita);
             System.out.print(nodo.valor + " ");
             imprimirDecrescente(nodo.esquerda);
@@ -51,7 +77,7 @@ public class Questao07OrdemDecrescente {
     }
 
     public static void main(String[] args) {
-        BST arvore = new BST();
+        ArvoreBinariaBusca arvore = new ArvoreBinariaBusca();
         int[] valores = { 20, 10, 30, 5, 15, 25, 40 };
 
         for (int valor : valores) {

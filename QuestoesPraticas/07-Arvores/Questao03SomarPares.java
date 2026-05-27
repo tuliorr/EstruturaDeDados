@@ -15,31 +15,67 @@ public class Questao03SomarPares {
         }
     }
 
-    public static int somarPares(Nodo nodo) {
-        if (nodo == null) {
-            return 0;
+    private static class ArvoreBinaria {
+        private Nodo raiz;
+
+        Nodo inserirRaiz(int valor) {
+            raiz = new Nodo(valor);
+            return raiz;
         }
 
-        int somaAtual = 0;
-        if (nodo.valor % 2 == 0) {
-            somaAtual = nodo.valor;
+        Nodo inserirEsquerda(Nodo pai, int valor) {
+            pai.esquerda = new Nodo(valor);
+            return pai.esquerda;
         }
 
-        int somaEsquerda = somarPares(nodo.esquerda);
-        int somaDireita = somarPares(nodo.direita);
+        Nodo inserirDireita(Nodo pai, int valor) {
+            pai.direita = new Nodo(valor);
+            return pai.direita;
+        }
 
-        return somaAtual + somaEsquerda + somaDireita;
+        boolean buscar(int valor) {
+            return buscar(raiz, valor);
+        }
+
+        private boolean buscar(Nodo nodo, int valor) {
+            if (nodo == null) {
+                return false;
+            }
+            if (nodo.valor == valor) {
+                return true;
+            }
+            return buscar(nodo.esquerda, valor) || buscar(nodo.direita, valor);
+        }
+
+        int somarPares() {
+            return somarPares(raiz);
+        }
+
+        private int somarPares(Nodo nodo) {
+            if (nodo == null) {
+                return 0;
+            }
+
+            int somaAtual = 0;
+            if (nodo.valor % 2 == 0) {
+                somaAtual = nodo.valor;
+            }
+
+            // Todo nodo precisa ser visitado, pois uma arvore binaria comum nao e ordenada.
+            return somaAtual + somarPares(nodo.esquerda) + somarPares(nodo.direita);
+        }
     }
 
     public static void main(String[] args) {
-        Nodo raiz = new Nodo(8);
-        raiz.esquerda = new Nodo(3);
-        raiz.direita = new Nodo(10);
-        raiz.esquerda.esquerda = new Nodo(1);
-        raiz.direita.esquerda = new Nodo(6);
-        raiz.direita.direita = new Nodo(14);
+        ArvoreBinaria arvore = new ArvoreBinaria();
+        Nodo raiz = arvore.inserirRaiz(8);
+        Nodo esquerda = arvore.inserirEsquerda(raiz, 3);
+        Nodo direita = arvore.inserirDireita(raiz, 10);
+        arvore.inserirEsquerda(esquerda, 1);
+        arvore.inserirEsquerda(direita, 6);
+        arvore.inserirDireita(direita, 14);
 
-        System.out.println("Soma dos pares: " + somarPares(raiz));
+        System.out.println("Soma dos pares: " + arvore.somarPares());
         System.out.println("Resultado esperado: 38");
     }
 }

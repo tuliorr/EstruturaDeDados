@@ -16,8 +16,12 @@ public class Questao06SomarIntervaloBST {
         }
     }
 
-    private static class BST {
+    private static class ArvoreBinariaBusca {
         private Nodo raiz;
+
+        boolean estaVazia() {
+            return raiz == null;
+        }
 
         void inserir(int valor) {
             raiz = inserir(raiz, valor);
@@ -35,6 +39,17 @@ public class Questao06SomarIntervaloBST {
             return nodo;
         }
 
+        boolean buscar(int valor) {
+            Nodo atual = raiz;
+            while (atual != null) {
+                if (valor == atual.valor) {
+                    return true;
+                }
+                atual = valor < atual.valor ? atual.esquerda : atual.direita;
+            }
+            return false;
+        }
+
         int somarIntervalo(int min, int max) {
             return somarIntervalo(raiz, min, max);
         }
@@ -44,6 +59,7 @@ public class Questao06SomarIntervaloBST {
                 return 0;
             }
 
+            // Na BST, valores menores ficam a esquerda e maiores ficam a direita.
             if (nodo.valor < min) {
                 return somarIntervalo(nodo.direita, min, max);
             }
@@ -51,15 +67,14 @@ public class Questao06SomarIntervaloBST {
                 return somarIntervalo(nodo.esquerda, min, max);
             }
 
-            int somaEsquerda = somarIntervalo(nodo.esquerda, min, max);
-            int somaDireita = somarIntervalo(nodo.direita, min, max);
-
-            return nodo.valor + somaEsquerda + somaDireita;
+            return nodo.valor
+                    + somarIntervalo(nodo.esquerda, min, max)
+                    + somarIntervalo(nodo.direita, min, max);
         }
     }
 
     public static void main(String[] args) {
-        BST arvore = new BST();
+        ArvoreBinariaBusca arvore = new ArvoreBinariaBusca();
         int[] valores = { 20, 10, 30, 5, 15, 25, 40 };
 
         for (int valor : valores) {

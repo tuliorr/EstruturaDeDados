@@ -7,15 +7,15 @@ package Unidade3;
 public class HashMapGenerico<K, V> {
 
     // =========================
-    // Classe interna do no
+    // Classe interna do nodo
     // =========================
 
-    private static class No<K, V> {
+    private static class Nodo<K, V> {
         K chave;
         V valor;
-        No<K, V> proximo;
+        Nodo<K, V> proximo;
 
-        No(K chave, V valor) {
+        Nodo(K chave, V valor) {
             this.chave = chave;
             this.valor = valor;
         }
@@ -25,7 +25,7 @@ public class HashMapGenerico<K, V> {
     // Atributos
     // =========================
 
-    private Object[] tabela;
+    private Nodo<K, V>[] tabela;
     private int capacidade;
     private int nElementos;
     private static final double FATOR_CARGA_MAXIMO = 0.75;
@@ -34,12 +34,13 @@ public class HashMapGenerico<K, V> {
     // Construtor
     // =========================
 
+    @SuppressWarnings("unchecked")
     public HashMapGenerico(int capacidadeInicial) {
         if (capacidadeInicial <= 0) {
             throw new IllegalArgumentException("A capacidade deve ser positiva.");
         }
         this.capacidade = capacidadeInicial;
-        this.tabela = new Object[capacidadeInicial];
+        this.tabela = (Nodo<K, V>[]) new Nodo<?, ?>[capacidadeInicial];
         this.nElementos = 0;
     }
 
@@ -76,7 +77,7 @@ public class HashMapGenerico<K, V> {
 
     /**
      * Insere ou atualiza. Se a chave ja existe, mudamos o valor; se nao existe,
-     * criamos um novo no no inicio da lista daquele indice.
+     * criamos um novo nodo no inicio da lista daquele indice.
      */
     public void inserir(K chave, V valor) {
         if ((double) (nElementos + 1) / capacidade > FATOR_CARGA_MAXIMO) {
@@ -84,7 +85,7 @@ public class HashMapGenerico<K, V> {
         }
 
         int indice = hash(chave);
-        No<K, V> atual = no(indice);
+        Nodo<K, V> atual = tabela[indice];
         while (atual != null) {
             if (atual.chave.equals(chave)) {
                 atual.valor = valor;
@@ -93,8 +94,8 @@ public class HashMapGenerico<K, V> {
             atual = atual.proximo;
         }
 
-        No<K, V> novo = new No<>(chave, valor);
-        novo.proximo = no(indice);
+        Nodo<K, V> novo = new Nodo<>(chave, valor);
+        novo.proximo = tabela[indice];
         tabela[indice] = novo;
         nElementos++;
     }
@@ -103,19 +104,20 @@ public class HashMapGenerico<K, V> {
      * Ao crescer a tabela, todos os indices precisam ser recalculados porque o
      * modulo passa a usar uma nova capacidade.
      */
+    @SuppressWarnings("unchecked")
     private void redimensionar() {
-        Object[] tabelaAntiga = tabela;
+        Nodo<K, V>[] tabelaAntiga = tabela;
         int capacidadeAntiga = capacidade;
 
         capacidade *= 2;
-        tabela = new Object[capacidade];
+        tabela = (Nodo<K, V>[]) new Nodo<?, ?>[capacidade];
 
         for (int i = 0; i < capacidadeAntiga; i++) {
-            No<K, V> atual = no(tabelaAntiga[i]);
+            Nodo<K, V> atual = tabelaAntiga[i];
             while (atual != null) {
-                No<K, V> proximo = atual.proximo;
+                Nodo<K, V> proximo = atual.proximo;
                 int novoIndice = hash(atual.chave);
-                atual.proximo = no(novoIndice);
+                atual.proximo = tabela[novoIndice];
                 tabela[novoIndice] = atual;
                 atual = proximo;
             }
@@ -128,8 +130,8 @@ public class HashMapGenerico<K, V> {
 
     public boolean remover(K chave) {
         int indice = hash(chave);
-        No<K, V> atual = no(indice);
-        No<K, V> anterior = null;
+        Nodo<K, V> atual = tabela[indice];
+        Nodo<K, V> anterior = null;
 
         while (atual != null) {
             if (atual.chave.equals(chave)) {
@@ -152,7 +154,7 @@ public class HashMapGenerico<K, V> {
     // =========================
 
     public V buscar(K chave) {
-        No<K, V> atual = no(hash(chave));
+        Nodo<K, V> atual = tabela[hash(chave)];
         while (atual != null) {
             if (atual.chave.equals(chave)) {
                 return atual.valor;
@@ -160,16 +162,6 @@ public class HashMapGenerico<K, V> {
             atual = atual.proximo;
         }
         return null;
-    }
-
-    @SuppressWarnings("unchecked")
-    private No<K, V> no(int indice) {
-        return (No<K, V>) tabela[indice];
-    }
-
-    @SuppressWarnings("unchecked")
-    private No<K, V> no(Object valor) {
-        return (No<K, V>) valor;
     }
 
     // =========================
@@ -183,7 +175,7 @@ public class HashMapGenerico<K, V> {
 
         for (int i = 0; i < capacidade; i++) {
             sb.append(i).append(": ");
-            No<K, V> atual = no(i);
+            Nodo<K, V> atual = tabela[i];
             if (atual == null) {
                 sb.append("[vazio]");
             }

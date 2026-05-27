@@ -1,84 +1,141 @@
 /**
  * Questao 08 - Cadastro por Matricula.
  *
- * Usa uma tabela hash simples para cadastrar alunos por matricula.
+ * Usa uma tabela hash para cadastrar alunos por matricula.
  */
 public class Questao08CadastroMatricula {
 
     private static class Aluno {
         int matricula;
         String nome;
-        Aluno proximo;
 
         Aluno(int matricula, String nome) {
             this.matricula = matricula;
             this.nome = nome;
         }
+
+        @Override
+        public String toString() {
+            return matricula + " - " + nome;
+        }
     }
 
-    private static class CadastroAlunos {
-        private Aluno[] tabela;
+    private static class Nodo<K, V> {
+        K chave;
+        V valor;
+        Nodo<K, V> proximo;
 
-        CadastroAlunos(int capacidade) {
-            tabela = new Aluno[capacidade];
+        Nodo(K chave, V valor) {
+            this.chave = chave;
+            this.valor = valor;
         }
+    }
 
-        private int hash(int matricula) {
-            return Math.floorMod(matricula, tabela.length);
-        }
+    private static class TabelaHash<K, V> {
+        private Nodo<K, V>[] tabela;
+        private int nElementos;
 
-        void inserir(int matricula, String nome) {
-            int indice = hash(matricula);
-            Aluno aluno = buscarNodo(matricula);
-
-            if (aluno != null) {
-                aluno.nome = nome;
-                return;
+        @SuppressWarnings("unchecked")
+        TabelaHash(int capacidade) {
+            if (capacidade <= 0) {
+                throw new IllegalArgumentException("A capacidade deve ser positiva.");
             }
-
-            Aluno novo = new Aluno(matricula, nome);
-            novo.proximo = tabela[indice];
-            tabela[indice] = novo;
+            tabela = (Nodo<K, V>[]) new Nodo<?, ?>[capacidade];
         }
 
-        String buscar(int matricula) {
-            Aluno aluno = buscarNodo(matricula);
-            return aluno == null ? null : aluno.nome;
+        int tamanho() {
+            return nElementos;
         }
 
-        private Aluno buscarNodo(int matricula) {
-            int indice = hash(matricula);
-            Aluno atual = tabela[indice];
+        double fatorDeCarga() {
+            return (double) nElementos / tabela.length;
+        }
+
+        private int hash(K chave) {
+            if (chave == null) {
+                throw new IllegalArgumentException("A chave nao pode ser null.");
+            }
+            return Math.floorMod(chave.hashCode(), tabela.length);
+        }
+
+        void inserir(K chave, V valor) {
+            int indice = hash(chave);
+            Nodo<K, V> atual = tabela[indice];
 
             while (atual != null) {
-                if (atual.matricula == matricula) {
-                    return atual;
+                if (atual.chave.equals(chave)) {
+                    atual.valor = valor;
+                    return;
                 }
                 atual = atual.proximo;
             }
 
+            Nodo<K, V> novo = new Nodo<>(chave, valor);
+            novo.proximo = tabela[indice];
+            tabela[indice] = novo;
+            nElementos++;
+        }
+
+        V buscar(K chave) {
+            Nodo<K, V> atual = tabela[hash(chave)];
+            while (atual != null) {
+                if (atual.chave.equals(chave)) {
+                    return atual.valor;
+                }
+                atual = atual.proximo;
+            }
             return null;
         }
 
-        boolean remover(int matricula) {
-            int indice = hash(matricula);
-            Aluno atual = tabela[indice];
-            Aluno anterior = null;
+        boolean remover(K chave) {
+            int indice = hash(chave);
+            Nodo<K, V> atual = tabela[indice];
+            Nodo<K, V> anterior = null;
 
             while (atual != null) {
-                if (atual.matricula == matricula) {
+                if (atual.chave.equals(chave)) {
                     if (anterior == null) {
                         tabela[indice] = atual.proximo;
                     } else {
                         anterior.proximo = atual.proximo;
                     }
+                    nElementos--;
                     return true;
                 }
                 anterior = atual;
                 atual = atual.proximo;
             }
-
             return false;
+        }
+    }
+
+    private static class CadastroAlunos {
+        private TabelaHash<Integer, Aluno> alunos;
+
+        CadastroAlunos(int capacidade) {
+            alunos = new TabelaHash<>(capacidade);
+        }
+
+        void inserir(int matricula, String nome) {
+            // A matricula e a chave; o objeto Aluno e o valor associado.
+            alunos.inserir(matricula, new Aluno(matricula, nome));
+        }
+
+        String buscar(int matricula) {
+            Aluno aluno = alunos.buscar(matricula);
+            return aluno == null ? null : aluno.nome;
+        }
+
+        boolean remover(int matricula) {
+            return alunos.remover(matricula);
+        }
+
+        int tamanho() {
+            return alunos.tamanho();
+        }
+
+        double fatorDeCarga() {
+            return alunos.fatorDeCarga();
         }
     }
 
@@ -90,6 +147,7 @@ public class Questao08CadastroMatricula {
 
         System.out.println("Aluno encontrado: " + cadastro.buscar(2024002));
         System.out.println("Aluno 2024001 removido: " + cadastro.remover(2024001));
+        System.out.println("Quantidade cadastrada: " + cadastro.tamanho());
         System.out.println("Resultado esperado: Bruno / true");
     }
 }

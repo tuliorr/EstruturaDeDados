@@ -6,71 +6,84 @@
  */
 public class Questao10RehashSimplificado {
 
-    private static class Nodo {
-        int valor;
-        Nodo proximo;
+    private static class Nodo<T> {
+        T valor;
+        Nodo<T> proximo;
 
-        Nodo(int valor) {
+        Nodo(T valor) {
             this.valor = valor;
         }
     }
 
-    private static class TabelaHash {
-        private Nodo[] tabela;
+    private static class TabelaHash<T> {
+        private Nodo<T>[] tabela;
         private int nElementos;
+        private static final double FATOR_MAXIMO = 0.75;
 
+        @SuppressWarnings("unchecked")
         TabelaHash(int capacidade) {
-            tabela = new Nodo[capacidade];
+            if (capacidade <= 0) {
+                throw new IllegalArgumentException("A capacidade deve ser positiva.");
+            }
+            tabela = (Nodo<T>[]) new Nodo<?>[capacidade];
         }
 
         int capacidade() {
             return tabela.length;
         }
 
-        private int hash(int valor) {
-            return Math.floorMod(valor, tabela.length);
+        int tamanho() {
+            return nElementos;
         }
 
         double fatorDeCarga() {
             return (double) nElementos / tabela.length;
         }
 
-        void inserir(int valor) {
+        private int hash(T valor) {
+            if (valor == null) {
+                throw new IllegalArgumentException("O valor nao pode ser null.");
+            }
+            return Math.floorMod(valor.hashCode(), tabela.length);
+        }
+
+        void inserir(T valor) {
             inserirSemRehash(valor);
 
-            if (fatorDeCarga() > 0.75) {
+            if (fatorDeCarga() > FATOR_MAXIMO) {
                 rehash();
             }
         }
 
-        private void inserirSemRehash(int valor) {
+        private void inserirSemRehash(T valor) {
             int indice = hash(valor);
-            Nodo novo = new Nodo(valor);
+            Nodo<T> novo = new Nodo<>(valor);
             novo.proximo = tabela[indice];
             tabela[indice] = novo;
             nElementos++;
         }
 
+        @SuppressWarnings("unchecked")
         private void rehash() {
-            Nodo[] tabelaAntiga = tabela;
-            tabela = new Nodo[tabelaAntiga.length * 2];
+            Nodo<T>[] tabelaAntiga = tabela;
+            tabela = (Nodo<T>[]) new Nodo<?>[tabelaAntiga.length * 2];
             nElementos = 0;
 
-            for (Nodo inicio : tabelaAntiga) {
-                Nodo atual = inicio;
+            for (Nodo<T> inicio : tabelaAntiga) {
+                Nodo<T> atual = inicio;
                 while (atual != null) {
+                    // O indice muda porque o modulo agora usa a nova capacidade.
                     inserirSemRehash(atual.valor);
                     atual = atual.proximo;
                 }
             }
         }
 
-        boolean buscar(int valor) {
-            int indice = hash(valor);
-            Nodo atual = tabela[indice];
+        boolean buscar(T valor) {
+            Nodo<T> atual = tabela[hash(valor)];
 
             while (atual != null) {
-                if (atual.valor == valor) {
+                if (atual.valor.equals(valor)) {
                     return true;
                 }
                 atual = atual.proximo;
@@ -78,10 +91,31 @@ public class Questao10RehashSimplificado {
 
             return false;
         }
+
+        boolean remover(T valor) {
+            int indice = hash(valor);
+            Nodo<T> atual = tabela[indice];
+            Nodo<T> anterior = null;
+
+            while (atual != null) {
+                if (atual.valor.equals(valor)) {
+                    if (anterior == null) {
+                        tabela[indice] = atual.proximo;
+                    } else {
+                        anterior.proximo = atual.proximo;
+                    }
+                    nElementos--;
+                    return true;
+                }
+                anterior = atual;
+                atual = atual.proximo;
+            }
+            return false;
+        }
     }
 
     public static void main(String[] args) {
-        TabelaHash hash = new TabelaHash(4);
+        TabelaHash<Integer> hash = new TabelaHash<>(4);
         System.out.println("Capacidade antes do rehash: " + hash.capacidade());
 
         int[] valores = { 1, 2, 3, 4 };

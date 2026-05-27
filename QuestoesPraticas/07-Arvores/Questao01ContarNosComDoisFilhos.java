@@ -1,7 +1,7 @@
 /**
  * Questao 01 - Contar Nos com Dois Filhos.
  *
- * Conta quantos nos de uma arvore binaria possuem filho esquerdo e filho
+ * Conta quantos nodos de uma arvore binaria possuem filho esquerdo e filho
  * direito.
  */
 public class Questao01ContarNosComDoisFilhos {
@@ -16,29 +16,58 @@ public class Questao01ContarNosComDoisFilhos {
         }
     }
 
-    public static int contarNosComDoisFilhos(Nodo nodo) {
-        if (nodo == null) {
-            return 0;
+    private static class ArvoreBinaria {
+        private Nodo raiz;
+
+        Nodo inserirRaiz(int valor) {
+            raiz = new Nodo(valor);
+            return raiz;
         }
 
-        int quantidadeAtual = 0;
-        if (nodo.esquerda != null && nodo.direita != null) {
-            quantidadeAtual = 1;
+        Nodo inserirEsquerda(Nodo pai, int valor) {
+            pai.esquerda = new Nodo(valor);
+            return pai.esquerda;
         }
 
-        int quantidadeEsquerda = contarNosComDoisFilhos(nodo.esquerda);
-        int quantidadeDireita = contarNosComDoisFilhos(nodo.direita);
+        Nodo inserirDireita(Nodo pai, int valor) {
+            pai.direita = new Nodo(valor);
+            return pai.direita;
+        }
 
-        return quantidadeAtual + quantidadeEsquerda + quantidadeDireita;
+        boolean estaVazia() {
+            return raiz == null;
+        }
+
+        int contarNosComDoisFilhos() {
+            return contarNosComDoisFilhos(raiz);
+        }
+
+        private int contarNosComDoisFilhos(Nodo nodo) {
+            if (nodo == null) {
+                return 0;
+            }
+
+            // Um nodo tem dois filhos quando as duas referencias foram preenchidas.
+            int quantidadeAtual = 0;
+            if (nodo.esquerda != null && nodo.direita != null) {
+                quantidadeAtual = 1;
+            }
+
+            int quantidadeEsquerda = contarNosComDoisFilhos(nodo.esquerda);
+            int quantidadeDireita = contarNosComDoisFilhos(nodo.direita);
+
+            return quantidadeAtual + quantidadeEsquerda + quantidadeDireita;
+        }
     }
 
     public static void main(String[] args) {
-        Nodo raiz = new Nodo(10);
-        raiz.esquerda = new Nodo(5);
-        raiz.direita = new Nodo(20);
-        raiz.esquerda.esquerda = new Nodo(3);
+        ArvoreBinaria arvore = new ArvoreBinaria();
+        Nodo raiz = arvore.inserirRaiz(10);
+        Nodo esquerda = arvore.inserirEsquerda(raiz, 5);
+        arvore.inserirDireita(raiz, 20);
+        arvore.inserirEsquerda(esquerda, 3);
 
-        System.out.println("Nos com dois filhos: " + contarNosComDoisFilhos(raiz));
+        System.out.println("Nos com dois filhos: " + arvore.contarNosComDoisFilhos());
         System.out.println("Resultado esperado: 1");
     }
 }

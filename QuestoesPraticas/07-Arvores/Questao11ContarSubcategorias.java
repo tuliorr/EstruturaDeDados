@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 /**
  * Questao 11 - Contar Subcategorias em Arvore N-aria.
  *
@@ -24,8 +22,12 @@ public class Questao11ContarSubcategorias {
             raiz = new Nodo(valor);
         }
 
+        boolean estaVazia() {
+            return raiz == null;
+        }
+
         boolean inserirFilho(String pai, String filho) {
-            Nodo nodoPai = buscar(raiz, pai);
+            Nodo nodoPai = buscar(pai);
             if (nodoPai == null) {
                 return false;
             }
@@ -36,6 +38,7 @@ public class Questao11ContarSubcategorias {
                 return true;
             }
 
+            // Irmaos formam uma lista encadeada simples de filhos do mesmo pai.
             Nodo atual = nodoPai.primeiroFilho;
             while (atual.proximoIrmao != null) {
                 atual = atual.proximoIrmao;
@@ -44,11 +47,15 @@ public class Questao11ContarSubcategorias {
             return true;
         }
 
+        Nodo buscar(String valor) {
+            return buscar(raiz, valor);
+        }
+
         private Nodo buscar(Nodo nodo, String valor) {
             if (nodo == null) {
                 return null;
             }
-            if (Objects.equals(nodo.valor, valor)) {
+            if (mesmoValor(nodo.valor, valor)) {
                 return nodo;
             }
 
@@ -64,8 +71,12 @@ public class Questao11ContarSubcategorias {
             return null;
         }
 
+        private boolean mesmoValor(String primeiro, String segundo) {
+            return primeiro == null ? segundo == null : primeiro.equals(segundo);
+        }
+
         int contarSubcategoriasDiretas(String categoria) {
-            Nodo nodo = buscar(raiz, categoria);
+            Nodo nodo = buscar(categoria);
             if (nodo == null) {
                 return -1;
             }
