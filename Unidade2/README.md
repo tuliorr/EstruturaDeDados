@@ -37,3 +37,15 @@ remover, buscar e acessar elementos.
 - Diferença entre acesso livre, acesso ao topo e acesso à frente.
 - Crescimento estático versus crescimento dinâmico.
 
+## Política de `null` e Exceções
+
+As estruturas genéricas desta unidade não armazenam elementos `null`. Uma
+tentativa de inserção inválida lança `IllegalArgumentException` antes de alterar a
+estrutura. Nas listas, buscar `null` retorna `-1`, pois esse valor nunca estará
+armazenado.
+
+Remover ou consultar uma extremidade de uma estrutura vazia lança
+`IllegalStateException`. Já uma posição numérica inválida em listas lança
+`IndexOutOfBoundsException`. Separar esses casos ajuda a distinguir um estado
+incompatível da estrutura de um índice fora do intervalo permitido.
+

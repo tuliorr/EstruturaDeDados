@@ -5,7 +5,8 @@ import java.util.Objects;
 import Unidade2.P03Filas.FilaDinamica;
 
 /**
- * Arvore N-aria generica. Cada nodo pode ter qualquer quantidade de filhos.
+ * Arvore N-aria generica. Cada nodo pode ter qualquer quantidade de filhos e
+ * cada valor pode aparecer apenas uma vez.
  *
  * A representacao usada aqui e "primeiro filho / proximo irmao": cada nodo
  * guarda uma referencia para seu primeiro filho e outra para o proximo filho do
@@ -79,7 +80,7 @@ public class ArvoreNaria<T> {
      * e ligamos o novo nodo como ultimo filho.
      */
     public boolean inserirFilho(T elemento, T pai) {
-        if (elemento == null || pai == null) {
+        if (elemento == null || pai == null || contem(elemento)) {
             return false;
         }
 

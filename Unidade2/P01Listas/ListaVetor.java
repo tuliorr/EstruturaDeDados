@@ -72,6 +72,10 @@ public class ListaVetor {
         nElementos++;
     }
 
+    /**
+     * Insere mantendo a ordem crescente. Os elementos que ja estao na lista
+     * devem estar previamente em ordem crescente.
+     */
     public void insereOrdenado(int elemento) {
         int posicao = 0;
         while (posicao < nElementos && vetor[posicao] < elemento) {
@@ -85,10 +89,16 @@ public class ListaVetor {
     // =========================
 
     public int removeInicio() {
+        if (estaVazia()) {
+            throw new IllegalStateException("A lista esta vazia.");
+        }
         return removePosicao(0);
     }
 
     public int removeFinal() {
+        if (estaVazia()) {
+            throw new IllegalStateException("A lista esta vazia.");
+        }
         return removePosicao(nElementos - 1);
     }
 

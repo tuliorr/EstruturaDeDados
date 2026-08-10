@@ -21,11 +21,45 @@ Unidade2/
   P04FilasPrioridade/
 Unidade3/
 Unidade4/
+QuestoesPraticas/
+  01-Recursividade/
+  02-Listas/
+  03-Pilhas/
+  04-Filas/
+  05-FilasPrioridade/
+  06-Hash/
+  07-Arvores/
 ```
 
 Cada unidade possui um README próprio com a ordem sugerida de estudo. As pastas
 da Unidade 2 também possuem READMEs específicos, porque essa unidade concentra
 muitas estruturas lineares.
+
+## Como Ler as Complexidades
+
+Complexidade descreve como o trabalho de um algoritmo cresce quando a entrada
+aumenta. Ela não mede segundos exatos: permite comparar algoritmos sem depender
+do computador usado. Neste material:
+
+- `n` costuma representar a quantidade de elementos;
+- `m` representa a capacidade de uma tabela;
+- `h` representa a altura de uma árvore;
+- complexidade de tempo conta o crescimento das operações realizadas;
+- complexidade de espaço conta a memória auxiliar usada pelo algoritmo.
+
+Quando uma tabela não indicar outro caso, o valor representa o **pior caso**. Em
+hashing também mostramos o caso médio, que pressupõe boa distribuição das
+chaves. Um custo **amortizado** distribui uma operação ocasionalmente cara, como
+redimensionar um vetor, entre várias operações baratas.
+
+| Ordem | Leitura intuitiva | Exemplo típico |
+|---|---|---|
+| `O(1)` | constante | consultar o topo de uma pilha |
+| `O(log n)` | cresce lentamente | busca em árvore balanceada |
+| `O(n)` | percorre os elementos uma vez | busca sequencial |
+| `O(n log n)` | divide e processa os grupos | ordenações eficientes |
+| `O(n²)` | compara muitos pares | dois laços aninhados |
+| `O(2ⁿ)` | dobra a cada novo nível | recursão ingênua com duas chamadas |
 
 ## Conteúdo da Disciplina
 

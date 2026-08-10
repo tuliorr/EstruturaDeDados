@@ -162,11 +162,11 @@ Dado um vetor de inteiros, implemente um método que conte quantos valores
 diferentes aparecem mais de uma vez.
 
 O resultado deve considerar o valor, não a quantidade total de repetições. Se o
-numero `7` aparece três vezes, ele conta apenas como um valor repetido.
+número `7` aparece três vezes, ele conta apenas como um valor repetido.
 
 ### Dica
 
-Use uma estrutura de hash para guardar a frequência de cada numero. Depois
+Use uma estrutura de hash para guardar a frequência de cada número. Depois
 percorra as frequências e conte quantas são maiores que `1`.
 
 ### Objetivo de aprendizagem

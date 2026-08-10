@@ -44,6 +44,7 @@ public class FilaDinamica<T> {
     // =========================
 
     public void enfileirar(T elemento) {
+        validarElemento(elemento);
         Nodo novo = new Nodo(elemento);
 
         if (estaVazia()) {
@@ -75,6 +76,12 @@ public class FilaDinamica<T> {
             throw new IllegalStateException("A fila esta vazia.");
         }
         return inicio.elemento;
+    }
+
+    private void validarElemento(T elemento) {
+        if (elemento == null) {
+            throw new IllegalArgumentException("O elemento nao pode ser null.");
+        }
     }
 
     // =========================

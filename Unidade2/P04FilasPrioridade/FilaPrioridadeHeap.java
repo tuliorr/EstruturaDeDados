@@ -48,6 +48,7 @@ public class FilaPrioridadeHeap<T extends Comparable<T>> {
     // =========================
 
     public void enfileirar(T elemento) {
+        validarElemento(elemento);
         if (estaCheia()) {
             throw new IllegalStateException("A fila esta cheia.");
         }
@@ -118,6 +119,12 @@ public class FilaPrioridadeHeap<T extends Comparable<T>> {
     @SuppressWarnings("unchecked")
     private T elemento(int indice) {
         return (T) heap[indice];
+    }
+
+    private void validarElemento(T elemento) {
+        if (elemento == null) {
+            throw new IllegalArgumentException("O elemento nao pode ser null.");
+        }
     }
 
     // =========================

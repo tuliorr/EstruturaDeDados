@@ -45,6 +45,7 @@ public class FilaPrioridadeNaoOrdenada<T extends Comparable<T>> {
     // =========================
 
     public void enfileirar(T elemento) {
+        validarElemento(elemento);
         Nodo novo = new Nodo(elemento);
 
         if (estaVazia()) {
@@ -100,6 +101,12 @@ public class FilaPrioridadeNaoOrdenada<T extends Comparable<T>> {
             fim = nodo.anterior;
         }
         nElementos--;
+    }
+
+    private void validarElemento(T elemento) {
+        if (elemento == null) {
+            throw new IllegalArgumentException("O elemento nao pode ser null.");
+        }
     }
 
     // =========================

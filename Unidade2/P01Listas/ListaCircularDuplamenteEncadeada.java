@@ -45,6 +45,7 @@ public class ListaCircularDuplamenteEncadeada<T extends Comparable<T>> {
     // =========================
 
     public void insereInicio(T elemento) {
+        validarElemento(elemento);
         Nodo novo = new Nodo(elemento);
 
         if (estaVazia()) {
@@ -63,6 +64,7 @@ public class ListaCircularDuplamenteEncadeada<T extends Comparable<T>> {
     }
 
     public void insereFinal(T elemento) {
+        validarElemento(elemento);
         if (estaVazia()) {
             insereInicio(elemento);
             return;
@@ -77,7 +79,12 @@ public class ListaCircularDuplamenteEncadeada<T extends Comparable<T>> {
         nElementos++;
     }
 
+    /**
+     * Insere mantendo a ordem crescente. Os elementos que ja estao na lista
+     * devem estar previamente em ordem crescente.
+     */
     public void insereOrdenado(T elemento) {
+        validarElemento(elemento);
         if (estaVazia() || elemento.compareTo(inicio.elemento) <= 0) {
             insereInicio(elemento);
             return;
@@ -151,6 +158,9 @@ public class ListaCircularDuplamenteEncadeada<T extends Comparable<T>> {
     // =========================
 
     public int busca(T elemento) {
+        if (elemento == null) {
+            return -1;
+        }
         Nodo atual = inicio;
         for (int i = 0; i < nElementos; i++) {
             if (atual.elemento.equals(elemento)) {
@@ -171,6 +181,12 @@ public class ListaCircularDuplamenteEncadeada<T extends Comparable<T>> {
             atual = atual.proximo;
         }
         return atual.elemento;
+    }
+
+    private void validarElemento(T elemento) {
+        if (elemento == null) {
+            throw new IllegalArgumentException("O elemento nao pode ser null.");
+        }
     }
 
     // =========================

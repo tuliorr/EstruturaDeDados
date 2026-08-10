@@ -9,11 +9,13 @@ public class Questao12RankingPontuacoes {
 
     private static class Nodo {
         int valor;
+        int frequencia;
         Nodo esquerda;
         Nodo direita;
 
         Nodo(int valor) {
             this.valor = valor;
+            this.frequencia = 1;
         }
     }
 
@@ -32,6 +34,8 @@ public class Questao12RankingPontuacoes {
                 nodo.esquerda = inserir(nodo.esquerda, valor);
             } else if (valor > nodo.valor) {
                 nodo.direita = inserir(nodo.direita, valor);
+            } else {
+                nodo.frequencia++;
             }
             return nodo;
         }
@@ -59,8 +63,14 @@ public class Questao12RankingPontuacoes {
 
             // Pontuacoes maiores ficam na direita, entao aparecem primeiro.
             imprimirDecrescenteRecursivo(nodo.direita);
-            System.out.print(nodo.valor + " ");
+            imprimirPontuacao(nodo);
             imprimirDecrescenteRecursivo(nodo.esquerda);
+        }
+
+        private void imprimirPontuacao(Nodo nodo) {
+            for (int i = 0; i < nodo.frequencia; i++) {
+                System.out.print(nodo.valor + " ");
+            }
         }
 
         void imprimirRankingIterativo() {
@@ -74,7 +84,7 @@ public class Questao12RankingPontuacoes {
                 }
 
                 atual = pilha.desempilhar();
-                System.out.print(atual.valor + " ");
+                imprimirPontuacao(atual);
                 atual = atual.esquerda;
             }
             System.out.println();
@@ -83,7 +93,7 @@ public class Questao12RankingPontuacoes {
 
     public static void main(String[] args) {
         Ranking ranking = new Ranking();
-        int[] pontuacoes = { 80, 95, 70, 100, 85 };
+        int[] pontuacoes = { 80, 95, 70, 100, 85, 95, 80 };
 
         for (int pontuacao : pontuacoes) {
             ranking.inserirPontuacao(pontuacao);
@@ -93,6 +103,6 @@ public class Questao12RankingPontuacoes {
         ranking.imprimirRankingRecursivo();
         System.out.print("Ranking (iterativo): ");
         ranking.imprimirRankingIterativo();
-        System.out.println("Resultado esperado: 100 95 85 80 70");
+        System.out.println("Resultado esperado: 100 95 95 85 80 80 70");
     }
 }

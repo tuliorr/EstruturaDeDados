@@ -45,6 +45,7 @@ public class ListaDuplamenteEncadeada<T extends Comparable<T>> {
     // =========================
 
     public void insereInicio(T elemento) {
+        validarElemento(elemento);
         Nodo novo = new Nodo(elemento);
         novo.proximo = inicio;
 
@@ -58,6 +59,7 @@ public class ListaDuplamenteEncadeada<T extends Comparable<T>> {
     }
 
     public void insereFinal(T elemento) {
+        validarElemento(elemento);
         Nodo novo = new Nodo(elemento);
         novo.anterior = fim;
 
@@ -71,6 +73,7 @@ public class ListaDuplamenteEncadeada<T extends Comparable<T>> {
     }
 
     public void inserePosicao(T elemento, int posicao) {
+        validarElemento(elemento);
         validarPosicaoInsercao(posicao);
 
         if (posicao == 0) {
@@ -91,7 +94,12 @@ public class ListaDuplamenteEncadeada<T extends Comparable<T>> {
         nElementos++;
     }
 
+    /**
+     * Insere mantendo a ordem crescente. Os elementos que ja estao na lista
+     * devem estar previamente em ordem crescente.
+     */
     public void insereOrdenado(T elemento) {
+        validarElemento(elemento);
         int posicao = 0;
         Nodo atual = inicio;
         while (atual != null && atual.elemento.compareTo(elemento) < 0) {
@@ -165,6 +173,9 @@ public class ListaDuplamenteEncadeada<T extends Comparable<T>> {
     // =========================
 
     public int busca(T elemento) {
+        if (elemento == null) {
+            return -1;
+        }
         Nodo atual = inicio;
         int posicao = 0;
 
@@ -205,6 +216,12 @@ public class ListaDuplamenteEncadeada<T extends Comparable<T>> {
     private void validarPosicaoInsercao(int posicao) {
         if (posicao < 0 || posicao > nElementos) {
             throw new IndexOutOfBoundsException("Posicao invalida para insercao.");
+        }
+    }
+
+    private void validarElemento(T elemento) {
+        if (elemento == null) {
+            throw new IllegalArgumentException("O elemento nao pode ser null.");
         }
     }
 

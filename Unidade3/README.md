@@ -23,12 +23,20 @@ colisões, que acontecem quando chaves diferentes produzem o mesmo índice.
    a estrutura tenta a próxima posição. Também apresenta o conceito de lápide
    para remoção.
 
-4. `HashComEncadeamento.java`
+4. `HashSondagemQuadratica.java`
+
+   Também usa endereçamento aberto, mas a distância da tentativa cresce ao
+   quadrado. O exemplo usa capacidade prima e fator de carga máximo `0,5` para
+   garantir que a sequência de tentativas encontre uma posição disponível.
+   Para a tentativa `i`, calcula `h(i) = (floorMod(chave, m) + i²) % m`, com
+   `i` variando de `0` a `m/2` e `i²` calculado em `long`.
+
+5. `HashComEncadeamento.java`
 
    Resolve colisões com listas encadeadas em cada índice. Em vez de procurar
    outra posição, todos os elementos que colidem ficam na lista daquele índice.
 
-5. `HashMapGenerico.java`
+6. `HashMapGenerico.java`
 
    Implementa um mapa chave-valor com encadeamento e redimensionamento. É o
    exemplo mais próximo do uso cotidiano de uma tabela hash.
@@ -44,3 +52,18 @@ colisões, que acontecem quando chaves diferentes produzem o mesmo índice.
   Por exemplo, se `hash(18) = 18`, então em uma tabela de tamanho `10` o índice
   é `18 % 10 = 8`; depois de redimensionar para tamanho `20`, o mesmo elemento
   passa para o índice `18 % 20 = 18`.
+
+## Complexidades
+
+| Estrutura/operação | Caso médio | Pior caso | Observação |
+|---|---:|---:|---|
+| Hash simples | `O(1)` | `O(1)` | uma colisão substitui o valor anterior |
+| Sondagem linear | `O(1)` | `O(m)` | pode formar agrupamentos consecutivos |
+| Sondagem quadrática | `O(1)` | `O(m)` | exige as regras de capacidade e carga do exemplo |
+| Encadeamento | `O(1)` | `O(n)` | o pior caso concentra tudo em um balde |
+| Mapa: buscar/remover | `O(1)` | `O(n)` | depende da distribuição das chaves |
+| Mapa: inserir | `O(1)` amortizado | `O(n)` | o rehash ocasional percorre todas as entradas |
+
+As tabelas hash usam espaço `O(m + n)` com encadeamento e `O(m)` com
+endereçamento aberto. O caso médio pressupõe uma função hash que distribua bem
+as chaves.

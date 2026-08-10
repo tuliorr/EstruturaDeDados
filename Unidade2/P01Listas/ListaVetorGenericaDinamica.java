@@ -75,6 +75,7 @@ public class ListaVetorGenericaDinamica<T extends Comparable<T>> {
     }
 
     public void inserePosicao(T elemento, int posicao) {
+        validarElemento(elemento);
         validarPosicaoInsercao(posicao);
         garantirCapacidade();
 
@@ -85,7 +86,12 @@ public class ListaVetorGenericaDinamica<T extends Comparable<T>> {
         nElementos++;
     }
 
+    /**
+     * Insere mantendo a ordem crescente. Os elementos que ja estao na lista
+     * devem estar previamente em ordem crescente.
+     */
     public void insereOrdenado(T elemento) {
+        validarElemento(elemento);
         int posicao = 0;
         while (posicao < nElementos && vetor[posicao].compareTo(elemento) < 0) {
             posicao++;
@@ -98,10 +104,16 @@ public class ListaVetorGenericaDinamica<T extends Comparable<T>> {
     // =========================
 
     public T removeInicio() {
+        if (estaVazia()) {
+            throw new IllegalStateException("A lista esta vazia.");
+        }
         return removePosicao(0);
     }
 
     public T removeFinal() {
+        if (estaVazia()) {
+            throw new IllegalStateException("A lista esta vazia.");
+        }
         return removePosicao(nElementos - 1);
     }
 
@@ -129,6 +141,9 @@ public class ListaVetorGenericaDinamica<T extends Comparable<T>> {
     // =========================
 
     public int busca(T elemento) {
+        if (elemento == null) {
+            return -1;
+        }
         for (int i = 0; i < nElementos; i++) {
             if (vetor[i].equals(elemento)) {
                 return i;
@@ -145,6 +160,12 @@ public class ListaVetorGenericaDinamica<T extends Comparable<T>> {
     private void validarPosicaoInsercao(int posicao) {
         if (posicao < 0 || posicao > nElementos) {
             throw new IndexOutOfBoundsException("Posicao invalida para insercao.");
+        }
+    }
+
+    private void validarElemento(T elemento) {
+        if (elemento == null) {
+            throw new IllegalArgumentException("O elemento nao pode ser null.");
         }
     }
 

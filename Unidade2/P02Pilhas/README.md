@@ -25,3 +25,14 @@ validação de expressões.
 - Em uma pilha dinâmica, não existe capacidade fixa definida no construtor.
 - A pilha é uma estrutura excelente para mostrar como a ordem de remoção pode
   ser diferente da ordem de inserção.
+
+## Complexidades
+
+| Implementação | Empilhar | Desempilhar | Consultar topo | Espaço |
+|---|---:|---:|---:|---:|
+| Pilha estática | `O(1)` | `O(1)` | `O(1)` | `O(m)` para a capacidade |
+| Pilha dinâmica | `O(1)` | `O(1)` | `O(1)` | `O(n)` para os nodos |
+
+As duas versões alteram somente o topo. A diferença principal está na forma de
+reservar memória: toda a capacidade do vetor existe desde o início, enquanto a
+versão dinâmica cria um nodo por elemento.

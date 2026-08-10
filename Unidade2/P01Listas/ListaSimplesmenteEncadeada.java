@@ -85,6 +85,10 @@ public class ListaSimplesmenteEncadeada {
         nElementos++;
     }
 
+    /**
+     * Insere mantendo a ordem crescente. Os elementos que ja estao na lista
+     * devem estar previamente em ordem crescente.
+     */
     public void insereOrdenado(int elemento) {
         if (estaVazia() || elemento <= inicio.elemento) {
             insereInicio(elemento);
@@ -125,6 +129,9 @@ public class ListaSimplesmenteEncadeada {
     }
 
     public int removeFinal() {
+        if (estaVazia()) {
+            throw new IllegalStateException("A lista esta vazia.");
+        }
         return removePosicao(nElementos - 1);
     }
 

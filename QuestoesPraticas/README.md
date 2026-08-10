@@ -24,18 +24,39 @@ QuestoesPraticas/
 ```
 
 Os prefixos numéricos indicam a relação com a sequência de conteúdos da
-disciplina. As pastas `01-Recursividade/`, `02-Listas/`, `03-Pilhas/`,
-`04-Filas/` e `05-FilasPrioridade/` estão reservadas para questionários futuros.
-Neste momento, os questionários implementados estão em Hash e Árvores,
-correspondentes às unidades de estruturas dispersas e estruturas hierárquicas.
+disciplina. Todos os sete questionários possuem oito ou mais soluções, organizadas
+da aplicação mais direta para exercícios intermediários e desafios.
 
-1. `06-Hash/`
+1. `01-Recursividade/`
+
+   Exercícios novos de recursão e passagem de parâmetros, sem repetir os exemplos
+   principais da `Unidade1/`.
+
+2. `02-Listas/`
+
+   Percursos, remoção de duplicatas, encadeamento simples e duplo, particionamento
+   e listas circulares.
+
+3. `03-Pilhas/`
+
+   Desfazer operações, processamento de expressões, históricos e pilhas
+   monotônicas.
+
+4. `04-Filas/`
+
+   Rotações, intercalação, buffers circulares, escalonamento e busca em largura.
+
+5. `05-FilasPrioridade/`
+
+   Aplicações das versões não ordenada, ordenada, heap e heap estável.
+
+6. `06-Hash/`
 
    Exercícios sobre tabelas hash, colisões, baldes, frequência, conjuntos,
    fator de carga, remoção e rehashing. É recomendado estudar depois de ler os
    exemplos da `Unidade3/`.
 
-2. `07-Arvores/`
+7. `07-Arvores/`
 
    Exercícios sobre árvores binárias, árvores de busca, árvores N-árias,
    percursos, altura, alteração de referências e noções de balanceamento. É

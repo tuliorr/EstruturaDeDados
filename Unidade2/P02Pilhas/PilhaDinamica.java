@@ -43,6 +43,7 @@ public class PilhaDinamica<T> {
     // =========================
 
     public void empilhar(T elemento) {
+        validarElemento(elemento);
         Nodo novo = new Nodo(elemento);
         novo.abaixo = topo;
         topo = novo;
@@ -65,6 +66,12 @@ public class PilhaDinamica<T> {
             throw new IllegalStateException("A pilha esta vazia.");
         }
         return topo.elemento;
+    }
+
+    private void validarElemento(T elemento) {
+        if (elemento == null) {
+            throw new IllegalArgumentException("O elemento nao pode ser null.");
+        }
     }
 
     // =========================

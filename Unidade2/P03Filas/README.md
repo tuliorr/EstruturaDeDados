@@ -22,3 +22,13 @@ simples e processamento por ordem de chegada.
 - O elemento inserido sempre entra no fim.
 - Uma fila estática circular evita desperdício de posições no vetor.
 - Uma fila dinâmica cresce criando nodos, sem precisar mover elementos.
+
+## Complexidades
+
+| Implementação | Enfileirar | Desenfileirar | Consultar frente | Espaço |
+|---|---:|---:|---:|---:|
+| Fila estática circular | `O(1)` | `O(1)` | `O(1)` | `O(m)` para a capacidade |
+| Fila dinâmica | `O(1)` | `O(1)` | `O(1)` | `O(n)` para os nodos |
+
+Os índices circulares e as referências `inicio`/`fim` evitam deslocamentos, por
+isso as operações fundamentais permanecem constantes nas duas versões.

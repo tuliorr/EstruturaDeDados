@@ -33,3 +33,15 @@ algoritmos de grafos.
 - Fila ordenada: inserção mais cara, remoção barata.
 - Heap: equilíbrio entre inserção e remoção.
 - Heap estável: mantém prioridade e ordem de chegada em empates.
+
+## Complexidades
+
+| Implementação | Enfileirar | Desenfileirar | Consultar frente | Espaço |
+|---|---:|---:|---:|---:|
+| Não ordenada | `O(1)` | `O(n)` | `O(n)` | `O(n)` |
+| Ordenada | `O(n)` | `O(1)` | `O(1)` | `O(n)` |
+| Max-Heap | `O(log n)` | `O(log n)` | `O(1)` | `O(m)` |
+| Max-Heap estável | `O(log n)` | `O(log n)` | `O(1)` | `O(m)` |
+
+O heap não mantém o vetor inteiro ordenado. Ele preserva apenas a relação entre
+cada pai e seus filhos, suficiente para manter a maior prioridade na raiz.

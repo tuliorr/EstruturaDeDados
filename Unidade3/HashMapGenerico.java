@@ -80,10 +80,6 @@ public class HashMapGenerico<K, V> {
      * criamos um novo nodo no inicio da lista daquele indice.
      */
     public void inserir(K chave, V valor) {
-        if ((double) (nElementos + 1) / capacidade > FATOR_CARGA_MAXIMO) {
-            redimensionar();
-        }
-
         int indice = hash(chave);
         Nodo<K, V> atual = tabela[indice];
         while (atual != null) {
@@ -92,6 +88,11 @@ public class HashMapGenerico<K, V> {
                 return;
             }
             atual = atual.proximo;
+        }
+
+        if ((double) (nElementos + 1) / capacidade > FATOR_CARGA_MAXIMO) {
+            redimensionar();
+            indice = hash(chave);
         }
 
         Nodo<K, V> novo = new Nodo<>(chave, valor);

@@ -166,7 +166,7 @@ maior que `x`.
 
 ### Objetivo de aprendizagem
 
-Usar um parametro externo em uma consulta recursiva e acumular uma contagem.
+Usar um parâmetro externo em uma consulta recursiva e acumular uma contagem.
 
 ### Exemplo de entrada e saída
 
@@ -479,12 +479,14 @@ Subcategorias diretas de Informatica: 2
 
 Uma competição registra pontuações inteiras dos participantes. Insira essas
 pontuações em uma BST e implemente um método que imprima o ranking da maior
-pontuacao para a menor.
+pontuação para a menor. Quando houver empate, a pontuação deve aparecer uma vez
+para cada participante.
 
 ### Dica
 
 Use o percurso decrescente da BST: visite primeiro a subárvore direita, depois a
-raiz, depois a subárvore esquerda.
+raiz, depois a subárvore esquerda. Cada nodo pode guardar uma frequência para
+representar empates sem criar nodos repetidos.
 
 ### Objetivo de aprendizagem
 
@@ -496,13 +498,13 @@ ordem inversa.
 Entrada:
 
 ```text
-pontuações = 80, 95, 70, 100, 85
+pontuações = 80, 95, 70, 100, 85, 95, 80
 ```
 
 Saída esperada:
 
 ```text
-Ranking: 100 95 85 80 70
+Ranking: 100 95 95 85 80 80 70
 ```
 
 ## Questão 13 - Verificar Balanceamento Simples

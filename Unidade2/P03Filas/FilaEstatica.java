@@ -52,6 +52,7 @@ public class FilaEstatica<T> {
     // =========================
 
     public void enfileirar(T elemento) {
+        validarElemento(elemento);
         if (estaCheia()) {
             throw new IllegalStateException("A fila esta cheia.");
         }
@@ -83,6 +84,12 @@ public class FilaEstatica<T> {
     @SuppressWarnings("unchecked")
     private T elementoNaPosicao(int posicao) {
         return (T) itens[posicao];
+    }
+
+    private void validarElemento(T elemento) {
+        if (elemento == null) {
+            throw new IllegalArgumentException("O elemento nao pode ser null.");
+        }
     }
 
     // =========================

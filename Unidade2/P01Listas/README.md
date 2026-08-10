@@ -53,3 +53,21 @@ percorrer referências até encontrar a posição desejada.
 - Em lista encadeada, `inicio` e `fim` reduzem casos especiais.
 - Em listas circulares, não se deve usar `while (atual != null)`, porque os
   nodos nunca chegam a `null`.
+
+`insereOrdenado` pressupõe que os elementos já existentes estejam em ordem
+crescente. Misturar essa operação com inserções livres pode deixar o resultado
+fora de ordem; a estrutura não faz uma ordenação automática.
+
+## Complexidades
+
+| Implementação | Acesso por posição | Busca | Inserção no início | Inserção no fim | Remoção no início | Remoção no fim |
+|---|---:|---:|---:|---:|---:|---:|
+| Vetor estático | `O(1)` | `O(n)` | `O(n)` | `O(1)` | `O(n)` | `O(1)` |
+| Vetor dinâmico | `O(1)` | `O(n)` | `O(n)` | `O(1)` amortizado | `O(n)` | `O(1)` |
+| Simplesmente encadeada | `O(n)` | `O(n)` | `O(1)` | `O(1)` | `O(1)` | `O(n)` |
+| Duplamente encadeada | `O(n)` | `O(n)` | `O(1)` | `O(1)` | `O(1)` | `O(1)` |
+| Circular dupla | `O(n)` | `O(n)` | `O(1)` | `O(1)` | `O(1)` | `O(1)` |
+
+Inserir ou remover em uma posição intermediária custa `O(n)` em todas as versões:
+o vetor desloca elementos e as listas encadeadas precisam localizar a posição.
+Uma inserção ordenada também custa `O(n)` para encontrar o ponto correto.

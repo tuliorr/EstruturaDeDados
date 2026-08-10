@@ -46,6 +46,30 @@ nas unidades seguintes:
   desse caso base.
 - A pilha de chamadas guarda o estado de cada chamada recursiva ainda pendente.
 
+## Complexidade dos Exemplos Recursivos
+
+As entradas dos exemplos devem ser pequenas: além do tempo indicado, cada chamada
+recursiva ocupa um quadro na pilha de execução. Na tabela, `q` é o valor absoluto
+do quociente e `n` é o tamanho do problema.
+
+Os métodos priorizam o raciocínio recursivo e não tratam todos os valores
+extremos do tipo `int`. Essas validações podem ser acrescentadas depois como um
+exercício de melhoria, quando o algoritmo principal já estiver compreendido.
+
+| Método | Tempo | Pilha auxiliar | Observação |
+|---|---:|---:|---|
+| `somarAteN` | `O(n)` | `O(n)` | uma chamada para cada inteiro |
+| `sequenciaCrescente` | `O(n²)` | `O(n)` | concatena strings de tamanhos crescentes |
+| `divisaoInteira` | `O(q)` | `O(q)` | usa subtrações sucessivas |
+| `potenciaDeDois` | `O(n)` | `O(n)` | aceita expoentes de `0` a `30` |
+| `somaVetor` | `O(n)` | `O(n)` | visita cada posição uma vez |
+| `inverterVetor` | `O(n)` | `O(n)` | faz aproximadamente `n/2` trocas |
+| `mdc` | `O(log n)` | `O(log n)` | algoritmo de Euclides |
+| `torreHanoi` | `O(2ⁿ)` | `O(n)` | realiza `2ⁿ - 1` movimentos |
+
+Os exemplos de passagem de parâmetros fazem apenas atribuições e acessos diretos,
+portanto usam tempo e espaço auxiliar `O(1)`.
+
 ## Ordem Sugerida de Estudo
 
 1. `PassagemParametros.java`, para entender valores, referências e objetos antes

@@ -44,6 +44,7 @@ public class ListaSimplesmenteEncadeadaGenerica<T extends Comparable<T>> {
     // =========================
 
     public void insereInicio(T elemento) {
+        validarElemento(elemento);
         Nodo novo = new Nodo(elemento);
         novo.proximo = inicio;
         inicio = novo;
@@ -55,6 +56,7 @@ public class ListaSimplesmenteEncadeadaGenerica<T extends Comparable<T>> {
     }
 
     public void insereFinal(T elemento) {
+        validarElemento(elemento);
         Nodo novo = new Nodo(elemento);
 
         if (estaVazia()) {
@@ -67,6 +69,7 @@ public class ListaSimplesmenteEncadeadaGenerica<T extends Comparable<T>> {
     }
 
     public void inserePosicao(T elemento, int posicao) {
+        validarElemento(elemento);
         validarPosicaoInsercao(posicao);
 
         if (posicao == 0) {
@@ -85,7 +88,12 @@ public class ListaSimplesmenteEncadeadaGenerica<T extends Comparable<T>> {
         nElementos++;
     }
 
+    /**
+     * Insere mantendo a ordem crescente. Os elementos que ja estao na lista
+     * devem estar previamente em ordem crescente.
+     */
     public void insereOrdenado(T elemento) {
+        validarElemento(elemento);
         if (estaVazia() || elemento.compareTo(inicio.elemento) <= 0) {
             insereInicio(elemento);
             return;
@@ -125,6 +133,9 @@ public class ListaSimplesmenteEncadeadaGenerica<T extends Comparable<T>> {
     }
 
     public T removeFinal() {
+        if (estaVazia()) {
+            throw new IllegalStateException("A lista esta vazia.");
+        }
         return removePosicao(nElementos - 1);
     }
 
@@ -157,6 +168,9 @@ public class ListaSimplesmenteEncadeadaGenerica<T extends Comparable<T>> {
     // =========================
 
     public int busca(T elemento) {
+        if (elemento == null) {
+            return -1;
+        }
         Nodo atual = inicio;
         int posicao = 0;
 
@@ -186,6 +200,12 @@ public class ListaSimplesmenteEncadeadaGenerica<T extends Comparable<T>> {
     private void validarPosicaoInsercao(int posicao) {
         if (posicao < 0 || posicao > nElementos) {
             throw new IndexOutOfBoundsException("Posicao invalida para insercao.");
+        }
+    }
+
+    private void validarElemento(T elemento) {
+        if (elemento == null) {
+            throw new IllegalArgumentException("O elemento nao pode ser null.");
         }
     }
 

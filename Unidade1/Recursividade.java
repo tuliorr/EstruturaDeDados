@@ -5,6 +5,11 @@ import java.util.Arrays;
 /**
  * Reune exemplos classicos de recursividade usados para observar o mesmo
  * padrao: definir um caso base simples e reduzir o problema ate chegar nele.
+ * Como cada chamada ocupa espaco na pilha, os exemplos foram pensados para
+ * entradas pequenas, que permitem acompanhar a execucao com facilidade.
+ *
+ * Como melhoria, o aluno pode validar casos extremos, como Integer.MIN_VALUE,
+ * antes dos metodos que usam Math.abs. Aqui priorizamos a ideia recursiva.
  */
 public class Recursividade {
 
@@ -71,12 +76,12 @@ public class Recursividade {
     // =========================
 
     /**
-     * Calcula 2 elevado ao expoente. A cada chamada reduzimos o expoente e
-     * deixamos uma multiplicacao por 2 pendente.
+     * Calcula 2 elevado ao expoente. O intervalo de 0 a 30 evita overflow no
+     * tipo int. A cada chamada reduzimos o expoente em uma unidade.
      */
     public static int potenciaDeDois(int expoente) {
-        if (expoente < 0) {
-            throw new IllegalArgumentException("O expoente deve ser maior ou igual a zero.");
+        if (expoente < 0 || expoente > 30) {
+            throw new IllegalArgumentException("O expoente deve estar entre 0 e 30.");
         }
         if (expoente == 0) {
             return 1;

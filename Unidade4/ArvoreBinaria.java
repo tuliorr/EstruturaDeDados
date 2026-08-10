@@ -7,7 +7,8 @@ import Unidade2.P02Pilhas.PilhaDinamica;
 
 /**
  * Arvore binaria generica sem regra de ordenacao. O usuario escolhe em qual lado
- * de qual pai cada elemento sera inserido.
+ * de qual pai cada elemento sera inserido. Cada valor pode aparecer apenas uma
+ * vez, para que a identificacao do pai seja sempre clara.
  */
 public class ArvoreBinaria<T> {
 
@@ -76,7 +77,7 @@ public class ArvoreBinaria<T> {
      * sequencia de valores sem escolher manualmente cada pai.
      */
     public boolean inserirEmLargura(T elemento) {
-        if (elemento == null) {
+        if (elemento == null || contem(elemento)) {
             return false;
         }
 
@@ -114,7 +115,7 @@ public class ArvoreBinaria<T> {
      * existir ou se ele ja tiver filho esquerdo.
      */
     public boolean inserirEsquerda(T elemento, T pai) {
-        if (elemento == null || pai == null) {
+        if (elemento == null || pai == null || contem(elemento)) {
             return false;
         }
 
@@ -132,7 +133,7 @@ public class ArvoreBinaria<T> {
      * esquerda: primeiro encontramos o pai e depois verificamos se ha espaco.
      */
     public boolean inserirDireita(T elemento, T pai) {
-        if (elemento == null || pai == null) {
+        if (elemento == null || pai == null || contem(elemento)) {
             return false;
         }
 

@@ -79,6 +79,17 @@ Nos métodos que retornam `boolean`, receber `null` faz a operação falhar com
 `null`. Em consultas numéricas, como `quantidadeFilhos`, `null` recebe o mesmo
 tratamento de elemento inexistente.
 
+## Política Para Valores Repetidos
+
+`ArvoreNaria` e `ArvoreBinaria` usam o próprio valor para identificar um nodo e
+o pai de uma inserção. Por isso elas armazenam somente valores únicos: tentar
+inserir um elemento já existente retorna `false`. Essa regra evita que dois pais
+homônimos tornem a operação ambígua.
+
+A árvore de busca e a AVL comum também rejeitam repetidos. Quando repetições
+fazem parte do problema, `ArvoreAVLComFrequencia` mantém um único nodo por valor e
+registra a quantidade de ocorrências.
+
 ## Altura
 
 A altura mede a maior distância entre um nodo e uma folha. Neste repositório,
@@ -113,6 +124,23 @@ Nesse desenho, o nodo `20` é a raiz da subárvore formada por `20` e `10`, ent�
 sua altura é `1`. O nodo `30` é a raiz da árvore inteira; sua maior subárvore é
 a esquerda, então sua altura é `2`. Já os níveis seriam contados de cima para
 baixo: `30` no nível `0`, `20` e `40` no nível `1`, e `10` no nível `2`.
+
+## Complexidades
+
+`h` representa a altura da árvore e `n` a quantidade de nodos. Uma ABB
+balanceada tem `h` próximo de `log n`; uma ABB inclinada pode ter `h = n`.
+
+| Estrutura/operação | Caso médio | Pior caso |
+|---|---:|---:|
+| Árvore N-ária: busca/inserção de filho | `O(n)` | `O(n)` |
+| Árvore binária geral: busca/inserção | `O(n)` | `O(n)` |
+| ABB: buscar/inserir/remover | `O(log n)` | `O(n)` |
+| AVL: buscar/inserir/remover | `O(log n)` | `O(log n)` |
+| AVL com frequência: buscar/inserir/remover | `O(log n)` | `O(log n)` |
+| Altura e percursos completos | `O(n)` | `O(n)` |
+
+Percursos recursivos usam `O(h)` de pilha auxiliar. Percursos em largura usam uma
+fila que pode guardar `O(n)` nodos no nível mais largo.
 
 ## Rotações AVL
 
