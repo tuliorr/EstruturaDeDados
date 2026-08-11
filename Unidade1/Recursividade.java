@@ -33,17 +33,22 @@ public class Recursividade {
     // =========================
 
     /**
-     * Monta a sequencia de 0 ate n. A chamada recursiva vem antes da escrita para
-     * que os menores valores aparecam primeiro.
+     * Imprime a sequencia de 0 ate n. A posicao da escrita em relacao a chamada
+     * recursiva define se a ordem sera crescente ou decrescente.
      */
-    public static String sequenciaCrescente(int n) {
+    public static void imprimirSequencia(int n) {
         if (n < 0) {
-            return "";
+            return;
         }
-        if (n == 0) {
-            return "0";
-        }
-        return sequenciaCrescente(n - 1) + " " + n;
+
+        // Para imprimir em ordem decrescente, comente a escrita depois da
+        // recursao e descomente a linha abaixo:
+        // System.out.print(n + " ");
+
+        imprimirSequencia(n - 1);
+
+        // Como a escrita esta depois da recursao, a ordem atual e crescente.
+        System.out.print(n + " ");
     }
 
     // =========================
@@ -157,8 +162,12 @@ public class Recursividade {
     // =========================
 
     /**
-     * Exibe os movimentos da Torre de Hanoi. Para mover n discos, movemos n-1
-     * para o auxiliar, o maior para o destino e depois n-1 para o destino.
+     * Exibe os movimentos da Torre de Hanoi.
+     *
+     * Logica da solucao: para mover n discos, primeiro movemos os n-1 menores
+     * para a haste auxiliar, depois movemos o maior para o destino e, por fim,
+     * movemos os n-1 discos da haste auxiliar para o destino. Cada etapa com
+     * n-1 discos repete exatamente a mesma ideia.
      */
     public static void torreHanoi(int discos, char origem, char auxiliar, char destino) {
         if (discos <= 0) {
@@ -180,8 +189,12 @@ public class Recursividade {
         // Somatorio: mostra a reducao n + soma(n - 1).
         System.out.println("Somatorio de 1 ate 5: " + somarAteN(5));
 
-        // Sequencia: a chamada recursiva antes da escrita organiza a ordem crescente.
-        System.out.println("Sequencia crescente ate 6: " + sequenciaCrescente(6));
+        // Sequencia: escrever depois da recursao produz a ordem crescente.
+        System.out.print("Sequencia crescente ate 6: ");
+        imprimirSequencia(6);
+        System.out.println();
+        // Se a escrita for movida para antes da recursao, a saida sera:
+        // 6 5 4 3 2 1 0
 
         // Divisao: 17 / 3 cabe cinco vezes quando subtraimos 3 repetidamente.
         System.out.println("Divisao inteira 17 / 3: " + divisaoInteira(17, 3));

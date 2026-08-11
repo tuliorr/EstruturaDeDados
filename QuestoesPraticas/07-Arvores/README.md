@@ -591,17 +591,3 @@ Caso: esquerda-direita
 Rotação: dupla esquerda-direita
 ```
 
-## Questões Mais Indicadas Para Prova
-
-Para avaliação sem auxílio de IDE, as questões mais adequadas são:
-
-1. contar nós com dois filhos;
-2. contar nós com apenas um filho;
-3. somar valores pares;
-4. contar valores maiores que `x`;
-5. imprimir folhas;
-6. somar intervalo na BST;
-7. imprimir em ordem decrescente;
-8. caminho até um valor;
-9. inverter os filhos de cada nó.
-

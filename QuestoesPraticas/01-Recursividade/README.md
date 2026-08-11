@@ -1,9 +1,8 @@
-# Questionário Prático - Recursividade e Parâmetros
+# Questionário Prático - Recursividade
 
-Este questionário reúne exercícios curtos sobre chamadas recursivas e passagem
-de parâmetros em Java. As seis primeiras questões apresentam novos problemas de
-recursividade. As duas últimas comparam parâmetros primitivos e referências para
-objetos.
+Este questionário reúne oito exercícios curtos sobre chamadas recursivas em
+Java. Cada questão apresenta um problema diferente e destaca como o caso base e
+a chamada recursiva trabalham juntos.
 
 Os exercícios não repetem os exemplos de somatório, sequência crescente,
 divisão inteira, potência de dois, soma ou inversão de vetor, MDC e Torres de
@@ -167,102 +166,86 @@ numero = 13
 13 em binário: 1101
 ```
 
-## Questão 06 - Calcular Fibonacci
+## Questão 06 - Busca Binária Recursiva
 
-**Nível:** Básico  
-**Assunto:** recursividade com duas chamadas  
-**Arquivo:** `Questao06CalcularFibonacci.java`
+**Nível:** Intermediário
+**Assunto:** busca binária em vetor crescente
+**Arquivo:** `Questao06BuscaBinariaRecursiva.java`
 
 ### Enunciado
 
-Implemente `long fibonacci(int n)`, considerando `fibonacci(0) = 0`,
-`fibonacci(1) = 1` e, para as demais posições, a soma dos dois termos anteriores.
-Use valores pequenos, pois esta versão didática repete cálculos.
+Implemente `int buscaBinaria(int[] vetor, int valor)` para buscar um valor em um
+vetor crescente. Retorne o índice encontrado ou `-1` quando o valor não existir.
 
 ### Dica
 
-Existem dois casos base. Fora deles, faça chamadas para `n - 1` e `n - 2`.
+Compare o valor com o elemento do meio. Depois continue somente na metade em que
+o valor pode estar. A busca termina quando o início ultrapassa o fim.
 
 ### Objetivo de aprendizagem
 
-Observar uma recursão que se divide em dois ramos e reconhecer a repetição de
-cálculos.
+Representar um intervalo com dois índices e reduzir esse intervalo pela metade a
+cada chamada.
 
 ### Exemplo de entrada e saída
 
 ```text
-n = 7
-Fibonacci de 7: 13
+vetor = [2, 4, 6, 8, 10]
+valor = 8
+Índice do valor 8: 3
 ```
 
-## Questão 07 - Atualizar Valor com Retorno
+## Questão 07 - Inverter String
 
 **Nível:** Básico  
-**Assunto:** passagem de parâmetro primitivo  
-**Arquivo:** `Questao07AtualizarValorComRetorno.java`
+**Assunto:** recursividade em texto
+**Arquivo:** `Questao07InverterString.java`
 
 ### Enunciado
 
-Implemente `double aplicarAcrescimo(double valor, double percentual)`. Demonstre
-que a variável original não é modificada pela chamada e que o resultado precisa
-ser atribuído a uma variável.
+Implemente `String inverter(String texto)` para devolver os caracteres de um
+texto na ordem inversa.
 
 ### Dica
 
-Parâmetros primitivos recebem uma cópia do valor. Retorne o novo valor em vez de
-esperar que o argumento original seja alterado.
+Inverta primeiro o texto sem o primeiro caractere. Depois acrescente esse
+primeiro caractere ao final. Um texto com zero ou um caractere já está invertido.
 
 ### Objetivo de aprendizagem
 
-Diferenciar a variável usada na chamada da cópia recebida pelo método.
+Perceber como a ordem das concatenações pode inverter o resultado das chamadas
+recursivas.
 
 ### Exemplo de entrada e saída
 
 ```text
-valor = 100.0
-percentual = 10.0
-Valor original: 100.0
-Valor atualizado: 110.0
+texto = dados
+Texto invertido: sodad
 ```
 
-## Questão 08 - Aplicar Desconto em Produto
+## Questão 08 - Encontrar Maior Recursivamente
 
 **Nível:** Básico  
-**Assunto:** referência de objeto como parâmetro  
-**Arquivo:** `Questao08AplicarDescontoProduto.java`
+**Assunto:** recursividade em vetor
+**Arquivo:** `Questao08EncontrarMaiorRecursivo.java`
 
 ### Enunciado
 
-Crie um objeto `Produto` com um preço e implemente
-`void aplicarDesconto(Produto produto, double percentual)`. Use duas variáveis
-apontando para o mesmo produto e mostre que ambas observam o preço alterado.
+Implemente `int maior(int[] vetor)` para encontrar recursivamente o maior valor
+de um vetor não vazio.
 
 ### Dica
 
-O método recebe uma cópia da referência. Essa cópia ainda aponta para o mesmo
-objeto, portanto seus atributos podem ser modificados.
+Encontre o maior valor do restante do vetor e compare-o com o valor da posição
+atual. A última posição fornece o caso base.
 
 ### Objetivo de aprendizagem
 
-Entender que Java passa tanto primitivos quanto referências por valor, mas que
-uma referência copiada continua permitindo alterar o objeto compartilhado.
+Combinar o resultado de uma chamada recursiva com o elemento da posição atual.
 
 ### Exemplo de entrada e saída
 
 ```text
-preço inicial = 200.0
-desconto = 10.0
-Preço pela primeira referência: 180.0
-Preço pela segunda referência: 180.0
+vetor = [7, 2, 9, 4]
+Maior valor: 9
 ```
-
-## Questões Mais Indicadas para Prova
-
-Para avaliação sem auxílio de IDE, as questões mais diretas são:
-
-1. contar vogais;
-2. somar dígitos;
-3. verificar número primo;
-4. verificar palíndromo;
-5. converter decimal para binário;
-7. atualizar valor com retorno.

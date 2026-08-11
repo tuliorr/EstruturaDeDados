@@ -29,26 +29,28 @@ da aplicação mais direta para exercícios intermediários e desafios.
 
 1. `01-Recursividade/`
 
-   Exercícios novos de recursão e passagem de parâmetros, sem repetir os exemplos
-   principais da `Unidade1/`.
+   Problemas clássicos de recursão, como busca binária, inversão de texto e
+   processamento recursivo de vetores.
 
 2. `02-Listas/`
 
-   Percursos, remoção de duplicatas, encadeamento simples e duplo, particionamento
-   e listas circulares.
+   Percursos, remoção de duplicatas, mescla ordenada, inversão de encadeamento,
+   ponteiros lento/rápido e o Problema de Josephus.
 
 3. `03-Pilhas/`
 
-   Desfazer operações, processamento de expressões, históricos e pilhas
-   monotônicas.
+   Delimitadores balanceados, desfazer operações, expressão pós-fixa, sequência
+   de desempilhamento, pilha com mínimo e próximo elemento maior.
 
 4. `04-Filas/`
 
-   Rotações, intercalação, buffers circulares, escalonamento e busca em largura.
+   Geração de números binários, intercalação de metades, inversão dos primeiros
+   elementos, Round Robin, Radix Sort e busca em largura.
 
 5. `05-FilasPrioridade/`
 
-   Aplicações das versões não ordenada, ordenada, heap e heap estável.
+   Seleção e ordenação, propriedade de Max-Heap, maiores elementos, estabilidade,
+   pontos mais próximos, mescla de sequências e Heap Sort.
 
 6. `06-Hash/`
 

@@ -1,8 +1,7 @@
 # Questionário Prático - Filas de Prioridade
 
-Este questionário reúne aplicações de quatro implementações de filas de
-prioridade: não ordenada, ordenada, com heap e com heap estável. O objetivo é
-perceber que a mesma regra de atendimento pode ter custos diferentes.
+Este questionário reúne operações e aplicações clássicas de filas de prioridade
+não ordenadas, ordenadas, com heap e com heap estável.
 
 ## Padrão para as soluções
 
@@ -21,60 +20,58 @@ exercício adicional, valide referências nulas e valores de `k` fora do interva
 
 - **Básico**: aplica diretamente uma prioridade ou a propriedade do heap.
 - **Intermediário**: combina a estrutura com tipos comparáveis ou seleção parcial.
-- **Desafio**: adapta comparações ou mede o comportamento das implementações.
+- **Desafio**: adapta comparações ou combina o heap com outro algoritmo.
 
-## Questão 01 - Selecionar o Próximo Chamado
+## Questão 01 - Encontrar o Maior Elemento
 
 **Nível:** Básico  
 **Assunto:** fila de prioridade não ordenada  
-**Arquivo:** `Questao01SelecionarProximoChamado.java`
+**Arquivo:** `Questao01EncontrarMaiorElemento.java`
 
 ### Enunciado
 
-Cada chamado de suporte possui uma descrição e uma prioridade inteira. Implemente
-um método que receba os chamados e devolva aquele com maior prioridade usando uma
-fila não ordenada.
+Dado um vetor de inteiros, encontre o maior elemento usando uma fila de
+prioridade não ordenada.
 
 ### Dica
 
-Faça `Chamado` implementar `Comparable<Chamado>` e compare apenas a prioridade.
+Insira todos os valores na fila e remova uma única vez.
 
 ### Objetivo de aprendizagem
 
-Observar uma situação em que inserir é barato e o custo de procurar o maior
-elemento aparece somente na remoção.
+Observar que a fila não ordenada procura o maior elemento no momento da remoção.
 
 ### Exemplo de entrada e saída
 
 ```text
-Servidor=3, Senha=5, Impressora=2
-Próximo chamado: Senha(p=5)
+valores = [4, 1, 7, 3]
+Maior elemento: 7
 ```
 
-## Questão 02 - Organizar Tarefas por Prioridade
+## Questão 02 - Ordenar com Fila de Prioridade
 
 **Nível:** Básico  
 **Assunto:** fila de prioridade ordenada  
-**Arquivo:** `Questao02OrganizarTarefas.java`
+**Arquivo:** `Questao02OrdenarComFilaPrioridade.java`
 
 ### Enunciado
 
-Receba tarefas com descrição e prioridade e devolva suas descrições na ordem em
-que serão executadas por uma fila mantida em ordem decrescente.
+Dado um vetor de inteiros, use uma fila de prioridade ordenada para devolver os
+valores em ordem decrescente.
 
 ### Dica
 
-Insira todas as tarefas e remova até a fila ficar vazia.
+Insira todos os valores e remova até a fila ficar vazia.
 
 ### Objetivo de aprendizagem
 
-Perceber que o custo de localizar a posição correta é pago durante a inserção.
+Usar remoções sucessivas para percorrer os elementos por prioridade.
 
 ### Exemplo de entrada e saída
 
 ```text
-Email=2, Corrigir prova=5, Atualizar notas=4
-[Corrigir prova, Atualizar notas, Email]
+valores = [4, 1, 5, 2, 3]
+Ordem decrescente: [5, 4, 3, 2, 1]
 ```
 
 ## Questão 03 - Verificar um max-heap
@@ -211,31 +208,28 @@ Adaptar a comparação sem modificar a implementação da estrutura.
 [1, 2, 3, 4, 5, 6, 7, 8]
 ```
 
-## Questão 08 - Comparar as Três Implementações
+## Questão 08 - Heap Sort
 
 **Nível:** Desafio  
-**Assunto:** análise experimental de complexidade  
-**Arquivo:** `Questao08CompararImplementacoes.java`
+**Assunto:** ordenação com heap
+**Arquivo:** `Questao08HeapSort.java`
 
 ### Enunciado
 
-Conte quantas vezes `compareTo` é chamado durante as inserções e remoções da fila
-não ordenada, da fila ordenada e do heap, usando a mesma sequência em todas.
+Ordene um vetor em ordem crescente usando uma fila de prioridade com max-heap.
 
 ### Dica
 
-Crie um valor comparável com contador estático e zere o contador entre cada fase.
+Como o heap remove primeiro o maior valor, preencha o vetor de resultado de trás
+para frente.
 
 ### Objetivo de aprendizagem
 
-Relacionar a tabela de complexidades com o trabalho observado em um exemplo real.
+Aplicar a propriedade do max-heap em um algoritmo clássico de ordenação.
 
 ### Exemplo de entrada e saída
 
-Para `[4, 1, 5, 2, 3]`, no formato inserções/remoções:
-
 ```text
-Não ordenada: 0/10
-Ordenada: 8/0
-Heap: 6/5
+valores = [4, 1, 5, 2, 3]
+Ordem crescente: [1, 2, 3, 4, 5]
 ```

@@ -31,74 +31,72 @@ incorretas pode ser acrescentado depois como exercício de melhoria.
 - **Intermediário**: combinação de fila com outra estrutura ou simulação.
 - **Desafio**: algoritmo com vários baldes ou busca em largura.
 
-## Questão 01 - Contar sem Alterar a Ordem
+## Questão 01 - Gerar Números Binários
 
 **Nível:** Básico  
-**Assunto:** rotação da fila  
-**Arquivo:** `Questao01ContarSemAlterarOrdem.java`
+**Assunto:** geração em largura
+**Arquivo:** `Questao01GerarNumerosBinarios.java`
 
 ### Enunciado
 
-Conte quantas vezes um valor aparece em uma fila sem mudar sua ordem final.
+Gere, em ordem, as representações binárias dos números de `1` até uma quantidade
+informada.
 
 ### Dica
 
-Guarde o tamanho inicial. Para cada elemento, desenfileire, compare e enfileire
-novamente. Depois de uma volta completa, a ordem original estará restaurada.
+Comece a fila com `"1"`. Para cada texto retirado, guarde-o na resposta e
+enfileire duas continuações: uma com `0` e outra com `1` no final.
 
 ### Objetivo de aprendizagem
 
-Percorrer uma fila usando somente suas operações públicas.
+Perceber como uma fila gera resultados por níveis, preservando a ordem numérica.
 
 ### Exemplo de entrada e saída
 
 Entrada:
 
 ```text
-fila = 4, 7, 4, 2, 4
-valor procurado = 4
+quantidade = 5
 ```
 
 Saída esperada:
 
 ```text
-Quantidade de valores 4: 3
-Fila preservada: Frente -> [4] - [7] - [4] - [2] - [4] <- Fim
+Números binários: [1, 10, 11, 100, 101]
 ```
 
-## Questão 02 - Intercalar Filas
+## Questão 02 - Intercalar Metades
 
 **Nível:** Básico  
-**Assunto:** consumo de duas filas  
-**Arquivo:** `Questao02IntercalarFilas.java`
+**Assunto:** reorganização de uma fila
+**Arquivo:** `Questao02IntercalarMetades.java`
 
 ### Enunciado
 
-Consuma duas filas e produza uma terceira alternando seus elementos. Se uma fila
-terminar antes, acrescente os elementos restantes da outra.
+Reorganize uma fila com quantidade par de elementos, alternando um valor da
+primeira metade e um valor da segunda metade.
 
 ### Dica
 
-Em cada repetição, retire um elemento da primeira fila, se existir, e depois um
-da segunda.
+Transfira a primeira metade para uma fila auxiliar. Depois, devolva
+alternadamente um elemento da fila auxiliar e um elemento da fila original.
 
 ### Objetivo de aprendizagem
 
-Combinar sequências FIFO de tamanhos diferentes.
+Usar uma fila auxiliar para combinar duas partes sem perder a ordem de cada uma.
 
 ### Exemplo de entrada e saída
 
 Entrada:
 
 ```text
-primeira = A, B, C
-segunda = 1, 2
+fila = 1, 2, 3, 4, 5, 6
 ```
 
 Saída esperada:
 
 ```text
-Fila intercalada: Frente -> [A] - [1] - [B] - [2] - [C] <- Fim
+Fila intercalada: Frente -> [1] - [4] - [2] - [5] - [3] - [6] <- Fim
 ```
 
 ## Questão 03 - Média Móvel
@@ -320,13 +318,3 @@ Saída esperada:
 ```text
 Menor quantidade de passos: 6
 ```
-
-## Questões mais indicadas para prova
-
-Para avaliação sem auxílio de IDE, as questões mais adequadas são:
-
-1. contar sem alterar a ordem;
-2. intercalar filas;
-3. média móvel;
-4. inverter os primeiros `k` elementos;
-5. escalonamento Round Robin.

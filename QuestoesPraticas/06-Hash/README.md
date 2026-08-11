@@ -428,19 +428,7 @@ Saída esperada:
 ```text
 Capacidade antes do rehash: 4
 Capacidade depois do rehash: 8
-Todos os valores continuam buscaveis: true
+Todos os valores continuam buscáveis: true
 ```
-
-## Questões Mais Indicadas Para Prova
-
-Para avaliação sem auxílio de IDE, as questões mais adequadas são:
-
-1. contar colisões;
-2. maior balde;
-3. elementos de um balde;
-4. contar valores repetidos;
-5. primeiro caractere não repetido;
-6. comparar conjuntos;
-7. classificar fator de carga.
 
 

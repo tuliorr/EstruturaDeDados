@@ -1,10 +1,9 @@
 /**
- * Questão 08 - Roda de Eliminação.
+ * Questão 08 - Problema de Josephus.
  *
- * Usa uma lista circular para eliminar cada participante alcançado por uma
- * contagem fixa até restar apenas o vencedor.
+ * Elimina participantes de uma lista circular até restar um sobrevivente.
  */
-public class Questao08RodaDeEliminacao {
+public class Questao08ProblemaJosephus {
 
     private static class Nodo {
         String nome;
@@ -48,7 +47,7 @@ public class Questao08RodaDeEliminacao {
         }
     }
 
-    public static String rodaDeEliminacao(String[] participantes, int passo) {
+    public static String resolverJosephus(String[] participantes, int passo) {
         Roda roda = new Roda();
         for (String participante : participantes) {
             roda.adicionar(participante);
@@ -65,9 +64,9 @@ public class Questao08RodaDeEliminacao {
 
     public static void main(String[] args) {
         String[] participantes = {"Ana", "Beto", "Carlos", "Dora", "Eva"};
-        String vencedor = rodaDeEliminacao(participantes, 3);
+        String sobrevivente = resolverJosephus(participantes, 3);
 
-        System.out.println("Vencedor: " + vencedor);
+        System.out.println("Sobrevivente: " + sobrevivente);
         System.out.println("Resultado esperado: Dora");
     }
 }

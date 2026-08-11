@@ -231,18 +231,18 @@ lista = 1 <-> 2 <-> 3 <-> 2 <-> 1
 A lista é palíndromo: true
 ```
 
-## Questão 08 - Roda de Eliminação
+## Questão 08 - Problema de Josephus
 
 **Nível:** Desafio  
 **Assunto:** lista circular  
-**Arquivo:** `Questao08RodaDeEliminacao.java`
+**Arquivo:** `Questao08ProblemaJosephus.java`
 
 ### Enunciado
 
-Organize participantes em uma roda. A partir do primeiro, conte repetidamente
-um passo positivo e elimine quem ocupar a posição contada. Continue a partir do
-participante seguinte até restar apenas o vencedor. Considere que existe pelo
-menos um participante e que o passo é positivo.
+No Problema de Josephus, participantes ficam organizados em uma roda. A partir
+do primeiro, conte repetidamente um passo positivo e elimine quem ocupar a
+posição contada. Continue a partir do participante seguinte até restar apenas o
+sobrevivente. Considere que existe pelo menos um participante.
 
 ### Dica
 
@@ -252,8 +252,8 @@ for eliminado.
 
 ### Objetivo de aprendizagem
 
-Percorrer e alterar uma lista circular sem depender de uma extremidade final.
-Como extensão, valide uma roda vazia e um passo menor ou igual a zero.
+Representar o Problema de Josephus com uma lista circular e remover nodos sem
+interromper o ciclo.
 
 ### Exemplo de entrada e saída
 
@@ -264,16 +264,5 @@ Eliminado: Carlos
 Eliminado: Ana
 Eliminado: Eva
 Eliminado: Beto
-Vencedor: Dora
+Sobrevivente: Dora
 ```
-
-## Questões Mais Indicadas para Prova
-
-Para avaliação sem auxílio de IDE, as questões mais diretas são:
-
-1. contar ocorrências;
-2. remover duplicados;
-3. intercalar listas ordenadas;
-5. inverter encadeamento;
-6. encontrar o elemento central;
-7. verificar palíndromo em lista dupla.

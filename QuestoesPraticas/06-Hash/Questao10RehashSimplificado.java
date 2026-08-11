@@ -129,7 +129,7 @@ public class Questao10RehashSimplificado {
         }
 
         System.out.println("Capacidade depois do rehash: " + hash.capacidade());
-        System.out.println("Todos os valores continuam buscaveis: " + todosBuscaveis);
+        System.out.println("Todos os valores continuam buscáveis: " + todosBuscaveis);
         System.out.println("Resultado esperado: 8 / true");
     }
 }

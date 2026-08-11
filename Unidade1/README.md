@@ -59,7 +59,7 @@ exercício de melhoria, quando o algoritmo principal já estiver compreendido.
 | Método | Tempo | Pilha auxiliar | Observação |
 |---|---:|---:|---|
 | `somarAteN` | `O(n)` | `O(n)` | uma chamada para cada inteiro |
-| `sequenciaCrescente` | `O(n²)` | `O(n)` | concatena strings de tamanhos crescentes |
+| `imprimirSequencia` | `O(n)` | `O(n)` | imprime cada valor uma vez |
 | `divisaoInteira` | `O(q)` | `O(q)` | usa subtrações sucessivas |
 | `potenciaDeDois` | `O(n)` | `O(n)` | aceita expoentes de `0` a `30` |
 | `somaVetor` | `O(n)` | `O(n)` | visita cada posição uma vez |

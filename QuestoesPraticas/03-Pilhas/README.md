@@ -29,39 +29,39 @@ de melhoria.
 - **Intermediário**: combinação de pilhas com validação ou simulação.
 - **Desafio**: uso de duas pilhas ou de uma pilha monotônica.
 
-## Questão 01 - Editor com Apagar
+## Questão 01 - Validar Delimitadores
 
 **Nível:** Básico  
-**Assunto:** desfazer o último caractere  
-**Arquivo:** `Questao01EditorComApagar.java`
+**Assunto:** balanceamento de delimitadores
+**Arquivo:** `Questao01ValidarDelimitadores.java`
 
 ### Enunciado
 
-Dado um texto no qual o caractere `#` significa apagar, produza o texto final.
-Cada `#` remove o último caractere válido digitado. Se não houver caractere para
-remover, o comando é ignorado.
+Verifique se os delimitadores `()`, `[]` e `{}` de uma expressão estão
+balanceados. Cada fechamento deve corresponder à última abertura que ainda não
+foi fechada.
 
 ### Dica
 
-Empilhe caracteres comuns. Ao encontrar `#`, desempilhe se a pilha não estiver
-vazia. No final, desempilhe de trás para frente para reconstruir o texto.
+Empilhe os delimitadores de abertura. Ao encontrar um fechamento, compare-o com
+a abertura retirada do topo. Ao final, a pilha também deve estar vazia.
 
 ### Objetivo de aprendizagem
 
-Relacionar a operação de desfazer com a regra LIFO.
+Usar a regra LIFO para conferir a ordem de fechamento de delimitadores aninhados.
 
 ### Exemplo de entrada e saída
 
 Entrada:
 
 ```text
-algoritx#mo
+{[()]}
 ```
 
 Saída esperada:
 
 ```text
-Texto corrigido: algoritmo
+Delimitadores válidos: true
 ```
 
 ## Questão 02 - Desfazer Operações
@@ -277,47 +277,38 @@ Mínimo inicial: 2
 Mínimo após remover 4 e um 2: 2
 ```
 
-## Questão 08 - Próxima Temperatura Maior
+## Questão 08 - Próximo Elemento Maior
 
 **Nível:** Desafio  
 **Assunto:** pilha monotônica  
-**Arquivo:** `Questao08ProximaTemperaturaMaior.java`
+**Arquivo:** `Questao08ProximoElementoMaior.java`
 
 ### Enunciado
 
-Para cada temperatura diária, informe quantos dias faltam para aparecer uma
-temperatura maior. Use zero quando não existir um dia futuro mais quente.
+Para cada valor de um vetor, encontre o primeiro elemento maior localizado à sua
+direita. Use `-1` quando esse elemento não existir.
 
 ### Dica
 
-Guarde índices cujas respostas ainda não foram encontradas. Quando a temperatura
-atual for maior que a indicada pelo topo, desempilhe e calcule a diferença entre
-os índices.
+Guarde os índices que ainda esperam uma resposta. Enquanto o valor atual for
+maior que o valor indicado pelo topo, desempilhe o índice e registre o valor
+atual como resposta.
 
 ### Objetivo de aprendizagem
 
-Usar uma pilha monotônica para evitar comparar cada dia com todos os dias futuros.
+Usar uma pilha monotônica para evitar comparar cada valor com todos os valores à
+sua direita.
 
 ### Exemplo de entrada e saída
 
 Entrada:
 
 ```text
-[30, 40, 35, 50, 45]
+[4, 5, 2, 10, 8]
 ```
 
 Saída esperada:
 
 ```text
-Esperas: [1, 2, 1, 0, 0]
+Próximos maiores: [5, 10, 10, -1, -1]
 ```
-
-## Questões mais indicadas para prova
-
-Para avaliação sem auxílio de IDE, as questões mais adequadas são:
-
-1. editor com apagar;
-2. desfazer operações;
-3. remover pares adjacentes;
-4. verificar sequência de desempilhamento;
-5. avaliar expressão pós-fixa.
