@@ -6,6 +6,13 @@
         "out",
         ".codex-compile-check"
     ],
+    "java.project.resourceFilters": [
+        "node_modules",
+        "\\.git",
+        "\\.vscode",
+        "out",
+        "\\.codex-compile-check"
+    ],
     "java.project.outputPath": "out",
     "java.autobuild.enabled": true,
     "java.debug.settings.forceBuildBeforeLaunch": true,
