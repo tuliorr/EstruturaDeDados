@@ -27,6 +27,15 @@ public class PilhaDinamica<T> {
     private int nElementos;
 
     // =========================
+    // Construtor
+    // =========================
+
+    public PilhaDinamica() {
+        this.topo = null;
+        this.nElementos = 0;
+    }
+
+    // =========================
     // Metodos basicos
     // =========================
 

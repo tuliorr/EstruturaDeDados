@@ -16,7 +16,7 @@ public class Questao03RemoverParesAdjacentes {
             return "";
         }
 
-        PilhaEstatica pilha = new PilhaEstatica(texto.length());
+        PilhaEstatica<Character> pilha = new PilhaEstatica<>(texto.length());
 
         for (int i = 0; i < texto.length(); i++) {
             char caractere = texto.charAt(i);

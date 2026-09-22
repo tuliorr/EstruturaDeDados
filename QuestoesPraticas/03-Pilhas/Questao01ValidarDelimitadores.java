@@ -16,7 +16,7 @@ public class Questao01ValidarDelimitadores {
             return true;
         }
 
-        PilhaEstatica pilha = new PilhaEstatica(expressao.length());
+        PilhaEstatica<Character> pilha = new PilhaEstatica<>(expressao.length());
 
         for (int i = 0; i < expressao.length(); i++) {
             char caractere = expressao.charAt(i);

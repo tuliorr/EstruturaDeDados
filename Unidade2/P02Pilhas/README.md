@@ -9,9 +9,8 @@ validação de expressões.
 
 1. `PilhaEstatica.java`
 
-   Implementa uma pilha com vetor de caracteres. O atributo `topo` indica a
-   posição do último elemento inserido. O arquivo também usa a pilha para
-   verificar balanceamento de parênteses, colchetes e chaves.
+   Implementa uma pilha genérica com vetor. O atributo `topo` indica a posição
+   do último elemento inserido.
 
 2. `PilhaDinamica.java`
 

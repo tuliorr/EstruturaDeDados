@@ -1,16 +1,18 @@
 package Unidade2.P02Pilhas;
 
 /**
- * Pilha estatica de caracteres. A pilha usa a regra LIFO: o ultimo elemento
+ * Pilha estatica generica. A pilha usa a regra LIFO: o ultimo elemento
  * empilhado e sempre o primeiro a sair.
+ *
+ * @param <T> tipo dos elementos armazenados na pilha
  */
-public class PilhaEstatica {
+public class PilhaEstatica<T> {
 
     // =========================
     // Atributos
     // =========================
 
-    private char[] itens;
+    private T[] itens;
     private int topo;
     private int capacidade;
 
@@ -18,12 +20,13 @@ public class PilhaEstatica {
     // Construtor
     // =========================
 
+    @SuppressWarnings("unchecked")
     public PilhaEstatica(int capacidade) {
         if (capacidade <= 0) {
             throw new IllegalArgumentException("A capacidade deve ser positiva.");
         }
         this.capacidade = capacidade;
-        this.itens = new char[capacidade];
+        this.itens = (T[]) new Object[capacidade];
         this.topo = -1;
     }
 
@@ -47,7 +50,7 @@ public class PilhaEstatica {
     // Operacoes da pilha
     // =========================
 
-    public void empilhar(char item) {
+    public void empilhar(T item) {
         if (estaCheia()) {
             throw new IllegalStateException("A pilha esta cheia.");
         }
@@ -55,64 +58,21 @@ public class PilhaEstatica {
         itens[topo] = item;
     }
 
-    public char desempilhar() {
+    public T desempilhar() {
         if (estaVazia()) {
             throw new IllegalStateException("A pilha esta vazia.");
         }
-        char item = itens[topo];
+        T item = itens[topo];
+        itens[topo] = null;
         topo--;
         return item;
     }
 
-    public char consultarTopo() {
+    public T consultarTopo() {
         if (estaVazia()) {
             throw new IllegalStateException("A pilha esta vazia.");
         }
         return itens[topo];
-    }
-
-    // =========================
-    // Exemplo de uso
-    // =========================
-
-    /**
-     * Usa a pilha para verificar se cada simbolo de fechamento encontra a abertura
-     * correspondente no topo.
-     */
-    public static boolean verificaExpressao(String expressao) {
-        if (expressao == null) {
-            throw new IllegalArgumentException("A expressao nao pode ser null.");
-        }
-        if (expressao.isEmpty()) {
-            return true;
-        }
-
-        PilhaEstatica pilha = new PilhaEstatica(expressao.length());
-
-        for (int i = 0; i < expressao.length(); i++) {
-            char caractere = expressao.charAt(i);
-
-            if (caractere == '(' || caractere == '[' || caractere == '{') {
-                pilha.empilhar(caractere);
-            } else if (caractere == ')' || caractere == ']' || caractere == '}') {
-                if (pilha.estaVazia()) {
-                    return false;
-                }
-
-                char abertura = pilha.desempilhar();
-                if (!combinam(abertura, caractere)) {
-                    return false;
-                }
-            }
-        }
-
-        return pilha.estaVazia();
-    }
-
-    private static boolean combinam(char abertura, char fechamento) {
-        return (abertura == '(' && fechamento == ')')
-                || (abertura == '[' && fechamento == ']')
-                || (abertura == '{' && fechamento == '}');
     }
 
     // =========================
@@ -136,26 +96,5 @@ public class PilhaEstatica {
         return sb.toString();
     }
 
-    // =========================
-    // Teste da estrutura
-    // =========================
-
-    public static void main(String[] args) {
-        System.out.println("=== Teste: PilhaEstatica ===");
-
-        // Empilhamos letras para visualizar que a ultima vira o topo.
-        PilhaEstatica pilha = new PilhaEstatica(5);
-        pilha.empilhar('A');
-        pilha.empilhar('B');
-        pilha.empilhar('C');
-        System.out.println(pilha);
-
-        System.out.println("Desempilhado: " + pilha.desempilhar());
-        System.out.println("Topo atual: " + pilha.consultarTopo());
-
-        // O mesmo comportamento LIFO resolve o pareamento de simbolos.
-        String expressao = "{[(2+3) * 4]}";
-        System.out.println("Expressao balanceada? " + verificaExpressao(expressao));
-    }
 }
 
