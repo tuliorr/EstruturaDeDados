@@ -28,6 +28,16 @@ public class FilaDinamica<T> {
     private int nElementos;
 
     // =========================
+    // Construtor
+    // =========================
+
+    public FilaDinamica() {
+        this.inicio = null;
+        this.fim = null;
+        this.nElementos = 0;
+    }
+
+    // =========================
     // Metodos basicos
     // =========================
 

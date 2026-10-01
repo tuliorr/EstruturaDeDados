@@ -29,6 +29,16 @@ public class FilaPrioridadeNaoOrdenada<T extends Comparable<T>> {
     private int nElementos;
 
     // =========================
+    // Construtor
+    // =========================
+
+    public FilaPrioridadeNaoOrdenada() {
+        this.inicio = null;
+        this.fim = null;
+        this.nElementos = 0;
+    }
+
+    // =========================
     // Metodos basicos
     // =========================
 

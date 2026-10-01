@@ -36,6 +36,16 @@ public class ArvoreAVLComFrequencia<T extends Comparable<T>> {
     private int nDistintos;
 
     // =========================
+    // Construtor
+    // =========================
+
+    public ArvoreAVLComFrequencia() {
+        this.raiz = null;
+        this.nElementos = 0;
+        this.nDistintos = 0;
+    }
+
+    // =========================
     // Metodos basicos
     // =========================
 

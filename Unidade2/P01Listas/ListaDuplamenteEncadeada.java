@@ -29,6 +29,16 @@ public class ListaDuplamenteEncadeada<T extends Comparable<T>> {
     private int nElementos;
 
     // =========================
+    // Construtor
+    // =========================
+
+    public ListaDuplamenteEncadeada() {
+        this.inicio = null;
+        this.fim = null;
+        this.nElementos = 0;
+    }
+
+    // =========================
     // Metodos basicos
     // =========================
 

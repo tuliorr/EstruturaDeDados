@@ -30,6 +30,15 @@ public class ArvoreBinariaBusca<T extends Comparable<T>> {
     private int nElementos;
 
     // =========================
+    // Construtor
+    // =========================
+
+    public ArvoreBinariaBusca() {
+        this.raiz = null;
+        this.nElementos = 0;
+    }
+
+    // =========================
     // Metodos basicos
     // =========================
 

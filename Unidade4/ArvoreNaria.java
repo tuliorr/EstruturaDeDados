@@ -36,6 +36,15 @@ public class ArvoreNaria<T> {
     private int nElementos;
 
     // =========================
+    // Construtor
+    // =========================
+
+    public ArvoreNaria() {
+        this.raiz = null;
+        this.nElementos = 0;
+    }
+
+    // =========================
     // Metodos basicos
     // =========================
 

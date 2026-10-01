@@ -28,6 +28,16 @@ public class ListaSimplesmenteEncadeada {
     private int nElementos;
 
     // =========================
+    // Construtor
+    // =========================
+
+    public ListaSimplesmenteEncadeada() {
+        this.inicio = null;
+        this.fim = null;
+        this.nElementos = 0;
+    }
+
+    // =========================
     // Metodos basicos
     // =========================
 
