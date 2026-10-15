@@ -7,8 +7,8 @@ public class Questao03VerificarMaxHeap {
 
     public static boolean ehMaxHeap(int[] heap) {
         for (int pai = 0; pai < heap.length / 2; pai++) {
-            int esquerdo = 2 * pai + 1;
-            int direito = 2 * pai + 2;
+            int esquerdo = filhoEsquerdo(pai);
+            int direito = filhoDireito(pai);
 
             if (heap[pai] < heap[esquerdo]) {
                 return false;
@@ -18,6 +18,14 @@ public class Questao03VerificarMaxHeap {
             }
         }
         return true;
+    }
+
+    private static int filhoEsquerdo(int indice) {
+        return 2 * indice + 1;
+    }
+
+    private static int filhoDireito(int indice) {
+        return 2 * indice + 2;
     }
 
     public static void main(String[] args) {

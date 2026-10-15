@@ -105,21 +105,33 @@ public class FilaPrioridadeHeapEstavel<T extends Comparable<T>> {
         return item(0).elemento;
     }
 
+    private int pai(int indice) {
+        return (indice - 1) / 2;
+    }
+
+    private int filhoEsquerdo(int indice) {
+        return 2 * indice + 1;
+    }
+
+    private int filhoDireito(int indice) {
+        return 2 * indice + 2;
+    }
+
     private void subir(int indice) {
         while (indice > 0) {
-            int pai = (indice - 1) / 2;
-            if (item(indice).compareTo(item(pai)) <= 0) {
+            int indicePai = pai(indice);
+            if (item(indice).compareTo(item(indicePai)) <= 0) {
                 break;
             }
-            trocar(indice, pai);
-            indice = pai;
+            trocar(indice, indicePai);
+            indice = indicePai;
         }
     }
 
     private void descer(int indice) {
         while (true) {
-            int esquerdo = 2 * indice + 1;
-            int direito = 2 * indice + 2;
+            int esquerdo = filhoEsquerdo(indice);
+            int direito = filhoDireito(indice);
             int maior = indice;
 
             if (esquerdo < nElementos && item(esquerdo).compareTo(item(maior)) > 0) {
