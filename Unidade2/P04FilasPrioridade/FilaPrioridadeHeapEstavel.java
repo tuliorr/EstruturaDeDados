@@ -130,15 +130,15 @@ public class FilaPrioridadeHeapEstavel<T extends Comparable<T>> {
 
     private void descer(int indice) {
         while (true) {
-            int esquerdo = filhoEsquerdo(indice);
-            int direito = filhoDireito(indice);
+            int indiceEsquerdo = filhoEsquerdo(indice);
+            int indiceDireito = filhoDireito(indice);
             int maior = indice;
 
-            if (esquerdo < nElementos && item(esquerdo).compareTo(item(maior)) > 0) {
-                maior = esquerdo;
+            if (indiceEsquerdo < nElementos && item(indiceEsquerdo).compareTo(item(maior)) > 0) {
+                maior = indiceEsquerdo;
             }
-            if (direito < nElementos && item(direito).compareTo(item(maior)) > 0) {
-                maior = direito;
+            if (indiceDireito < nElementos && item(indiceDireito).compareTo(item(maior)) > 0) {
+                maior = indiceDireito;
             }
             if (maior == indice) {
                 return;
